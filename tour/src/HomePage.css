@@ -9,30 +9,33 @@ body {
   color: white;
 }
 
+/* src/HomePage.css */
 /* Navigation Bar */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8); /* Slightly darker background */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 15px 40px; /* Increased padding */
   z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .navbar-logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem; /* Slightly larger logo */
   font-weight: bold;
   color: #4CAF50;
+  letter-spacing: 1px; /* Added letter spacing for elegance */
 }
 
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px; /* Increased gap between links */
   margin: 0;
   padding: 0;
 }
@@ -44,12 +47,30 @@ body {
 .navbar-links a {
   text-decoration: none;
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Slightly larger font size */
+  font-weight: 500; /* Medium font weight */
+  position: relative;
   transition: color 0.3s ease;
 }
 
+/* Hover Animation */
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Position the underline below the text */
+  width: 0;
+  height: 2px;
+  background: #4CAF50; /* Underline color */
+  transition: width 0.3s ease;
+}
+
 .navbar-links a:hover {
-  color: #4CAF50;
+  color: #4CAF50; /* Change text color on hover */
+}
+
+.navbar-links a:hover::after {
+  width: 100%; /* Expand the underline on hover */
 }
 
 /* Hero Section */
