@@ -23,14 +23,13 @@ html, body {
   align-items: center;
   color: white;
 }
-
 /* Navigation Bar */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +40,7 @@ html, body {
 .navbar-logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #4CAF50;
+  color: #fff; /* White color */
 }
 
 .navbar-links {
@@ -64,7 +63,7 @@ html, body {
 }
 
 .navbar-links a:hover {
-  color: #4CAF50;
+  color: #4CAF50; /* Green color on hover */
 }
 
 .signup-btn {
@@ -200,34 +199,3 @@ html, body {
 .footer-links a:hover {
   color: #4CAF50;
 }
-
-/* Animations */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Delay animations for each card */
-.service-card:nth-child(1) { animation-delay: 0.1s; }
-.service-card:nth-child(2) { animation-delay: 0.2s; }
-.service-card:nth-child(3) { animation-delay: 0.3s; }
-.service-card:nth-child(4) { animation-delay: 0.4s; }
-.service-card:nth-child(5) { animation-delay: 0.5s; }
-.service-card:nth-child(6) { animation-delay: 0.6s; }
