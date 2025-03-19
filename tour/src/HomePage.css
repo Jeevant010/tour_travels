@@ -1,16 +1,28 @@
 /* src/HomePage.css */
+
+/* Ensure html and body take up the full height */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
   }
   
+  /* Update the homepage class */
   .homepage {
     text-align: center;
     padding: 20px;
     background-image: url('https://images.unsplash.com/photo-1492136344046-866c85e0bf04?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHRvdXJzfGVufDB8fDB8fHww');
     background-size: cover;
     background-position: center;
-    min-height: 100vh;
+    background-repeat: no-repeat;
+    height: 100%; /* Ensure it fills the full height */
+    min-height: 100vh; /* Fallback for full viewport height */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,18 +99,6 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    max-width: 1200px;
-    animation: fadeInUp 1s ease-out;
-  }
-  
-  .service-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 15px;
-    padding: 20px;
-    width: 200px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
     color: #333;
   }
