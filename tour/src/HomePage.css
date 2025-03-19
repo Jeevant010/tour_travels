@@ -10,6 +10,7 @@ body {
 }
 
 /* src/HomePage.css */
+/* src/HomePage.css */
 /* Navigation Bar */
 .navbar {
   position: fixed;
@@ -20,7 +21,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px; /* Increased padding */
+  padding: 15px 50px; /* Increased padding to ensure all links fit */
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
@@ -51,6 +52,7 @@ body {
   font-weight: 500; /* Medium font weight */
   position: relative;
   transition: color 0.3s ease;
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 /* Hover Animation */
@@ -71,6 +73,21 @@ body {
 
 .navbar-links a:hover::after {
   width: 100%; /* Expand the underline on hover */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px; /* Reduce padding for smaller screens */
+  }
+
+  .navbar-links {
+    gap: 15px; /* Reduce gap between links for smaller screens */
+  }
+
+  .navbar-links a {
+    font-size: 1rem; /* Slightly reduce font size for smaller screens */
+  }
 }
 
 /* Hero Section */
