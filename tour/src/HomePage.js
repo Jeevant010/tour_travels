@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // For navigation
 import './HomePage.css';
 
-
 const HomePage = () => {
   return (
     <div className="homepage">
@@ -18,14 +17,18 @@ const HomePage = () => {
           <li><Link to="/trains">Trains</Link></li>
           <li><Link to="/taxis">Taxis</Link></li>
           <li><Link to="/rentals">Rentals</Link></li>
-          <li><Link to="/signup">Sign Up</Link></li>
+          <li><Link to="/signup" className="signup-btn">Sign Up</Link></li>
         </ul>
       </nav>
 
-      {/* Header */}
+      {/* Header Section */}
       <header className="header">
         <h1>Welcome to Yatra.com</h1>
         <p>Your one-stop solution for all travel needs</p>
+        <div className="search-bar">
+          <input type="text" placeholder="Search for destinations, hotels, flights..." />
+          <button>Search</button>
+        </div>
       </header>
 
       {/* Services Section */}
@@ -60,6 +63,16 @@ const HomePage = () => {
           <p>Rent cars, bikes, and more for your trip</p>
         </div>
       </div>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>&copy; 2023 Yatra.com. All rights reserved.</p>
+        <ul className="footer-links">
+          <li><Link to="/privacy">Privacy Policy</Link></li>
+          <li><Link to="/terms">Terms of Service</Link></li>
+          <li><Link to="/contact">Contact Us</Link></li>
+        </ul>
+      </footer>
     </div>
   );
 };
