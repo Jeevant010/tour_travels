@@ -22,7 +22,7 @@ body {
   max-width: 450px;
   animation: fadeIn 0.5s ease-in-out;
 }
-
+/* Animation for Container */
 @keyframes fadeIn {
   from {
     opacity: 0;
