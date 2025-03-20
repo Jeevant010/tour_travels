@@ -1,13 +1,14 @@
 const express = require("express");
 
 
+const app = express();
+const port = 3000;
 
-const express = require("express");
+
 const mongoose = require("mongoose");
 const passport = require("passport");
 const User = require("./models/User");
 const authRoutes = require("./routes/auth");
-const songRoutes = require("./routes/song");
 
 
 
@@ -64,9 +65,6 @@ app.listen(port , () => {
     console.log("App is running on port : " + port);
 });
 
-
-const app = express();
-const port = 8080;
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");
