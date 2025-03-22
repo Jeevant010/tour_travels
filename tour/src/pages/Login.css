@@ -6,50 +6,51 @@
 }
 
 .login-container {
-  max-width: 600px; /* Increased width */
-  margin: 20px;
-  padding: 50px; /* Increased padding */
-  border: 1px solid #ddd;
-  border-radius: 15px; /* Slightly larger border radius */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
-  background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparency */
-  text-align: center;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  border: 1px solid #ddd; /* Static border color */
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Static background color */
+  color: #333; /* Static text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .login-container h2 {
-  margin-bottom: 30px; /* Increased spacing */
-  font-size: 2rem; /* Larger font size */
+  margin-bottom: 30px;
+  font-size: 2rem;
   color: #333;
 }
 
 .login-form .form-group {
-  margin-bottom: 20px; /* Increased spacing between fields */
+  margin-bottom: 20px;
   text-align: left;
 }
 
 .login-form label {
   display: block;
-  margin-bottom: 8px; /* Increased spacing */
+  margin-bottom: 8px;
   font-weight: bold;
-  font-size: 1.1rem; /* Larger font size */
+  font-size: 1.1rem;
 }
 
 .login-form input {
   width: 100%;
-  padding: 15px; /* Increased padding */
+  padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 8px; /* Slightly larger border radius */
-  font-size: 1.1rem; /* Larger font size */
+  border-radius: 8px;
+  font-size: 1.1rem;
 }
 
 .login-button {
   width: 100%;
-  padding: 15px; /* Increased padding */
+  padding: 15px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px; /* Slightly larger border radius */
-  font-size: 1.2rem; /* Larger font size */
+  border-radius: 8px;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
@@ -58,8 +59,8 @@
 }
 
 .signup-redirect {
-  margin-top: 20px; /* Increased spacing */
-  font-size: 1rem; /* Larger font size */
+  margin-top: 20px;
+  font-size: 1rem;
   color: #555;
 }
 

@@ -6,14 +6,21 @@
 }
 
 .signup-container {
-  max-width: 600px; /* Increased width */
-  margin: 20px;
-  padding: 50px; /* Increased padding */
-  border: 1px solid #ddd;
-  border-radius: 15px; /* Slightly larger border radius */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
-  background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparency */
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  border: 1px solid var(--header-text); /* Dynamic border color */
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Light mode background */
+  color: var(--header-text); /* Dynamic text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
   text-align: center;
+}
+
+body.dark-mode .signup-container {
+  background-color: rgba(50, 50, 50, 0.9); /* Dark mode background */
+  color: #ffffff;
 }
 
 .signup-container h2 {

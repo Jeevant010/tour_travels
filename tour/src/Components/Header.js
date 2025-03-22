@@ -11,13 +11,13 @@ function Header() {
       <nav className="navbar">
         <ul className="nav-links">
           <li>
-            <Link to="/">Home</Link> {/* Redirects to Home Page */}
-          </li>
-          <li>
-            <a href="#contact">Contact Us</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/signup">Signup</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
           </li>
         </ul>
       </nav>

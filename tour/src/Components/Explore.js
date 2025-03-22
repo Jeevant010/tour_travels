@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './Explore.css';
 import pixelsImage from '../assets/images/pexels.jpg'; // Default background image
-import defaultImage from '../assets/images/pexels.jpg'; // Default background for other tabs
+import dexterImage from '../assets/images/dexter.jpg'; // Background image for Jaipur
+import keralaImage from '../assets/images/kerala.jpg'; // Background image for Kerala
 
 function Explore() {
   const [activeTab, setActiveTab] = useState('tajmahal');
@@ -22,7 +23,12 @@ function Explore() {
   };
 
   // Determine the background image based on the active tab
-  const backgroundImage = activeTab === 'tajmahal' ? pixelsImage : defaultImage;
+  const backgroundImage =
+    activeTab === 'jaipur'
+      ? dexterImage
+      : activeTab === 'kerala'
+      ? keralaImage
+      : pixelsImage;
 
   return (
     <section

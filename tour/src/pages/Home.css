@@ -92,48 +92,46 @@
 /* Booking Links Section */
 .booking-links {
   text-align: center;
-  padding: 20px;
-  background-color: #f0f8ff;
-  margin-bottom: 30px;
-  position: relative;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
 }
 
 .booking-links h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
   color: #333;
 }
 
 .slider-container {
-  position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
-}
-
-.booking-options {
-  display: flex;
-  overflow: hidden; /* Hide overflowing content */
   gap: 20px;
-  padding: 10px;
-  scroll-behavior: smooth; /* Smooth scrolling */
-  width: 100%; /* Ensure it takes up the full width */
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  position: relative;
 }
 
 .booking-card {
-  flex: 0 0 auto; /* Prevent shrinking and allow horizontal scrolling */
-  width: 300px;
-  padding: 30px;
-  text-align: center;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  flex: 0 1 calc(30% - 20px); /* Responsive layout for 3 cards per row */
+  padding: 20px;
+  background-color: white;
+  border: 2px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  cursor: pointer;
 }
 
 .booking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-color: #007bff;
+}
+
+.booking-card.active {
+  border-color: #007bff;
+  background-color: #e6f0ff;
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -147,6 +145,23 @@
 .booking-card p {
   font-size: 1rem;
   color: #555;
+}
+
+.booking-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.booking-card button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 /* Flight Booking Card with Background Image */
@@ -344,4 +359,79 @@
 
 .right-arrow {
   right: 10px;
+}
+
+/* Booking Section */
+.booking-section {
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 800px;
+  transition: background-image 0.3s ease-in-out; /* Smooth transition for background changes */
+}
+
+.booking-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Tab Container */
+.tab-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Buttons */
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+}
+
+/* Active Tab */
+.tab.active {
+  background: #ffe6e6;
+  font-weight: bold;
+  color: #d32f2f;
+  box-shadow: 0px 4px 6px rgba(211, 47, 47, 0.2);
+  transform: scale(1.1);
+}
+
+/* Hover Effect */
+.tab:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+/* Icon Styling */
+.icon {
+  font-size: 20px;
+}
+
+/* Tab Content */
+.tab-content {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  padding: 10px;
 }
