@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import './Home.css';
-import Header from '../Components/Header';
 import Explore from '../Components/Explore';
 import travelImage from '../assets/images/travel.jpg'; // Import the image
+import Ourmain from '../assets/hoc/Ourmain';
+
 
 function Home() {
   const bookingOptionsRef = useRef(null);
@@ -23,7 +24,6 @@ function Home() {
 
   return (
     <>
-      <Header />
       <div className="home">
         {/* Hero Section */}
         <section
@@ -101,4 +101,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Ourmain(Home);
