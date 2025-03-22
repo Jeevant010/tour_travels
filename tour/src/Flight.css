@@ -1,7 +1,7 @@
 /* General Styles */
 body {
   font-family: 'Arial', sans-serif;
-  background-image: url("https://unsplash.com/photos/low-angle-photo-of-airliner-plane-1BRYdVhFnqc");
+  background-image: url("https://images.unsplash.com/photo-1521727857535-28d2047314ac?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmxpZ2h0JTIwdGlja2V0c3xlbnwwfHwwfHx8MA%3D%3D");
   display: flex;
   justify-content: center;
   align-items: center;
