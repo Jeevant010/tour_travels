@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import './Home.css';
 import Explore from '../Components/Explore';
 import travelImage from '../assets/images/travel.jpg'; // Import the image
-import Ourmain from '../assets/hoc/Ourmain';
+import Ourmain from '../hoc/Ourmain';
 
 
 function Home() {

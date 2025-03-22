@@ -2,7 +2,7 @@ import React from 'react';
 import './Signup.css';
 import { Link } from 'react-router-dom';
 
-import Ourmain from '../assets/hoc/Ourmain';
+import Ourmain from '../hoc/Ourmain';
 
 function Signup() {
   return (

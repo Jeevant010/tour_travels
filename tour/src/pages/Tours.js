@@ -1,6 +1,6 @@
 import React from 'react';
 import './Tours.css';
-import Ourmain from '../assets/hoc/Ourmain';
+import Ourmain from '../hoc/Ourmain';
 
 
 
