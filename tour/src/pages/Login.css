@@ -1,0 +1,216 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-container {
+  max-width: 600px; /* Increased width */
+  margin: 20px;
+  padding: 50px; /* Increased padding */
+  border: 1px solid #ddd;
+  border-radius: 15px; /* Slightly larger border radius */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
+  background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparency */
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 30px; /* Increased spacing */
+  font-size: 2rem; /* Larger font size */
+  color: #333;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px; /* Increased spacing between fields */
+  text-align: left;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px; /* Increased spacing */
+  font-weight: bold;
+  font-size: 1.1rem; /* Larger font size */
+}
+
+.login-form input {
+  width: 100%;
+  padding: 15px; /* Increased padding */
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Slightly larger border radius */
+  font-size: 1.1rem; /* Larger font size */
+}
+
+.login-button {
+  width: 100%;
+  padding: 15px; /* Increased padding */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px; /* Slightly larger border radius */
+  font-size: 1.2rem; /* Larger font size */
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.signup-redirect {
+  margin-top: 20px; /* Increased spacing */
+  font-size: 1rem; /* Larger font size */
+  color: #555;
+}
+
+.signup-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  color: white;
+  text-align: center;
+  position: relative;
+  background-image: url('../assets/images/travel.jpg'); /* Use the relative path to the local image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent overlay */
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #0056b3;
+}
+
+/* Booking Links Section */
+.booking-links {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+}
+
+.booking-links h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.booking-options {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+.booking-card {
+  flex: 0 0 auto;
+  width: 250px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.booking-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.booking-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Features Section */
+.features {
+  padding: 40px 20px;
+  background-color: #f0f8ff;
+}
+
+.features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+}
+
+.feature-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.feature-item {
+  flex: 0 1 calc(30% - 20px);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.feature-item p {
+  font-size: 1rem;
+  color: #555;
+}
