@@ -36,7 +36,7 @@ function Home() {
           }}
         >
           <div className="hero-content">
-            <h1>Welcome to Yatra.com</h1>
+            <h1>Welcome to EasyTravels.com</h1>
             <p>Discover amazing destinations and unforgettable experiences with us.</p>
             <button className="cta-button">Explore Tours</button>
           </div>
