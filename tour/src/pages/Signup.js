@@ -2,7 +2,7 @@ import React from 'react';
 import './Signup.css';
 import { Link } from 'react-router-dom';
 
-import Ourmain from '../hoc/Ourmain';
+// import Ourmain from '../hoc/Ourmain';
 
 function Signup() {
   return (
@@ -51,4 +51,4 @@ function Signup() {
   );
 }
 
-export default Ourmain(Signup);
+export default Signup;

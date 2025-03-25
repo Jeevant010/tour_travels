@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import Ourmain from '../hoc/Ourmain.jsx';
 
 function Login() {
   return (
@@ -37,4 +38,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Ourmain(Login);
