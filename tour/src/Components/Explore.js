@@ -1,57 +1,72 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Explore.css';
-import pixelsImage from '../assets/images/pexels.jpg'; // Default background image
-import defaultImage from '../assets/images/pexels.jpg'; // Default background for other tabs
 
-function Explore() {
-  const [activeTab, setActiveTab] = useState('tajmahal');
-
-  const places = {
-    tajmahal: {
-      name: 'Taj Mahal',
-      description: 'An iconic symbol of love, located in Agra, and one of the Seven Wonders of the World.',
+const Explore = () => {
+  const exploreItems = [
+    {
+      title: 'Beaches',
+      description: 'Relax on the most beautiful beaches around the world.',
+      image: 'https://plus.unsplash.com/premium_photo-1697729701846-e34563b06d47?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z29hJTIwYmVhY2hlc3xlbnwwfHwwfHx8MA%3D%3D',
     },
-    jaipur: {
-      name: 'Jaipur',
-      description: 'The Pink City of India, known for its royal palaces, forts, and vibrant culture.',
+    {
+      title: 'Mountains',
+      description: 'Explore breathtaking mountain ranges.',
+      image: 'https://plus.unsplash.com/premium_photo-1661814278311-d59ab0b4a676?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGltYWxheWFzfGVufDB8fDB8fHww',
     },
-    kerala: {
-      name: 'Kerala',
-      description: 'God’s Own Country, famous for its serene backwaters, lush greenery, and houseboats.',
+    {
+      title: 'Cities',
+      description: 'Discover vibrant cities full of culture and history.',
+      image: 'https://images.unsplash.com/photo-1562979314-bee7453e911c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVtYmFpfGVufDB8fDB8fHww',
     },
-  };
-
-  // Determine the background image based on the active tab
-  const backgroundImage = activeTab === 'tajmahal' ? pixelsImage : defaultImage;
+    {
+      title: 'Adventure',
+      description: 'Experience thrilling adventures and activities.',
+      image: 'https://plus.unsplash.com/premium_photo-1682390303366-7463dcbec281?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YWR2ZW50dXJlfGVufDB8fDB8fHww',
+    },
+    {
+      title: 'Wildlife',
+      description: 'Get close to nature and wildlife.',
+      image: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHdpbGRsaWZlfGVufDB8fDB8fHww',
+    },
+    {
+      title: 'Deserts',
+      description: 'Experience the beauty of vast deserts and enjoy activities like camel rides.',
+      image: 'https://plus.unsplash.com/premium_photo-1661962428918-6a57ab674e23?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8UmFqYXN0aGFufGVufDB8fDB8fHww',
+    },
+    {
+      title: 'Road Trips',
+      description: 'Hit the road and explore scenic routes and hidden gems.',
+      image: 'https://plus.unsplash.com/premium_photo-1664126702249-57c71ebd427e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHJvYWQlMjB0aXBzfGVufDB8fDB8fHww',
+    },
+    {
+      title: 'Historical Sites',
+      description: 'Step back in time and explore iconic landmarks and ancient ruins.',
+      image: 'https://plus.unsplash.com/premium_photo-1661951545793-ecb10ba445dc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SGlzdG9yaWNhbCUyMHNpdGVzJTIwaW5kaWF8ZW58MHx8MHx8fDA%3D',
+    },
+  ];
 
   return (
-    <section
-      className="explore"
-      style={{
-        backgroundImage: `url(${backgroundImage})`, // Dynamically set the background image
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <h2>Explore</h2>
-      <div className="tabs">
-        {Object.keys(places).map((key) => (
-          <button
-            key={key}
-            className={`tab ${activeTab === key ? 'active' : ''}`}
-            onClick={() => setActiveTab(key)}
-          >
-            {places[key].name}
-          </button>
+    <section className="explore-section">
+      <h2 className="explore-title">Explore the World</h2>
+      <div className="explore-grid">
+        {exploreItems.map((item, index) => (
+          <div key={index} className="explore-card">
+            <div
+              className="explore-card-image"
+              style={{
+                backgroundImage: `url(${item.image})`,
+              }}
+            ></div>
+            <div className="explore-card-content">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <button className="explore-button">Discover More</button>
+            </div>
+          </div>
         ))}
-      </div>
-      <div className="tab-content">
-        <h3>{places[activeTab].name}</h3>
-        <p>{places[activeTab].description}</p>
       </div>
     </section>
   );
-}
+};
 
 export default Explore;

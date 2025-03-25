@@ -13,6 +13,7 @@ return (
           <li>
             <Link to="/">Home</Link> {/* Redirects to Home Page */}
           </li>
+          <li><Link to="/gallery">Gallery</Link></li>
           <li>
             <a href="#contact">Contact Us</a>
           </li>

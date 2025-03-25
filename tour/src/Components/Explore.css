@@ -1,144 +1,77 @@
-/* Explore Section */
-.explore {
-  text-align: center;
+.explore-section {
   padding: 40px 20px;
-  color: white; /* Ensure text is visible */
-  margin-bottom: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.5s ease-in-out; /* Smooth transition for background change */
-}
-
-/* Add a semi-transparent overlay for better text visibility */
-.explore::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
-  z-index: 0;
-}
-
-.explore h2 {
-  font-size: 2.8rem;
-  margin-bottom: 30px;
-  color: #ffffff;
-  position: relative;
-  z-index: 1;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Tabs */
-.tabs {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  position: relative;
-  z-index: 1;
-}
-
-.tab {
-  padding: 12px 25px;
-  font-size: 1.1rem;
-  border: 2px solid #ddd;
-  border-radius: 25px;
-  background-color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tab:hover {
-  background-color: #007bff;
-  color: white;
-  transform: scale(1.1); /* Slight zoom effect */
-}
-
-.tab.active {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-  transform: scale(1.1); /* Highlight active tab */
-}
-
-/* Tab Content */
-.tab-content {
+  background-color: #f9f9f9;
   text-align: center;
-  position: relative;
-  z-index: 1;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
-.tab-content h3 {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  color: #ffffff;
+.explore-title {
+  font-size: 2.5rem;
   font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
 }
 
-.tab-content p {
-  font-size: 1.2rem;
-  color: #ffffff;
-  line-height: 1.6;
-}
-
-/* Add animation for tab content */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Add hover effect for the entire section */
-.explore:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-  transform: translateY(-5px);
-  transition: all 0.3s ease-in-out;
-}
-
-.places {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.place-card {
-  width: 300px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.explore-card {
+  position: relative;
   overflow: hidden;
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.place-card img {
+.explore-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.explore-card-image {
   width: 100%;
   height: 200px;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
 }
 
-.place-card h3 {
+.explore-card:hover .explore-card-image {
+  transform: scale(1.1);
+}
+
+.explore-card-content {
+  padding: 20px;
+  background-color: white;
+  text-align: left;
+}
+
+.explore-card-content h3 {
   font-size: 1.5rem;
-  margin: 10px 0;
+  margin-bottom: 10px;
+  color: #007bff;
 }
 
-.place-card p {
+.explore-card-content p {
   font-size: 1rem;
-  padding: 0 10px 10px;
+  margin-bottom: 15px;
   color: #555;
+}
+
+.explore-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #0056b3;
 }
