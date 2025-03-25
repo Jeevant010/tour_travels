@@ -6,9 +6,9 @@ const { getToken } = require("../utils/helpers")
 
 router.post("/signup",async (req,res) => {
 
-    const { email, password, firstName, lastName, userName } = req.body;
+    const { userName , fullName, email, password, confirmPassword , phone, address } = req.body;
     
-    if (!email || !password || !firstName || !lastName || !userName) {
+    if (!email || !password || !fullName || !confirmPassword || !userName || !phone || !address) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -21,11 +21,13 @@ router.post("/signup",async (req,res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUserData = { 
-        email, 
-        password : hashedPassword,
-        firstName, 
-        lastName, 
         userName ,
+        fullName,
+        email,
+        password : hashedPassword,
+        confirmPassword : hashedPassword,
+        phone,
+        address,
     };
     const newUser = await User.create(newUserData);
 

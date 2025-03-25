@@ -21,7 +21,10 @@ const [address, setAddress] = useState("");
 
 
 const Signup1 = async () => {
-
+  if(password !== confirmPassword){
+    alert("Passwords do not match");
+    return;
+  }
 
   const data = { userName, fullName, email, password, confirmPassword, phone, address };
   console.log(data);
@@ -96,7 +99,7 @@ const Submit = () => {
             <Submit />    
           </form>
           <p className="login-redirect">
-            Already have an account? <Link to="/login" className="login-link">Login</Link>
+            Already have an account? <Link to="/auth/login" className="login-link">Login</Link>
           </p>
         </div>
       </div>

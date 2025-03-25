@@ -30,7 +30,7 @@ function Login() {
             <button type="submit" className="login-button">Login</button>
           </form>
           <p className="signup-redirect">
-            Don't have an account? <Link to="/signup" className="signup-link">Signup</Link>
+            Don't have an account? <Link to="/auth/signup" className="signup-link">Signup</Link>
           </p>
         </div>
       </div>

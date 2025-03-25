@@ -5,17 +5,17 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 
-
 const mongoose = require("mongoose");
 const passport = require("passport");
 const User = require("./models/User");
 const authRoutes = require("./routes/auth");
-
+const core = require("cors");
 
 
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 
+app.use(core());
 app.use(express.json());
 require("dotenv").config();
 
@@ -37,7 +37,7 @@ mongoose.connect(
 
 let opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = "supposedtobesecret";
+opts.secretOrKey = "supposedtobe";
 
 passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
 try {
