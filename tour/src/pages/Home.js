@@ -105,7 +105,6 @@ function Home() {
     }
   };
 
->>>>>>> d79997d4994f92696ec76412de21970aadc6eff9
   return (
     <>
       <div className="home">
