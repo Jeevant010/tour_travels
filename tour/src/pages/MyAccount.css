@@ -1,0 +1,63 @@
+.my-account {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+.account-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.account-section {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.account-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.account-section p,
+.account-section ul {
+  font-size: 1rem;
+  color: #555;
+}
+
+.account-section ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.account-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.account-button:hover {
+  background-color: #0056b3;
+}

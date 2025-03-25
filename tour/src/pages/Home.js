@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
 import Explore from '../Components/Explore';
+import News from '../Components/News';
 import Ourmain from '../hoc/Ourmain';
 // Import Font Awesome icons (if using Font Awesome)
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar } from 'react-icons/fa';
@@ -175,7 +176,7 @@ function Home() {
   };
 
   return (
-    <>
+    
       <div className="home">
         {/* Booking Tabs Section */}
         <section className="booking-tabs">
@@ -217,26 +218,32 @@ function Home() {
 
         <Explore />
 
-        <section className="features">
-          <h2>Why Choose Us?</h2>
-          <div className="feature-list">
-            <div className="feature-item">
-              <h3>Expert Guides</h3>
-              <p>Our experienced guides ensure you have the best travel experience.</p>
-            </div>
-            <div className="feature-item">
-              <h3>Affordable Packages</h3>
-              <p>We offer competitive pricing without compromising on quality.</p>
-            </div>
-            <div className="feature-item">
-              <h3>24/7 Support</h3>
-              <p>Our team is here to assist you anytime, anywhere.</p>
-            </div>
+        
+    
+      <News />
+
+      <section className="features">
+        <h2>Why Choose Us?</h2>
+        <div className="feature-list">
+          <div className="feature-item">
+            <h3>Expert Guides</h3>
+            <p>Our experienced guides ensure you have the best travel experience.</p>
           </div>
-        </section>
-      </div>
-    </>
+          <div className="feature-item">
+            <h3>Affordable Packages</h3>
+            <p>We offer competitive pricing without compromising on quality.</p>
+          </div>
+          <div className="feature-item">
+            <h3>24/7 Support</h3>
+            <p>Our team is here to assist you anytime, anywhere.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  
+    
   );
 }
+
 
 export default Ourmain(Home);

@@ -17,7 +17,7 @@ return (
             <a href="#contact">Contact Us</a>
           </li>
           <li>
-            <a href="#account">My Acount</a>
+          <Link to="/account">My Account</Link>
           </li>
           <li>
             <Link to="/signup">Signup</Link>
