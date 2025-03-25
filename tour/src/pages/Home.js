@@ -4,7 +4,6 @@ import Explore from '../Components/Explore';
 import travelImage from '../assets/images/travel.jpg'; // Import the image
 import Ourmain from '../hoc/Ourmain';
 
-
 function Home() {
   const bookingOptionsRef = useRef(null);
 
@@ -49,7 +48,15 @@ function Home() {
             <button className="arrow left-arrow" onClick={scrollLeft}>
               &#8249;
             </button>
-            <div className="booking-options" ref={bookingOptionsRef}>
+            <div
+              className="booking-options"
+              ref={bookingOptionsRef}
+              style={{
+                display: 'flex',
+                overflowX: 'auto',
+                scrollBehavior: 'smooth',
+              }}
+            >
               <a href="#flights" className="booking-card flight-booking">
                 <h3>Flight Booking</h3>
                 <p>Book flights to your favorite destinations.</p>

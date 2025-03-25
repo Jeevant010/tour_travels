@@ -10,7 +10,7 @@ const Ourmain =
                 <Header />
                 <h1>Deepesh header bana</h1>
                 <Component {...props} />
-                <h1>Abhisekh footer bana</h1>
+                <h1>Go Easy with the Best Platform of Tourism</h1>
                 
                 <Footer />
             </div>
