@@ -46,16 +46,16 @@ const Footer = () => {
               Exploring the incredible diversity of India since 2025. Let us show you the wonders of our incredible country.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
+              <a href="https://www.facebook.com" className="text-gray-300 hover:text-amber-400 transition-colors duration-300" target="_blank" rel="noopener noreferrer">
                 <FaFacebook size={20} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
+              <a href="https://www.instagram.com" className="text-gray-300 hover:text-amber-400 transition-colors duration-300" target="_blank" rel="noopener noreferrer">
                 <FaInstagram size={20} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
+              <a href="https://www.twitter.com" className="text-gray-300 hover:text-amber-400 transition-colors duration-300" target="_blank" rel="noopener noreferrer">
                 <FaTwitter size={20} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
+              <a href="https://www.youtube.com" className="text-gray-300 hover:text-amber-400 transition-colors duration-300" target="_blank" rel="noopener noreferrer">
                 <FaYoutube size={20} />
               </a>
             </div>

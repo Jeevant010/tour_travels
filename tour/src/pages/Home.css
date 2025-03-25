@@ -3,63 +3,6 @@
   padding: 20px;
 }
 
-/* Hero Section with Background Image */
-.hero {
-  text-align: center;
-  background-image: url('https://img.freepik.com/free-photo/beautiful-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-851.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_keywords_boost');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white; /* Ensure text is visible */
-  padding: 50px 20px;
-  margin-bottom: 30px;
-  position: relative;
-}
-
-/* Add a semi-transparent overlay for better text visibility */
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-  z-index: 0; /* Place it behind the text */
-}
-
-/* Ensure text is above the overlay */
-.hero h1,
-.hero p,
-.hero .cta-button {
-  position: relative;
-  z-index: 1; /* Place text above the overlay */
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.cta-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.cta-button:hover {
-  background-color: #0056b3;
-}
-
 .features {
   text-align: center;
 }
@@ -90,13 +33,6 @@
 }
 
 /* Booking Links Section */
-.booking-links {
-  text-align: center;
-  padding: 20px;
-  background-color: #f0f8ff;
-  margin-bottom: 30px;
-  position: relative;
-}
 
 .booking-links h2 {
   font-size: 2rem;
@@ -104,298 +40,71 @@
   color: #333;
 }
 
-.slider-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
 
-.booking-options {
-  display: flex;
-  overflow: hidden; /* Hide overflowing content */
-  gap: 20px;
-  padding: 10px;
-  scroll-behavior: smooth; /* Smooth scrolling */
-  width: 100%; /* Ensure it takes up the full width */
-}
 
-.booking-card {
-  flex: 0 0 auto; /* Prevent shrinking and allow horizontal scrolling */
-  width: 300px;
-  padding: 30px;
+/* Booking Tabs Section */
+.booking-tabs {
   text-align: center;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 20px 0;
+  padding: 30px;
+  background: linear-gradient(135deg, #5295de, #00c6ff); /* Gradient background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  color: white; /* White text for contrast */
 }
 
-.booking-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.booking-title {
+  font-size: 2.5rem; /* Larger font size for emphasis */
+  font-weight: bold; /* Bold text */
+  margin-bottom: 20px; /* Space below the title */
+  color: #fff; /* White text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better visibility */
 }
 
-.booking-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #007bff;
-}
-
-.booking-card p {
-  font-size: 1rem;
-  color: #555;
-}
-
-/* Flight Booking Card with Background Image */
-.booking-card.flight-booking {
-  background-image: url('https://img.freepik.com/free-photo/view-3d-airplane-with-travel-destination-landscape_23-2151022185.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_hybrid');
-  background-size: cover;
-  background-position: center;
-  position: relative; /* Make the card a positioned container */
-  color: black; /* Set text color to black */
-  text-shadow: none; /* Remove text shadow */
-  overflow: hidden; /* Ensure the overlay doesn't overflow */
-}
-
-/* Add a semi-transparent overlay */
-.booking-card.flight-booking::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
-  z-index: 0; /* Place it behind the text */
-}
-
-/* Ensure text is above the overlay */
-.booking-card.flight-booking h3,
-.booking-card.flight-booking p {
-  position: relative;
-  z-index: 1; /* Place text above the overlay */
-  color: black; /* Ensure text is visible */
-}
-
-/* Train Booking Card with Background Image */
-.booking-card.train-booking {
-  background-image: url('https://img.freepik.com/free-photo/closeup-goteik-viaduct-railway-myanmar_181624-40061.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_keywords_boost');
-  background-size: cover;
-  background-position: center;
-  position: relative; /* Make the card a positioned container */
-  color: black; /* Set text color to black */
-  text-shadow: none; /* Remove text shadow */
-  overflow: hidden; /* Ensure the overlay doesn't overflow */
-}
-
-/* Add a semi-transparent overlay */
-.booking-card.train-booking::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
-  z-index: 0; /* Place it behind the text */
-}
-
-/* Ensure text is above the overlay */
-.booking-card.train-booking h3,
-.booking-card.train-booking p {
-  position: relative;
-  z-index: 1; /* Place text above the overlay */
-  color: black; /* Ensure text is visible */
-}
-
-/* Ensure text is above the background */
-.booking-card.flight-booking h3,
-.booking-card.flight-booking p,
-.booking-card.train-booking h3,
-.booking-card.train-booking p {
-  position: relative;
-  z-index: 1; /* Place text above the background */
-  color: black; /* Ensure text is visible */
-}
-
-/* Taxi Booking Card with Background Image */
-.booking-card.taxi-booking {
-  background-image: url('https://img.freepik.com/free-photo/yellow-black-sign-taxi-placed-top-car-night_181624-10624.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_keywords_boost');
-  background-size: cover;
-  background-position: center;
-  position: relative; /* Make the card a positioned container */
-  color: black; /* Set text color to black */
-  text-shadow: none; /* Remove text shadow */
-  overflow: hidden; /* Ensure the overlay doesn't overflow */
-}
-
-/* Add a semi-transparent overlay */
-.booking-card.taxi-booking::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
-  z-index: 0; /* Place it behind the text */
-}
-
-/* Ensure text is above the overlay */
-.booking-card.taxi-booking h3,
-.booking-card.taxi-booking p {
-  position: relative;
-  z-index: 1; /* Place text above the overlay */
-  color: black; /* Ensure text is visible */
-}
-
-/* Hotel Booking Card with Background Image */
-.booking-card.hotel-booking {
-  background-image: url('https://img.freepik.com/free-photo/umbrella-with-chair-hotel-pool-resort_74190-311.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_keywords_boost');
-  background-size: cover;
-  background-position: center;
-  position: relative; /* Make the card a positioned container */
-  color: black; /* Set text color to black */
-  text-shadow: none; /* Remove text shadow */
-  overflow: hidden; /* Ensure the overlay doesn't overflow */
-}
-
-/* Add a semi-transparent overlay */
-.booking-card.hotel-booking::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
-  z-index: 0; /* Place it behind the text */
-}
-
-/* Ensure text is above the overlay */
-.booking-card.hotel-booking h3,
-.booking-card.hotel-booking p {
-  position: relative;
-  z-index: 1; /* Place text above the overlay */
-  color: black; /* Ensure text is visible */
-}
-
-/* Rental Services Card with Background Image */
-.booking-card.rental-booking {
-  background-image: url('https://img.freepik.com/free-photo/woman-sitting-red-car-receiving-keys_1303-14094.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_keywords_boost');
-  background-size: cover;
-  background-position: center;
-  position: relative; /* Make the card a positioned container */
-  color: black; /* Set text color to black */
-  text-shadow: none; /* Remove text shadow */
-  overflow: hidden; /* Ensure the overlay doesn't overflow */
-}
-
-/* Add a semi-transparent overlay */
-.booking-card.rental-booking::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
-  z-index: 0; /* Place it behind the text */
-}
-
-/* Ensure text is above the overlay */
-.booking-card.rental-booking h3,
-.booking-card.rental-booking p {
-  position: relative;
-  z-index: 1; /* Place text above the overlay */
-  color: black; /* Ensure text is visible */
-}
-
-/* Arrow Buttons */
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.arrow:hover {
-  background-color: #0056b3;
-}
-
-.left-arrow {
-  left: 10px;
-}
-
-.right-arrow {
-  right: 10px;
-}
-
-/* Tabs Container */
 .tabs {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  gap: 15px; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
-/* Tab Buttons */
 .tab-button {
   padding: 10px 20px;
-  margin: 0 5px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 5px;
-  background-color: #f9f9f9; /* Default background color */
-  color: #333; /* Default text color */
+  background-color: #f9f9f9; /* Light background for buttons */
+  color: #333; /* Dark text color */
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  transition: all 0.3s ease; /* Smooth hover effect */
   display: flex;
   align-items: center;
   gap: 8px; /* Space between icon and text */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
-/* Hover Effect */
 .tab-button:hover {
-  background-color: #007bff; /* Hover background color */
-  color: #fff; /* Hover text color */
+  background-color: #0056b3; /* Darker blue on hover */
+  color: #fff; /* White text on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
 
-/* Active Tab Button */
 .tab-button.active {
-  background-color: #007bff; /* Active background color */
-  color: #fff; /* Active text color */
-  border-color: #007bff;
+  background-color: #ff9800; /* Highlighted color for active tab */
+  color: #fff; /* White text for active tab */
+  border: 2px solid #e65100; /* Border for active tab */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow for active tab */
+  transform: scale(1.1); /* Slightly enlarge the active tab */
 }
 
-/* Tab Icons */
-.tab-icon {
-  font-size: 1.2rem; /* Icon size */
-  vertical-align: middle;
-}
-
-/* Tab Content Container */
 .tab-content-container {
   margin-top: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff; /* White background for content */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  color: #333; /* Dark text color */
 }
 
 /* Tab Content */
@@ -408,3 +117,382 @@
   color: #555;
   line-height: 1.6;
 }
+
+/* Flight Booking Form */
+.flight-booking-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.submit-button {
+  grid-column: span 2; /* Make the button span across two columns */
+  padding: 0.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Add some hover effects for inputs */
+.form-group input:hover,
+.form-group select:hover {
+  border-color: #007bff;
+}
+
+/* Add a subtle background gradient */
+.flight-booking-form {
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+}
+
+/* Add a title for the form */
+.flight-booking-title {
+  grid-column: span 2; /* Make the title span across two columns */
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+/* Train Booking Form */
+.train-booking-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #f3e5f5, #ffffff); /* Subtle gradient for train form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.train-booking-title {
+  grid-column: span 2; /* Make the title span across two columns */
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6a1b9a; /* Purple color for train title */
+  margin-bottom: 1rem;
+}
+
+.train-booking-form .form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.train-booking-form .form-group input,
+.train-booking-form .form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.train-booking-form .form-group input:focus,
+.train-booking-form .form-group select:focus {
+  border-color: #6a1b9a; /* Purple border on focus */
+  outline: none;
+}
+
+.train-booking-form .submit-button {
+  grid-column: span 2; /* Make the button span across two columns */
+  padding: 0.75rem;
+  background-color: #6a1b9a; /* Purple button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.train-booking-form .submit-button:hover {
+  background-color: #4a148c; /* Darker purple on hover */
+  transform: scale(1.05);
+}
+
+/* Hotel Booking Form */
+.hotel-booking-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #e8f5e9, #ffffff); /* Subtle gradient for hotel form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-booking-title {
+  grid-column: span 2; /* Make the title span across two columns */
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2e7d32; /* Green color for hotel title */
+  margin-bottom: 1rem;
+}
+
+.hotel-booking-form .form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.hotel-booking-form .form-group input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.hotel-booking-form .form-group input:focus {
+  border-color: #2e7d32; /* Green border on focus */
+  outline: none;
+}
+
+.hotel-booking-form .submit-button {
+  grid-column: span 2; /* Make the button span across two columns */
+  padding: 0.75rem;
+  background-color: #2e7d32; /* Green button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.hotel-booking-form .submit-button:hover {
+  background-color: #1b5e20; /* Darker green on hover */
+  transform: scale(1.05);
+}
+
+/* Taxi Booking Form */
+.taxi-booking-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #fff3e0, #ffffff); /* Subtle gradient for taxi form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.taxi-booking-title {
+  grid-column: span 2; /* Make the title span across two columns */
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff9800; /* Orange color for taxi title */
+  margin-bottom: 1rem;
+}
+
+.taxi-booking-form .form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.taxi-booking-form .form-group input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.taxi-booking-form .form-group input:focus {
+  border-color: #ff9800; /* Orange border on focus */
+  outline: none;
+}
+
+.taxi-booking-form .submit-button {
+  grid-column: span 2; /* Make the button span across two columns */
+  padding: 0.75rem;
+  background-color: #ff9800; /* Orange button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.taxi-booking-form .submit-button:hover {
+  background-color: #e65100; /* Darker orange on hover */
+  transform: scale(1.05);
+}
+
+/* Rental Booking Form */
+.rental-booking-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #e3f2fd, #ffffff); /* Subtle gradient for rental form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rental-booking-title {
+  grid-column: span 2; /* Make the title span across two columns */
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0288d1; /* Blue color for rental title */
+  margin-bottom: 1rem;
+}
+
+.rental-booking-form .form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.rental-booking-form .form-group input,
+.rental-booking-form .form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.rental-booking-form .form-group input:focus,
+.rental-booking-form .form-group select:focus {
+  border-color: #0288d1; /* Blue border on focus */
+  outline: none;
+}
+
+.rental-booking-form .submit-button {
+  grid-column: span 2; /* Make the button span across two columns */
+  padding: 0.75rem;
+  background-color: #0288d1; /* Blue button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.rental-booking-form .submit-button:hover {
+  background-color: #01579b; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+/* General Submit Button Styling for All Tabs */
+.submit-button {
+  grid-column: span 2; /* Make the button span across two columns */
+  padding: 0.75rem; /* Consistent padding */
+  background-color: #007bff; /* Default blue background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1.2rem; /* Consistent font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  width: 100%; /* Ensure full width for consistency */
+  max-width: 300px; /* Optional: Limit the maximum width */
+  margin: 0 auto; /* Center the button */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Train Booking Form Specific Styling */
+.train-booking-form .submit-button {
+  background-color: #6a1b9a; /* Purple button for train form */
+}
+
+.train-booking-form .submit-button:hover {
+  background-color: #4a148c; /* Darker purple on hover */
+}
+
+/* Hotel Booking Form Specific Styling */
+.hotel-booking-form .submit-button {
+  background-color: #2e7d32; /* Green button for hotel form */
+}
+
+.hotel-booking-form .submit-button:hover {
+  background-color: #1b5e20; /* Darker green on hover */
+}
+
+/* Taxi Booking Form Specific Styling */
+.taxi-booking-form .submit-button {
+  background-color: #ff9800; /* Orange button for taxi form */
+}
+
+.taxi-booking-form .submit-button:hover {
+  background-color: #e65100; /* Darker orange on hover */
+}
+
+/* Rental Booking Form Specific Styling */
+.rental-booking-form .submit-button {
+  background-color: #0288d1; /* Blue button for rental form */
+}
+
+.rental-booking-form .submit-button:hover {
+  background-color: #01579b; /* Darker blue on hover */
+}
+
+/* Booking Tabs */
+.booking-tabs {
+  text-align: center; /* Center align the content */
+  margin: 20px 0;
+}
+
+/* Booking Title */
+.booking-title {
+  font-size: 2.5rem; /* Larger font size for emphasis */
+  font-weight: bold; /* Bold text */
+  color: #333; /* Dark text color */
+  margin-bottom: 20px; /* Space below the title */
+} 
