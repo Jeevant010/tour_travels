@@ -1,10 +1,58 @@
 import React from 'react';
 import './Signup.css';
 import { Link } from 'react-router-dom';
+import Ourmain from '../hoc/Ourmain';
+import { makeUnauthenticatedPOSTRequest } from '../utils/serverhelper';
 
-// import Ourmain from '../hoc/Ourmain';
+import { useState } from 'react';
+
 
 function Signup() {
+  
+const [userName, setUsername] = useState("");
+const [fullName, setFullname] = useState("");
+const [password, setPassword] = useState("");
+const [confirmPassword, setConfirmPassword] = useState("");
+const [email, setEmail] = useState("");
+const [phone, setPhone] = useState("");
+const [address, setAddress] = useState("");
+ 
+
+
+
+const Signup1 = async () => {
+  if(password !== confirmPassword){
+    alert("Passwords do not match");
+    return;
+  }
+
+  const data = { userName, fullName, email, password, confirmPassword, phone, address };
+  console.log(data);
+  const response = await makeUnauthenticatedPOSTRequest(
+    "/auth/signup",
+    data
+  );
+  if(response && !response.error){
+    console.log(response);
+    alert("Signup successful");
+  }
+  else {
+    alert("Signup failed");
+  }
+
+}
+
+
+const Submit = () => {
+
+  return (
+    <button type="submit" className="signup-button" onClick={ (e) => { 
+      e.preventDefault();
+      Signup1();
+    } } >Signup</button>
+  );
+}
+
   return (
     <>
       <div
@@ -22,28 +70,36 @@ function Signup() {
           <form className="signup-form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" placeholder="Enter your username" required />
+              <input type="text" id="username" placeholder="Enter your username" value={userName} onChange={(e) => setUsername(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="fullname">Full Name</label>
+              <input type="text" id="fullname" placeholder="Enter your full name" value={fullName} onChange={(e) => setFullname(e.target.value)} required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" placeholder="Enter your email" required />
+              <input type="email" id="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" placeholder="Enter your password" required />
+              <input type="password" id="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword" placeholder="Confirm your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
             </div>
             <div className="form-group">
               <label htmlFor="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="Enter your phone number" required />
+              <input type="tel" id="phone" placeholder="Enter your phone number" value={phone} onChange={(e) => setPhone(e.target.value)} required />
             </div>
             <div className="form-group">
               <label htmlFor="address">Address</label>
-              <textarea id="address" placeholder="Enter your address" rows="3" required></textarea>
-            </div>
-            <button type="submit" className="signup-button">Signup</button>
+              <textarea id="address" placeholder="Enter your address" rows="3" value={address} onChange={(e) => setAddress(e.target.value)} required></textarea>
+            </div>     
+            <Submit />    
           </form>
           <p className="login-redirect">
-            Already have an account? <Link to="/login" className="login-link">Login</Link>
+            Already have an account? <Link to="/auth/login" className="login-link">Login</Link>
           </p>
         </div>
       </div>
@@ -51,4 +107,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Ourmain(Signup);

@@ -21,7 +21,7 @@ return (
           <Link to="/account">My Account</Link>
           </li>
           <li>
-            <Link to="/signup">Signup</Link>
+            <Link to="/auth/signup">Signup</Link>
           </li>
         </ul>
       </nav>
