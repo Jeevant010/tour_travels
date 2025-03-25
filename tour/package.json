@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
     "ajv": "^7.2.4",
     "autoprefixer": "^9.8.8",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"

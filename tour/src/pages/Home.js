@@ -1,24 +1,54 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 import Explore from '../Components/Explore';
 import travelImage from '../assets/images/travel.jpg'; // Import the image
 import Ourmain from '../hoc/Ourmain';
+// Import Font Awesome icons (if using Font Awesome)
+import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar } from 'react-icons/fa';
 
 function Home() {
-  const bookingOptionsRef = useRef(null);
+  const [activeTab, setActiveTab] = useState('flights');
 
-  const scrollLeft = () => {
-    bookingOptionsRef.current.scrollBy({
-      left: -300,
-      behavior: 'smooth',
-    });
-  };
-
-  const scrollRight = () => {
-    bookingOptionsRef.current.scrollBy({
-      left: 300,
-      behavior: 'smooth',
-    });
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'flights':
+        return (
+          <div className="tab-content">
+            <h3>Flight Booking</h3>
+            <p>Book flights to your favorite destinations.</p>
+          </div>
+        );
+      case 'trains':
+        return (
+          <div className="tab-content">
+            <h3>Train Booking</h3>
+            <p>Reserve train tickets for your journey.</p>
+          </div>
+        );
+      case 'hotels':
+        return (
+          <div className="tab-content">
+            <h3>Hotel Booking</h3>
+            <p>Find and book the best hotels for your stay.</p>
+          </div>
+        );
+      case 'taxi':
+        return (
+          <div className="tab-content">
+            <h3>Taxi Booking</h3>
+            <p>Book a taxi for convenient local travel.</p>
+          </div>
+        );
+      case 'rentals':
+        return (
+          <div className="tab-content">
+            <h3>Rental Services</h3>
+            <p>Rent vehicles for your travel needs.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -41,47 +71,42 @@ function Home() {
           </div>
         </section>
 
-        {/* Booking Links Section */}
-        <section className="booking-links">
+        {/* Booking Tabs Section */}
+        <section className="booking-tabs">
           <h2>Book Your Travel</h2>
-          <div className="slider-container">
-            <button className="arrow left-arrow" onClick={scrollLeft}>
-              &#8249;
-            </button>
-            <div
-              className="booking-options"
-              ref={bookingOptionsRef}
-              style={{
-                display: 'flex',
-                overflowX: 'auto',
-                scrollBehavior: 'smooth',
-              }}
+          <div className="tabs">
+            <button
+              className={`tab-button ${activeTab === 'flights' ? 'active' : ''}`}
+              onClick={() => setActiveTab('flights')}
             >
-              <a href="#flights" className="booking-card flight-booking">
-                <h3>Flight Booking</h3>
-                <p>Book flights to your favorite destinations.</p>
-              </a>
-              <a href="#trains" className="booking-card train-booking">
-                <h3>Train Booking</h3>
-                <p>Reserve train tickets for your journey.</p>
-              </a>
-              <a href="#hotels" className="booking-card hotel-booking">
-                <h3>Hotel Booking</h3>
-                <p>Find and book the best hotels for your stay.</p>
-              </a>
-              <a href="#taxi" className="booking-card taxi-booking">
-                <h3>Taxi Booking</h3>
-                <p>Book a taxi for convenient local travel.</p>
-              </a>
-              <a href="#rentals" className="booking-card rental-booking">
-                <h3>Rental Services</h3>
-                <p>Rent vehicles for your travel needs.</p>
-              </a>
-            </div>
-            <button className="arrow right-arrow" onClick={scrollRight}>
-              &#8250;
+              <FaPlane className="tab-icon" /> Flights
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'trains' ? 'active' : ''}`}
+              onClick={() => setActiveTab('trains')}
+            >
+              <FaTrain className="tab-icon" /> Trains
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'hotels' ? 'active' : ''}`}
+              onClick={() => setActiveTab('hotels')}
+            >
+              <FaHotel className="tab-icon" /> Hotels
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'taxi' ? 'active' : ''}`}
+              onClick={() => setActiveTab('taxi')}
+            >
+              <FaTaxi className="tab-icon" /> Taxi
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'rentals' ? 'active' : ''}`}
+              onClick={() => setActiveTab('rentals')}
+            >
+              <FaCar className="tab-icon" /> Rentals
             </button>
           </div>
+          <div className="tab-content-container">{renderTabContent()}</div>
         </section>
 
         <Explore />
