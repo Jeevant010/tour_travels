@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
-import Header from '../Components/Header';
 import Explore from '../Components/Explore';
+<<<<<<< HEAD
 import flightImage from '../assets/images/flight.jpg'; // Import the flight image
 
 const tabs = [
@@ -54,21 +54,112 @@ const BookingSection = () => {
 };
 
 function Home() {
+=======
+import travelImage from '../assets/images/travel.jpg'; // Import the image
+import Ourmain from '../hoc/Ourmain';
+// Import Font Awesome icons (if using Font Awesome)
+import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar } from 'react-icons/fa';
+
+function Home() {
+  const [activeTab, setActiveTab] = useState('flights');
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'flights':
+        return (
+          <div className="tab-content">
+            <h3>Flight Booking</h3>
+            <p>Book flights to your favorite destinations.</p>
+          </div>
+        );
+      case 'trains':
+        return (
+          <div className="tab-content">
+            <h3>Train Booking</h3>
+            <p>Reserve train tickets for your journey.</p>
+          </div>
+        );
+      case 'hotels':
+        return (
+          <div className="tab-content">
+            <h3>Hotel Booking</h3>
+            <p>Find and book the best hotels for your stay.</p>
+          </div>
+        );
+      case 'taxi':
+        return (
+          <div className="tab-content">
+            <h3>Taxi Booking</h3>
+            <p>Book a taxi for convenient local travel.</p>
+          </div>
+        );
+      case 'rentals':
+        return (
+          <div className="tab-content">
+            <h3>Rental Services</h3>
+            <p>Rent vehicles for your travel needs.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+>>>>>>> d79997d4994f92696ec76412de21970aadc6eff9
   return (
     <>
-      <Header />
       <div className="home">
         {/* Hero Section */}
         <section className="hero">
           <div className="hero-content">
-            <h1>Welcome to Yatra.com</h1>
+            <h1>Welcome to EasyTravels.com</h1>
             <p>Discover amazing destinations and unforgettable experiences with us.</p>
             <button className="cta-button">Explore Tours</button>
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Booking Links Section */}
         <BookingSection />
+=======
+        {/* Booking Tabs Section */}
+        <section className="booking-tabs">
+          <h2>Book Your Travel</h2>
+          <div className="tabs">
+            <button
+              className={`tab-button ${activeTab === 'flights' ? 'active' : ''}`}
+              onClick={() => setActiveTab('flights')}
+            >
+              <FaPlane className="tab-icon" /> Flights
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'trains' ? 'active' : ''}`}
+              onClick={() => setActiveTab('trains')}
+            >
+              <FaTrain className="tab-icon" /> Trains
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'hotels' ? 'active' : ''}`}
+              onClick={() => setActiveTab('hotels')}
+            >
+              <FaHotel className="tab-icon" /> Hotels
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'taxi' ? 'active' : ''}`}
+              onClick={() => setActiveTab('taxi')}
+            >
+              <FaTaxi className="tab-icon" /> Taxi
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'rentals' ? 'active' : ''}`}
+              onClick={() => setActiveTab('rentals')}
+            >
+              <FaCar className="tab-icon" /> Rentals
+            </button>
+          </div>
+          <div className="tab-content-container">{renderTabContent()}</div>
+        </section>
+>>>>>>> d79997d4994f92696ec76412de21970aadc6eff9
 
         {/* Explore Section */}
         <Explore />
@@ -96,4 +187,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Ourmain(Home);

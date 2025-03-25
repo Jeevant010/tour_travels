@@ -1,12 +1,11 @@
 import React from 'react';
 import './Login.css';
-import Header from '../Components/Header'; // Import the Header component
 import { Link } from 'react-router-dom';
+import Ourmain from '../hoc/Ourmain.jsx';
 
 function Login() {
   return (
     <>
-      <Header /> {/* Add the Navigation Bar */}
       <div
         className="page-container"
         style={{
@@ -39,4 +38,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Ourmain(Login);

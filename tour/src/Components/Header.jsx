@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { Link } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
-  return (
+return (
     <header className="header">
       <div className="logo">
-        <h1>Yatra.com</h1>
+        <h1>EasyTravels.com</h1>
       </div>
       <nav className="navbar">
         <ul className="nav-links">
@@ -22,7 +22,6 @@ function Header() {
         </ul>
       </nav>
     </header>
-  );
+);
 }
-
 export default Header;

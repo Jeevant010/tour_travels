@@ -361,6 +361,7 @@
   right: 10px;
 }
 
+<<<<<<< HEAD
 /* Booking Section */
 .booking-section {
   text-align: center;
@@ -434,4 +435,67 @@
   color: #555;
   text-align: center;
   padding: 10px;
+=======
+/* Tabs Container */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Tab Buttons */
+.tab-button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Default background color */
+  color: #333; /* Default text color */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+/* Hover Effect */
+.tab-button:hover {
+  background-color: #007bff; /* Hover background color */
+  color: #fff; /* Hover text color */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Active Tab Button */
+.tab-button.active {
+  background-color: #007bff; /* Active background color */
+  color: #fff; /* Active text color */
+  border-color: #007bff;
+}
+
+/* Tab Icons */
+.tab-icon {
+  font-size: 1.2rem; /* Icon size */
+  vertical-align: middle;
+}
+
+/* Tab Content Container */
+.tab-content-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Content */
+.tab-content h3 {
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.tab-content p {
+  color: #555;
+  line-height: 1.6;
+>>>>>>> d79997d4994f92696ec76412de21970aadc6eff9
 }

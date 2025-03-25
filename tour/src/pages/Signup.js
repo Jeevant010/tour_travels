@@ -1,12 +1,12 @@
 import React from 'react';
 import './Signup.css';
-import Header from '../Components/Header'; // Import the Header component
 import { Link } from 'react-router-dom';
+
+// import Ourmain from '../hoc/Ourmain';
 
 function Signup() {
   return (
     <>
-      <Header /> {/* Add the Navigation Bar */}
       <div
         className="page-container"
         style={{

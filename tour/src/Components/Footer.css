@@ -1,0 +1,141 @@
+/* General Footer Styling */
+footer {
+  background-color: #1a202c; /* Dark gray background */
+  color: #ffffff; /* White text */
+  padding: 2rem 1rem;
+}
+
+footer .max-w-7xl {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+footer h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fbbf24; /* Amber color */
+  margin-bottom: 1rem;
+}
+
+footer p,
+footer a {
+  color: #d1d5db; /* Light gray text */
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+footer a:hover {
+  color: #fbbf24; /* Amber color on hover */
+  transition: color 0.3s ease;
+}
+
+/* Social Media Icons */
+footer .flex.space-x-4 a {
+  color: #d1d5db;
+  transition: color 0.3s ease;
+}
+
+footer .flex.space-x-4 a:hover {
+  color: #fbbf24;
+}
+
+/* Quick Links and Explore India */
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  margin-bottom: 0.5rem;
+}
+
+footer ul li a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Contact Section */
+footer .contact-info li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+footer .contact-info li svg {
+  margin-right: 0.75rem;
+  color: #fbbf24;
+}
+
+/* Newsletter Signup */
+footer form {
+  display: flex;
+  margin-top: 1rem;
+}
+
+footer form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem 0 0 0.25rem;
+  font-size: 0.875rem;
+}
+
+footer form button {
+  background-color: #fbbf24;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0 0.25rem 0.25rem 0;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+footer form button:hover {
+  background-color: #d97706; /* Darker amber */
+}
+
+/* Footer Bottom Section */
+footer .border-t {
+  border-top: 1px solid #2d3748; /* Darker gray border */
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+footer .border-t .text-sm {
+  font-size: 0.75rem;
+  color: #a0aec0; /* Gray text */
+}
+
+footer .border-t a {
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+footer .border-t a:hover {
+  color: #fbbf24;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  footer .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  footer .hidden.md\\:block {
+    display: block;
+  }
+
+  footer .md\\:hidden {
+    display: none;
+  }
+
+  footer .border-t {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
