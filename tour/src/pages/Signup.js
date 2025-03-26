@@ -1,6 +1,6 @@
 import React from 'react';
 import './Signup.css';
-// import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import Ourmain from '../hoc/Ourmain';
 import { makeUnauthenticatedPOSTRequest } from '../utils/serverhelper';
@@ -18,7 +18,7 @@ const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [address, setAddress] = useState("");
  
-// const [setCookie] = useCookies([ "token" ]);
+const [ cookie, setCookie ] = useCookies([ "token" ]);
 const navigate = useNavigate();
 
 const Signup1 = async () => {
@@ -35,10 +35,10 @@ const Signup1 = async () => {
   );
   if(response && !response.error){
     console.log(response);
-    // const token = response.token;
-    // const date = new Date();
-    // Date.setDate(Date.getDate() + 70);
-    // setCookie("token", token, {  path: '/',expires: date });
+    const token = response.token;
+    const date = new Date();
+    date.setDate(date.getDate() + 30);
+    setCookie("token", token, {  path: '/', expires: date });
     alert("Signup successful");
     navigate("/account");
   }

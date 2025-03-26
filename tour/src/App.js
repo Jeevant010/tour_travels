@@ -1,25 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import MyAccount from './pages/MyAccount';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-// import {  useCookies, } from 'react-cookie';
+import {  CookiesProvider, useCookies, } from 'react-cookie';
 
 function App() {
-  // const [cookies, setCookie] = useCookies(["token"]);
+  return (
+    <CookiesProvider>
+      <Main />
+    </CookiesProvider>
+  );
+}
+
+function Main() {
+  const [cookies] = useCookies(["token"]);
 
   return (
-      <Router>
+      <Router>{
+        cookies.token ?
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Home Page */}
+          <Route path="/" element={<Home />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/account" element={<MyAccount />} />
-          <Route path="/auth/signup" element={<Signup />} /> {/* Signup Page */}
-          <Route path="/auth/login" element={<Login />} /> {/* Login Page */}
+          <Route path='*' element={ <Navigate to='/' /> } />
+        </Routes> :
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path='*' element={ <Navigate to='/' /> } />
+          
         </Routes>
+      }
       </Router>
   );
 }
