@@ -1,6 +1,7 @@
 import React from 'react';
 import './Signup.css';
-import { Link } from 'react-router-dom';
+// import { useCookies } from 'react-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 import Ourmain from '../hoc/Ourmain';
 import { makeUnauthenticatedPOSTRequest } from '../utils/serverhelper';
 
@@ -17,8 +18,8 @@ const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [address, setAddress] = useState("");
  
-
-
+// const [setCookie] = useCookies([ "token" ]);
+const navigate = useNavigate();
 
 const Signup1 = async () => {
   if(password !== confirmPassword){
@@ -34,7 +35,12 @@ const Signup1 = async () => {
   );
   if(response && !response.error){
     console.log(response);
+    // const token = response.token;
+    // const date = new Date();
+    // Date.setDate(Date.getDate() + 70);
+    // setCookie("token", token, {  path: '/',expires: date });
     alert("Signup successful");
+    navigate("/account");
   }
   else {
     alert("Signup failed");

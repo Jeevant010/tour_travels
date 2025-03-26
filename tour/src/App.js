@@ -6,18 +6,21 @@ import Gallery from './pages/Gallery';
 import MyAccount from './pages/MyAccount';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+// import {  useCookies, } from 'react-cookie';
 
 function App() {
+  // const [cookies, setCookie] = useCookies(["token"]);
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} /> {/* Home Page */}
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/account" element={<MyAccount />} />
-        <Route path="/auth/signup" element={<Signup />} /> {/* Signup Page */}
-        <Route path="/auth/login" element={<Login />} /> {/* Login Page */}
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} /> {/* Home Page */}
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/account" element={<MyAccount />} />
+          <Route path="/auth/signup" element={<Signup />} /> {/* Signup Page */}
+          <Route path="/auth/login" element={<Login />} /> {/* Login Page */}
+        </Routes>
+      </Router>
   );
 }
 
