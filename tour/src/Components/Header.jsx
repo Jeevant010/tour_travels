@@ -12,14 +12,14 @@ const beforeLogin = () => {
       <nav className="navbar">
         <ul className="nav-links">
           <li>
-            <Link to="/">Home</Link> {/* Redirects to Home Page */}
+            <Link to="/">Home</Link> 
           </li>
           <li><Link to="/gallery">Gallery</Link></li>
           <li>
             <a href="#contact">Contact Us</a>
           </li>
           <li>
-          <Link to="/account">My Account</Link>
+            <Link to="/auth/signup">Signup</Link>
           </li>
         </ul>
       </nav>
@@ -36,14 +36,14 @@ const afterLogin = () => {
       <nav className="navbar">
         <ul className="nav-links">
           <li>
-            <Link to="/">Home</Link> {/* Redirects to Home Page */}
+            <Link to="/">Home</Link> 
           </li>
           <li><Link to="/gallery">Gallery</Link></li>
           <li>
             <a href="#contact">Contact Us</a>
           </li>
           <li>
-            <Link to="/auth/signup">Signup</Link>
+          <Link to="/account">My Account</Link>
           </li>
         </ul>
       </nav>
