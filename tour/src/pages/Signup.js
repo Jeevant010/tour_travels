@@ -64,7 +64,7 @@ const Submit = () => {
       <div
         className="page-container"
         style={{
-          backgroundImage: `url('https://img.freepik.com/free-photo/composition-small-airplanes-bus-passport-map_23-2148169874.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_hybrid')`,
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

@@ -5,71 +5,84 @@
   min-height: 100vh;
 }
 
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
 .login-container {
-  max-width: 600px; /* Increased width */
-  margin: 20px;
-  padding: 50px; /* Increased padding */
-  border: 1px solid #ddd;
-  border-radius: 15px; /* Slightly larger border radius */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
-  background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparency */
+  background-color: rgb(255, 226, 226);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
   text-align: center;
 }
 
-.login-container h2 {
-  margin-bottom: 30px; /* Increased spacing */
-  font-size: 2rem; /* Larger font size */
-  color: #333;
+.login-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #202124;
 }
 
-.login-form .form-group {
-  margin-bottom: 20px; /* Increased spacing between fields */
-  text-align: left;
+.login-header p {
+  font-size: 0.9rem;
+  color: #5f6368;
+  margin-bottom: 20px;
 }
 
-.login-form label {
-  display: block;
-  margin-bottom: 8px; /* Increased spacing */
-  font-weight: bold;
-  font-size: 1.1rem; /* Larger font size */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.login-form input {
+.form-group input {
   width: 100%;
-  padding: 15px; /* Increased padding */
-  border: 1px solid #ddd;
-  border-radius: 8px; /* Slightly larger border radius */
-  font-size: 1.1rem; /* Larger font size */
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #dadce0;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #1a73e8;
 }
 
 .login-button {
-  width: 100%;
-  padding: 15px; /* Increased padding */
-  background-color: #007bff;
+  background-color: #1a73e8;
   color: white;
   border: none;
-  border-radius: 8px; /* Slightly larger border radius */
-  font-size: 1.2rem; /* Larger font size */
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #1558b3;
 }
 
 .signup-redirect {
-  margin-top: 20px; /* Increased spacing */
-  font-size: 1rem; /* Larger font size */
-  color: #555;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #5f6368;
 }
 
-.signup-link {
-  color: #007bff;
+.signup-redirect a {
+  color: #1a73e8;
   text-decoration: none;
-  font-weight: bold;
 }
 
-.signup-link:hover {
+.signup-redirect a:hover {
   text-decoration: underline;
 }
 
