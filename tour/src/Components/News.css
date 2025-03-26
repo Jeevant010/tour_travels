@@ -92,3 +92,30 @@
   transform: translateY(-50%) scale(0.95); /* Slight shrink effect on click */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
 }
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  position: relative; /* Required for the underline effect */
+  transition: color 0.3s ease, transform 0.3s ease; /* Add smooth scale transition */
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Position the underline just below the text */
+  width: 0;
+  height: 2px;
+  background-color: #ffdd57; /* Yellow underline */
+  transition: width 0.3s ease; /* Smooth underline animation */
+}
+
+.nav-links a:hover {
+  color: #ffdd57; /* Change text color on hover */
+  transform: scale(1.1); /* Slightly enlarge the link on hover */
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* Expand the underline on hover */
+}
