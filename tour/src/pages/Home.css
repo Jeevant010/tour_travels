@@ -3,33 +3,57 @@
   padding: 20px;
 }
 
+/* Why Choose Us Section */
 .features {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
   text-align: center;
 }
 
-.features h2 {
-  font-size: 2rem;
+.features-title {
+  font-size: 28px;
   margin-bottom: 20px;
+  color: #333;
 }
 
 .feature-list {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .feature-item {
-  width: 30%;
-  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.feature-item h3 {
-  font-size: 1.5rem;
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 40px;
+  color: #007bff;
   margin-bottom: 10px;
 }
 
+.feature-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
 .feature-item p {
-  font-size: 1rem;
+  font-size: 14px;
+  color: #555;
 }
 
 /* Booking Links Section */
@@ -39,8 +63,6 @@
   margin-bottom: 20px;
   color: #333;
 }
-
-
 
 /* Booking Tabs Section */
 .booking-tabs {
@@ -494,4 +516,72 @@
   font-weight: bold; /* Bold text */
   color: #333; /* Dark text color */
   margin-bottom: 20px; /* Space below the title */
-} 
+}
+
+/* Explore Section */
+.explore-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.explore-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.explore-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.explore-tab {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.explore-tab:hover {
+  background-color: #0056b3;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.explore-tab.active {
+  background-color: #077dfb;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+}
+
+.explore-content-container {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.explore-content h3 {
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.explore-content p {
+  color: #555;
+  line-height: 1.6;
+}

@@ -63,13 +63,14 @@
 .explore-button {
   display: inline-block;
   padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
   background-color: #007bff;
-  border: none;
+  color: white;
+  text-decoration: none;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .explore-button:hover {

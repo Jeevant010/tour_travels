@@ -12,8 +12,8 @@ const Header = () => {
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           {/* Remove the News link */}
-          {/* <li><Link to="/news">News</Link></li> */} 
-          <li><Link to="/contact">Contact Us</Link></li>
+          {/* <li><Link to="/news">News</Link></li> */}
+          
         </ul>
       </nav>
     </header>
