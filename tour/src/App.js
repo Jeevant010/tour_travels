@@ -4,10 +4,10 @@ import './App.css';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import MyAccount from './pages/MyAccount';
+import ContactUs from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
-import ContactUs from './pages/Contact';
 
 function App() {
   return (

@@ -7,16 +7,40 @@
 
 .login-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
   font-family: Arial, sans-serif;
 }
 
+.login-left {
+  flex: 1;
+  background: url('https://img.freepik.com/free-photo/mountain-landscape-with-lake_1232-3037.jpg?w=600&auto=format&fit=crop&q=60') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.login-left h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
 .login-container {
-  background-color: rgb(255, 226, 226);
-  padding: 40px;
+  background-color: white;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -24,15 +48,15 @@
   text-align: center;
 }
 
-.login-header h1 {
+.login-container h2 {
   font-size: 1.8rem;
   margin-bottom: 10px;
-  color: #202124;
+  color: #333;
 }
 
-.login-header p {
+.login-container p {
   font-size: 0.9rem;
-  color: #5f6368;
+  color: #555;
   margin-bottom: 20px;
 }
 
@@ -42,22 +66,34 @@
   gap: 15px;
 }
 
-.form-group input {
+.login-form .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.login-form label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.login-form input {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #dadce0;
+  border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
   transition: border-color 0.3s ease;
 }
 
-.form-group input:focus {
-  border-color: #1a73e8;
+.login-form input:focus {
+  border-color: #007bff;
 }
 
 .login-button {
-  background-color: #1a73e8;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -68,17 +104,17 @@
 }
 
 .login-button:hover {
-  background-color: #1558b3;
+  background-color: #0056b3;
 }
 
 .signup-redirect {
   margin-top: 20px;
   font-size: 0.9rem;
-  color: #5f6368;
+  color: #555;
 }
 
 .signup-redirect a {
-  color: #1a73e8;
+  color: #007bff;
   text-decoration: none;
 }
 
@@ -226,4 +262,28 @@
 .feature-item p {
   font-size: 1rem;
   color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-left {
+    height: 200px;
+    background-size: cover;
+  }
+
+  .login-left h1 {
+    font-size: 1.8rem;
+  }
+
+  .login-right {
+    padding: 10px;
+  }
+
+  .login-container {
+    padding: 20px;
+  }
 }
