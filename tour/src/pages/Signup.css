@@ -86,19 +86,28 @@
 
 .signup-left {
   flex: 1;
-  background: url('https://img.freepik.com/premium-photo/hiking-young-woman-with-alps-mountains-alpine-lake-background-travel-slovenia-europe-top-view-island-with-catholic-church-bled-lake-with-castle-mountains-background_494619-3248.jpg?ga=GA1.1.1599877780.1738726996&semt=ais_hybrid') no-repeat center center;
+  background: url('https://img.freepik.com/free-photo/mountain-landscape-with-lake_1232-3037.jpg?w=600&auto=format&fit=crop&q=60') no-repeat center center;
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
 }
 
-.signup-left h1 {
-  font-size: 2.5rem;
+.image-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.image-overlay h2 {
+  font-size: 2rem;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.image-overlay p {
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -119,6 +128,11 @@
   width: 100%;
   max-width: 400px;
   text-align: center;
+}
+
+.signup-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 .signup-container h2 {
@@ -189,4 +203,44 @@
 
 .login-redirect a:hover {
   text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .signup-page {
+    flex-direction: column;
+  }
+
+  .signup-left {
+    height: 200px;
+    background-size: cover;
+  }
+
+  .signup-left h1 {
+    font-size: 1.8rem;
+    padding: 10px;
+  }
+
+  .signup-right {
+    padding: 10px;
+  }
+
+  .signup-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-left {
+    height: 150px;
+    background-position: center;
+  }
+
+  .signup-left h1 {
+    font-size: 1.5rem;
+  }
+
+  .signup-container {
+    padding: 15px;
+  }
 }
