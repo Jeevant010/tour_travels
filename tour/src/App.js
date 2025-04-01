@@ -17,7 +17,7 @@ function App() {
 }
 
 function Main() {
-  const [cookies] = useCookies(["token"]);
+  const [ cookies ] = useCookies(["token"]);
 
   return (
       <Router>{
