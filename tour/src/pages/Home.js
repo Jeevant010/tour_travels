@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Home.css';
 import Explore from '../Components/Explore';
 import Ourmain from '../hoc/Ourmain';
-import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
 
 function Home() {
   const [activeTab, setActiveTab] = useState('flights');
