@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
 import Explore from '../Components/Explore';
-import News from '../Components/News';
 import Ourmain from '../hoc/Ourmain';
-// Import Font Awesome icons (if using Font Awesome)
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar } from 'react-icons/fa';
 
 function Home() {
@@ -176,51 +174,45 @@ function Home() {
   };
 
   return (
-    
-      <div className="home">
-        {/* Booking Tabs Section */}
-        <section className="booking-tabs">
-          <h2 className="booking-title">Book Your Travel</h2>
-          <div className="tabs">
-            <button
-              className={`tab-button ${activeTab === 'flights' ? 'active' : ''}`}
-              onClick={() => setActiveTab('flights')}
-            >
-              <FaPlane className="tab-icon" /> Flights
-            </button>
-            <button
-              className={`tab-button ${activeTab === 'trains' ? 'active' : ''}`}
-              onClick={() => setActiveTab('trains')}
-            >
-              <FaTrain className="tab-icon" /> Trains
-            </button>
-            <button
-              className={`tab-button ${activeTab === 'hotels' ? 'active' : ''}`}
-              onClick={() => setActiveTab('hotels')}
-            >
-              <FaHotel className="tab-icon" /> Hotels
-            </button>
-            <button
-              className={`tab-button ${activeTab === 'taxi' ? 'active' : ''}`}
-              onClick={() => setActiveTab('taxi')}
-            >
-              <FaTaxi className="tab-icon" /> Taxi
-            </button>
-            <button
-              className={`tab-button ${activeTab === 'rentals' ? 'active' : ''}`}
-              onClick={() => setActiveTab('rentals')}
-            >
-              <FaCar className="tab-icon" /> Rentals
-            </button>
-          </div>
-          <div className="tab-content-container">{renderTabContent()}</div>
-        </section>
+    <div className="home">
+      <section className="booking-tabs">
+        <h2 className="booking-title">Book Your Travel</h2>
+        <div className="tabs">
+          <button
+            className={`tab-button ${activeTab === 'flights' ? 'active' : ''}`}
+            onClick={() => setActiveTab('flights')}
+          >
+            <FaPlane className="tab-icon" /> Flights
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'trains' ? 'active' : ''}`}
+            onClick={() => setActiveTab('trains')}
+          >
+            <FaTrain className="tab-icon" /> Trains
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'hotels' ? 'active' : ''}`}
+            onClick={() => setActiveTab('hotels')}
+          >
+            <FaHotel className="tab-icon" /> Hotels
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'taxi' ? 'active' : ''}`}
+            onClick={() => setActiveTab('taxi')}
+          >
+            <FaTaxi className="tab-icon" /> Taxi
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'rentals' ? 'active' : ''}`}
+            onClick={() => setActiveTab('rentals')}
+          >
+            <FaCar className="tab-icon" /> Rentals
+          </button>
+        </div>
+        <div className="tab-content-container">{renderTabContent()}</div>
+      </section>
 
-        <Explore />
-
-        
-    
-      <News />
+      <Explore />
 
       <section className="features">
         <h2>Why Choose Us?</h2>
@@ -240,10 +232,7 @@ function Home() {
         </div>
       </section>
     </div>
-  
-    
   );
 }
-
 
 export default Ourmain(Home);
