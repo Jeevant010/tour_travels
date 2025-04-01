@@ -1,202 +1,66 @@
 .news-section {
-  padding: 20px;
+  padding: 40px 20px;
   background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .news-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: #333;
-}
-
-.news-slider {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
 }
 
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  flex: 1;
+  padding: 0 20px;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.news-item {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.news-item-title {
-  font-size: 1.5rem;
+.news-image {
+  width: 100%;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-image {
+  transform: scale(1.1);
+}
+
+.news-content {
+  padding: 20px;
+  background-color: white;
+  text-align: left;
+}
+
+.news-card-title {
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
   color: #007bff;
 }
 
-.news-item-description {
-  font-size: 1rem;
-  margin-bottom: 10px;
+.news-card-description {
+  font-size: 0.9rem;
   color: #555;
-}
-
-.news-item-date {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-.prev-slide,
-.next-slide {
-  background: linear-gradient(135deg, #007bff, #00c6ff); /* Gradient background */
-  color: white;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
-}
-
-.prev-slide {
-  left: -30px; /* Adjust position */
-}
-
-.next-slide {
-  right: -30px; /* Adjust position */
-}
-
-.prev-slide:hover,
-.next-slide:hover {
-  background: linear-gradient(135deg, #0056b3, #007bff); /* Darker gradient on hover */
-  transform: translateY(-50%) scale(1.1); /* Slight zoom effect */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
-}
-
-.prev-slide:active,
-.next-slide:active {
-  transform: translateY(-50%) scale(0.95); /* Slight shrink effect on click */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-  position: relative; /* Required for the underline effect */
-  transition: color 0.3s ease, transform 0.3s ease; /* Add smooth scale transition */
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px; /* Position the underline just below the text */
-  width: 0;
-  height: 2px;
-  background-color: #ffdd57; /* Yellow underline */
-  transition: width 0.3s ease; /* Smooth underline animation */
-}
-
-.nav-links a:hover {
-  color: #ffdd57; /* Change text color on hover */
-  transform: scale(1.1); /* Slightly enlarge the link on hover */
-}
-
-.nav-links a:hover::after {
-  width: 100%; /* Expand the underline on hover */
-}
-
-.signup-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  font-family: Arial, sans-serif;
-}
-
-.signup-container {
-  background-color: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.signup-header h1 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #202124;
-}
-
-.signup-header p {
-  font-size: 0.9rem;
-  color: #5f6368;
-  margin-bottom: 20px;
-}
-
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #dadce0;
-  border-radius: 5px;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus {
-  border-color: #1a73e8;
-}
-
-.signup-button {
-  background-color: #1a73e8;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.signup-button:hover {
-  background-color: #1558b3;
-}
-
-.login-redirect {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  color: #5f6368;
-}
-
-.login-redirect a {
-  color: #1a73e8;
-  text-decoration: none;
-}
-
-.login-redirect a:hover {
-  text-decoration: underline;
 }

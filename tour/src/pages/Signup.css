@@ -6,18 +6,18 @@
 }
 
 .signup-container {
-  max-width: 600px; /* Increased width */
+  max-width: 400px; /* Increased width */
   margin: 20px;
   padding: 50px; /* Increased padding */
   border: 1px solid #ddd;
-  border-radius: 15px; /* Slightly larger border radius */
+  border-radius: 10px; /* Slightly larger border radius */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
   background-color: rgba(226, 202, 202, 0.95); /* Slightly less transparency */
   text-align: center;
 }
 
 .signup-container h2 {
-  margin-bottom: 30px; /* Increased spacing */
+  margin-bottom: 20px; /* Increased spacing */
   font-size: 2rem; /* Larger font size */
   color: #333;
 }
