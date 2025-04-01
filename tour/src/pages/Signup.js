@@ -2,6 +2,7 @@ import React from 'react';
 import './Signup.css';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
+import Ourmain from '../hoc/Ourmain.jsx';
 import { makeUnauthenticatedPOSTRequest } from '../utils/serverhelper';
 import { useState } from 'react';
 
@@ -149,4 +150,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Ourmain(Signup);
