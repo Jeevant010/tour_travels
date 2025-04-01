@@ -13,7 +13,7 @@ const Header = () => {
           <li><Link to="/">Home</Link></li>
           {/* Remove the News link */}
           {/* <li><Link to="/news">News</Link></li> */}
-          <li><Link to="/contact">Contact Us</Link></li>
+          
         </ul>
       </nav>
     </header>

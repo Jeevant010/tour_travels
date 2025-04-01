@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Home.css';
 import Explore from '../Components/Explore';
 import Ourmain from '../hoc/Ourmain';
-import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar } from 'react-icons/fa';
+import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset, FaMapMarkerAlt } from 'react-icons/fa';
 
 function Home() {
   const [activeTab, setActiveTab] = useState('flights');
@@ -215,17 +215,20 @@ function Home() {
       <Explore />
 
       <section className="features">
-        <h2>Why Choose Us?</h2>
+        <h2 className="features-title">Why Choose Us?</h2>
         <div className="feature-list">
           <div className="feature-item">
+            <FaUserTie className="feature-icon" />
             <h3>Expert Guides</h3>
             <p>Our experienced guides ensure you have the best travel experience.</p>
           </div>
           <div className="feature-item">
+            <FaDollarSign className="feature-icon" />
             <h3>Affordable Packages</h3>
             <p>We offer competitive pricing without compromising on quality.</p>
           </div>
           <div className="feature-item">
+            <FaHeadset className="feature-icon" />
             <h3>24/7 Support</h3>
             <p>Our team is here to assist you anytime, anywhere.</p>
           </div>
