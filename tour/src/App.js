@@ -7,6 +7,7 @@ import MyAccount from './pages/MyAccount';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
+import ContactUs from './pages/Contact';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function Main() {
           <Route path="/" element={<Home />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/account" element={<MyAccount />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -33,6 +35,7 @@ function Main() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/auth/login" element={<Login />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>

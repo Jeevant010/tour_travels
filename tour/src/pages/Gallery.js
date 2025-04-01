@@ -1,6 +1,6 @@
 import React from 'react';
 import './Gallery.css';
-
+import Ourmain from '../hoc/Ourmain.jsx';
 const Gallery = () => {
   const galleryImages = [
     {
@@ -30,7 +30,6 @@ const Gallery = () => {
     },
     {
       url: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=600&auto=format&fit=crop&q=60',
-      title: 'Wildlife Exploration',
       link: '/destinations/wildlife', // Example link
     },
   ];
@@ -55,4 +54,5 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+
+export default Ourmain(Gallery);

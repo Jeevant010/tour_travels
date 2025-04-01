@@ -74,7 +74,7 @@ function Login() {
            <Submit />
           </form>
           <p className="signup-redirect">
-            Don't have an account? <Link to="/auth/signup" className="signup-link">Signup</Link>
+            Don't have an account? <Link to="/auth/signup" className="signup-link">Create One</Link>
           </p>
         </div>
       </div>

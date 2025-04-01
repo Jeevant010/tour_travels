@@ -16,7 +16,7 @@ const beforeLogin = () => {
           </li>
           <li><Link to="/gallery">Gallery</Link></li>
           <li>
-            <a href="#contact">Contact Us</a>
+          <Link to="/contact">Contact Us</Link>
           </li>
           <li>
             <Link to="/auth/signup">Signup</Link>
