@@ -8,6 +8,7 @@ import ContactUs from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
+import PNRcomponent from './Components/PNRcomponent.jsx';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function Main() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/account" element={<MyAccount />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/trainPnr" element={<PNRcomponent />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -36,6 +38,7 @@ function Main() {
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/trainPnr" element={<PNRcomponent />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>

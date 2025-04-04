@@ -2,6 +2,7 @@ import './Footer.css';
 import { useState, useEffect } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
+import { href } from 'react-router-dom';
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -22,6 +23,7 @@ const Footer = () => {
     { name: 'Special Offers', path: '/offers' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
+    { name: 'TrainPnr', path: '/trainPnr' },   
   ];
 
   const popularDestinations = [
