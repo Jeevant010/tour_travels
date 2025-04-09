@@ -585,3 +585,255 @@
   color: #555;
   line-height: 1.6;
 }
+
+/* Base Styles */
+.home {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  color: #333;
+}
+
+/* Shared Components */
+.feature-item, 
+.tab-content-container,
+.form-group {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover,
+.tab-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Features Section */
+.features {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.features-title {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-item {
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+/* Booking Tabs */
+.booking-tabs {
+  text-align: center;
+  margin: 30px 0;
+  padding: 30px;
+  background: linear-gradient(135deg, #c8e2fd, #5f99aa);
+  border-radius: 10px;
+}
+
+.booking-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-button.active {
+  background-color: #077dfb;
+  color: #fff;
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+/* Forms */
+.tab-content-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 25px;
+}
+
+.tab-content h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #007bff;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  flex: 1;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Suggestions */
+.suggestions-container {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .tab-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .tab-content-container {
+    padding: 15px;
+  }
+}
+
+/* Theme Variations */
+/* Flight Theme */
+.flight-booking-form {
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+}
+
+/* Train Theme */
+.train-booking-form {
+  background: linear-gradient(135deg, #f3e5f5, #ffffff);
+}
+
+.train-booking-form .submit-button {
+  background-color: #6a1b9a;
+}
+
+.train-booking-form .submit-button:hover {
+  background-color: #4a148c;
+}
+
+/* Hotel Theme */
+.hotel-booking-form {
+  background: linear-gradient(135deg, #e8f5e9, #ffffff);
+}
+
+.hotel-booking-form .submit-button {
+  background-color: #2e7d32;
+}
+
+.hotel-booking-form .submit-button:hover {
+  background-color: #1b5e20;
+}
+
+/* Taxi Theme */
+.taxi-booking-form {
+  background: linear-gradient(135deg, #fff3e0, #ffffff);
+}
+
+.taxi-booking-form .submit-button {
+  background-color: #ff9800;
+}
+
+.taxi-booking-form .submit-button:hover {
+  background-color: #e65100;
+}
+
+/* Rental Theme */
+.rental-booking-form {
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+}
+
+.rental-booking-form .submit-button {
+  background-color: #0288d1;
+}
+
+.rental-booking-form .submit-button:hover {
+  background-color: #01579b;
+}
