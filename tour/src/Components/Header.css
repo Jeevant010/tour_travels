@@ -55,3 +55,21 @@
 .nav-links a:hover::after {
   width: 100%; /* Expand the underline on hover */
 }
+
+/* Alternative hamburger menu approach */
+@media (max-width: 600px) {
+  .navbar {
+    width: 100%;
+  }
+  
+  .nav-links {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+  }
+  
+  .nav-links.active {
+    display: flex; /* Show when menu is toggled */
+  }
+  
+  /* You would need to add JavaScript and a hamburger button HTML element */
+}
