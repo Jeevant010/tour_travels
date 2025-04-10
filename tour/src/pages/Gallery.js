@@ -1,9 +1,6 @@
 import React from 'react';
 import './Gallery.css';
-import { useState, useEffect } from 'react';
 import Ourmain from '../hoc/Ourmain.jsx';
-
-
 const Gallery = () => {
   const galleryImages = [
     {
@@ -37,47 +34,6 @@ const Gallery = () => {
     },
   ];
 
-  const [galleryImage, setGalleryImage] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        // Replace with your actual API key and endpoint
-        const response = await fetch(
-          'https://api.unsplash.com/photos/random?count=12&client_id=B74V-7ggl_o3SW_-2GrHQkKiotQuis87wByAxD57mdo'
-        );
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch images');
-        }
-        
-        const data = await response.json();
-        
-        // Transform API data to match your gallery structure
-        const formattedImages = data.map(img => ({
-          url: img.urls.regular,
-          link: img.links.html,
-          title: img.alt_description || 'Untitled',
-          id: img.id
-        }));
-        
-        setGalleryImage(formattedImages);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchImages();
-  }, []); // Empty dependency array means this runs once on mount
-
-  if (loading) return <div className="loading">Loading gallery...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
-
-
   return (
     <div className="gallery-page">
       <h1 className="gallery-title">Explore Our Destinations</h1>
@@ -94,24 +50,9 @@ const Gallery = () => {
           </a>
         ))}
       </div>
-      <div className="gallery-grid">
-      {galleryImage.map((image) => (
-        <a key={image.id} href={image.link} className="gallery-item" target="_blank" rel="noopener noreferrer">
-          <div
-            className="gallery-image"
-            style={{ backgroundImage: `url(${image.url})` }}
-          ></div>
-          <div className="gallery-caption">
-            <h3>{image.title}</h3>
-          </div>
-        </a>
-      ))}
-    </div>
     </div>
   );
 };
-
-
 
 
 export default Ourmain(Gallery);
