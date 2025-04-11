@@ -11,10 +11,10 @@ const Gallery = () => {
       url: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=600&auto=format&fit=crop&q=60',
       title: 'Mountain Adventure',
     },
-    {
-      url: 'https://images.unsplash.com/photo-1508051123996-69f8caf4891e?w=600&auto=format&fit=crop&q=60',
-      title: 'City Lights',
-    },
+    // {
+    //   url: 'https://images.unsplash.com/photo-1508051123996-69f8caf4891e?w=600&auto=format&fit=crop&q=60',
+    //   title: 'City Lights',
+    // },
     {
       url: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=600&auto=format&fit=crop&q=60',
       title: 'Desert Safari',
