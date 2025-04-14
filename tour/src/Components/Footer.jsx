@@ -2,40 +2,26 @@ import './Footer.css';
 import { useState, useEffect } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
-import { href } from 'react-router-dom';
+
+const popularDestinations = [
+  { name: 'Goa', path: '/goa' },
+  { name: 'Kerala', path: '/kerala' },
+  { name: 'Rajasthan', path: '/rajasthan' },
+  { name: 'Himachal Pradesh', path: '/himachal-pradesh' },
+];
+
+const quickLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'Gallery', path: '/Gallery' },
+  { name: 'Contact Us', path: '/contact' },
+];
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [expandedSection, setExpandedSection] = useState(null);
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
   }, []);
-
-  const toggleSection = (section) => {
-    setExpandedSection(expandedSection === section ? null : section);
-  };
-
-  const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Destinations', path: '/destinations' },
-    { name: 'Tour Packages', path: '/packages' },
-    { name: 'Special Offers', path: '/offers' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'TrainPnr', path: '/trainPnr' },   
-  ];
-
-  const popularDestinations = [
-    { name: 'Goa', path: '/goa' },
-    { name: 'Kerala Backwaters', path: '/kerala' },
-    { name: 'Rajasthan (Jaipur, Udaipur)', path: '/rajasthan' },
-    { name: 'Himalayas (Manali, Leh)', path: '/himalayas' },
-    { name: 'Varanasi', path: '/varanasi' },
-    { name: 'Andaman & Nicobar Islands', path: '/andaman' },
-    { name: 'Taj Mahal, Agra', path: '/taj-mahal' },
-    { name: 'Mumbai', path: '/mumbai' },
-  ];
 
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-6 px-4 sm:px-6 lg:px-8">
@@ -66,28 +52,23 @@ const Footer = () => {
           {/* Quick Links - Mobile Accordion */}
           <div className="md:hidden">
             <button
-              onClick={() => toggleSection('quickLinks')}
               className="flex justify-between items-center w-full py-2 text-left"
-              aria-expanded={expandedSection === 'quickLinks'}
-              aria-controls="quick-links-content"
+              aria-expanded="false"
             >
               <h3 className="text-lg font-semibold text-amber-400">Quick Links</h3>
-              {expandedSection === 'quickLinks' ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </button>
-            {expandedSection === 'quickLinks' && (
-              <ul id="quick-links-content" className="mt-2 space-y-2 pl-4">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.path}
-                      className="text-gray-300 hover:text-amber-400 transition-colors duration-300"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul className="mt-2 space-y-2 pl-4">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.path}
+                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Quick Links - Desktop */}
@@ -105,33 +86,6 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Popular Indian Destinations - Mobile Accordion */}
-          <div className="md:hidden">
-            <button
-              onClick={() => toggleSection('destinations')}
-              className="flex justify-between items-center w-full py-2 text-left"
-              aria-expanded={expandedSection === 'destinations'}
-              aria-controls="destinations-content"
-            >
-              <h3 className="text-lg font-semibold text-amber-400">Explore India</h3>
-              {expandedSection === 'destinations' ? <IoIosArrowUp /> : <IoIosArrowDown />}
-            </button>
-            {expandedSection === 'destinations' && (
-              <ul id="destinations-content" className="mt-2 space-y-2 pl-4">
-                {popularDestinations.map((dest) => (
-                  <li key={dest.name}>
-                    <a
-                      href={dest.path}
-                      className="text-gray-300 hover:text-amber-400 transition-colors duration-300"
-                    >
-                      {dest.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
 
           {/* Popular Indian Destinations - Desktop */}
@@ -157,7 +111,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-3 text-amber-400" />
-                <span className="text-gray-300">D80, Kamrej,IIIT SURAT, SURAT, Gujarat,321043</span>
+                <span className="text-gray-300">D80, Kamrej, IIIT SURAT, SURAT, Gujarat, 321043</span>
               </li>
               <li className="flex items-center">
                 <FaPhone className="mr-3 text-amber-400" />
