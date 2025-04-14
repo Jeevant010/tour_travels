@@ -12,6 +12,7 @@
     "axios": "^1.8.4",
     "crypto-browserify": "^3.12.1",
     "dotenv": "^16.4.7",
+    "emailjs-com": "^3.2.0",
     "os-browserify": "^0.3.0",
     "package": "^1.0.1",
     "path-browserify": "^1.0.1",
