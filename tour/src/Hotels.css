@@ -1,141 +1,141 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    color: #333;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #333;
+}
+
+/* Container Styles */
+.hotel-booking-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  max-width: 450px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  /* Container Styles */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heading Styles */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2575fc;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input:focus, select:focus {
+  border-color: #2575fc;
+  outline: none;
+  box-shadow: 0 0 8px rgba(37, 117, 252, 0.6);
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Error Message Styles */
+.error {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Group Styles */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  flex: 1;
+  padding: 12px;
+  background-color: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #1a5bbf;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.clear-button {
+  background-color: #ff4d4d;
+}
+
+.clear-button:hover {
+  background-color: #cc0000;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
   .hotel-booking-container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 100%;
-    max-width: 450px;
-    animation: fadeIn 0.5s ease-in-out;
+    padding: 20px;
+    border-radius: 15px;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Heading Styles */
+
   h1 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #2575fc;
-    font-size: 28px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 24px;
   }
-  
-  /* Form Group Styles */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-  }
-  
+
   input, select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  input:focus, select:focus {
-    border-color: #2575fc;
-    outline: none;
-    box-shadow: 0 0 8px rgba(37, 117, 252, 0.6);
-    background: rgba(255, 255, 255, 1);
-  }
-  
-  /* Error Message Styles */
-  .error {
-    color: #ff4d4d;
+    padding: 10px;
     font-size: 14px;
-    margin-top: 5px;
-    display: block;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Button Group Styles */
-  .button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
+
   button {
-    flex: 1;
-    padding: 12px;
-    background-color: #2575fc;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-size: 14px;
   }
-  
-  button:hover {
-    background-color: #1a5bbf;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .clear-button {
-    background-color: #ff4d4d;
-  }
-  
-  .clear-button:hover {
-    background-color: #cc0000;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 480px) {
-    .hotel-booking-container {
-      padding: 20px;
-      border-radius: 15px;
-    }
-  
-    h1 {
-      font-size: 24px;
-    }
-  
-    input, select {
-      padding: 10px;
-      font-size: 14px;
-    }
-  
-    button {
-      padding: 10px;
-      font-size: 14px;
-    }
-  }
+}
