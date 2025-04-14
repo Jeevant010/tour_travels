@@ -5,14 +5,14 @@ import Ourmain from '../hoc/Ourmain';
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
 
 const cityData = [
-  "New York", "London", "Paris", "Tokyo", "Dubai", 
-  "Sydney", "Los Angeles", "Chicago", "Toronto", "Singapore",
-  "Berlin", "Mumbai", "Hong Kong", "San Francisco", "Seoul"
+  "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Ahmedabad",
+  "Chennai", "Kolkata", "Pune", "Jaipur", "Surat",
+  "Lucknow", "Kanpur", "Nagpur", "Indore", "Thane"
 ];
 
 const hotelData = [
-  "Grand Hyatt", "Marriott", "Hilton", "InterContinental",
-  "Four Seasons", "Ritz-Carlton", "Sheraton", "Westin"
+  "Taj Mahal Palace", "Oberoi Udaivilas", "Leela Palace", "ITC Grand Chola",
+  "Trident Nariman Point", "The Lalit", "Vivanta by Taj", "Radisson Blu"
 ];
 
 const vehicleTypes = ["Car", "Bike", "Van", "SUV"];
