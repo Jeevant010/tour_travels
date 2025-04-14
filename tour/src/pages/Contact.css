@@ -31,7 +31,7 @@
 
 .contact-form-section {
   flex: 1 1 400px;
-  background-color: #f9f9f9; /* Light background for the form */
+  background-color: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
