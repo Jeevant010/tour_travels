@@ -12,7 +12,7 @@ export const makeUnauthenticatedPOSTRequest = async (route, body) => {
         const formattedResponse = await response.json();
         return formattedResponse;
     } catch (error) {
-        console.error("Error in POST request:", error);
+        console.error("Error in POST request:", error); // Log error details
         throw error;
     }
 };

@@ -12,7 +12,7 @@ const authRoutes = require("./routes/auth");
 const core = require("cors");
 
 app.use(core({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", // Replace with your frontend's URL
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
@@ -28,10 +28,7 @@ mongoose.connect(
     "mongodb+srv://Tours:" +
     process.env.MONGO_PASSWORD +
     "@cluster0.afxf5.mongodb.net/Tour_Travels?retryWrites=true&w=majority&appName=Cluster0",
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
+    {}
 )
 .then((x) => {
     console.log("connected to mongo!");
