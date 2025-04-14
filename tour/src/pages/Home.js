@@ -202,165 +202,165 @@ const handleKeyDown = (e) => {
 };
 
 const handleFormSubmit = async (e, formType, formData) => {
-          e.preventDefault();
-          setLoading(true);
-          setError(null);
-          
-          try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // In a real app, you would use actual API calls:
-            // const response = await fetch(`https://api.example.com/${formType}`, {
-            //   method: 'POST',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify(formData)
-            // });
-            
-            // if (!response.ok) throw new Error('Request failed');
-            
-            // const data = await response.json();
-            setResults({ type: formType, data: formData });
-          } catch (err) {
-            setError(err.message || 'An error occurred');
-          } finally {
-            setLoading(false);
-          }
-        };
-
-const handleFlightSubmit = async (e) => { e.preventDefault();
+  e.preventDefault();
   setLoading(true);
   setError(null);
   
   try {
-    // Replace with actual API call
-    const response = await fetch('https://api.example.com/flights', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(flightForm)
-    });
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
-    if (!response.ok) {
-      throw new Error('Wait your request has been sent to the server!');
-    }
+    // In a real app, you would use actual API calls:
+    // const response = await fetch(`https://api.example.com/${formType}`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(formData)
+    // });
     
-    const data = await response.json();
-    setResults({ type: 'flights', data });
+    // if (!response.ok) throw new Error('Request failed');
+    
+    // const data = await response.json();
+    setResults({ type: formType, data: formData });
   } catch (err) {
-    setError(err.message);
+    setError(err.message || 'An error occurred');
   } finally {
     setLoading(false);
-  } 
+  }
+};
+
+const handleFlightSubmit = async (e) => { e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+} 
 }; 
 
 const handleTrainSubmit = async (e) => { e.preventDefault();
-  setLoading(true);
-  setError(null);
-  
-  try {
-    // Replace with actual API call
-    const response = await fetch('https://api.example.com/flights', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(flightForm)
-    });
-    
-    if (!response.ok) {
-      throw new Error('Wait your request has been sent to the server!');
-    }
-    
-    const data = await response.json();
-    setResults({ type: 'flights', data });
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  } 
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+} 
 }; 
 const handleHotelSubmit = async (e) => { 
-  e.preventDefault();
-  setLoading(true);
-  setError(null);
-  
-  try {
-    // Replace with actual API call
-    const response = await fetch('https://api.example.com/flights', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(flightForm)
-    });
-    
-    if (!response.ok) {
-      throw new Error('Wait your request has been sent to the server!');
-    }
-    
-    const data = await response.json();
-    setResults({ type: 'flights', data });
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  } 
+e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+} 
 }; 
 const handleTaxiSubmit = async (e) => { 
-  e.preventDefault();
-  setLoading(true);
-  setError(null);
-  
-  try {
-  // Replace with actual API call
-  const response = await fetch('https://api.example.com/flights', {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(flightForm)
-  });
-  
-  if (!response.ok) {
-      throw new Error('Wait your request has been sent to the server!');
-  }
-  
-  const data = await response.json();
-  setResults({ type: 'flights', data });
-  } catch (err) {
-  setError(err.message);
-  } finally {
-  setLoading(false);
-  }
+e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+}
 }; 
 const handleRentalSubmit = async (e) => { 
-  e.preventDefault();
-  setLoading(true);
-  setError(null);
-  
-  try {
-  // Replace with actual API call
-  const response = await fetch('https://api.example.com/flights', {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(flightForm)
-  });
-  
-  if (!response.ok) {
-      throw new Error('Wait your request has been sent to the server!');
-  }
-  
-  const data = await response.json();
-  setResults({ type: 'flights', data });
-  } catch (err) {
-  setError(err.message);
-  } finally {
-  setLoading(false);
-  }
+e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+}
 }; 
 
 useEffect(() => {
