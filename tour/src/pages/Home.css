@@ -292,6 +292,27 @@
   transform: scale(1.05);
 }
 
+/* Train PNR Button */
+.train-pnr-button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.train-pnr-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.train-pnr-button:hover {
+  background-color: #357ab8;
+}
+
 /* Hotel Booking Form */
 .hotel-booking-form {
   display: grid;
