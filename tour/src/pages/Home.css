@@ -6,7 +6,12 @@
 /* Why Choose Us Section */
 .features {
   padding: 40px 20px;
-  background-color: #f9f9f9;
+  background-image: url('C:\\Desktop\\tours_travels\\tour\\src\\assets\\images\\Ocean.jpg'); /* Example background image */
+  background-size: cover; /* Ensure the image covers the entire area */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  height: 60vh; /* Full viewport height */
+  width: 93.8vw; /* Full viewport width */
   text-align: center;
 }
 

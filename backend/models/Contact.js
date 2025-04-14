@@ -5,19 +5,19 @@ const Contact = new mongoose.Schema({
         type: String,
         required: true,
     },
-    email: {  // Changed from Your_Email to email to match route
+    email: {  
         type: String,
         required: true,
     },
-    phone: {  // Changed from Phone_Number to phone to match route
+    phone: {  
         type: String,
         required: true,
     },
-    message: {  // Changed from Your_Message to message to match route
+    message: {  
         type: String,
         required: true,
     },
-}, { timestamps: true });  // Added timestamps for created/updated dates
+}, { timestamps: true });  
 
 const ContactModel = mongoose.model("Contact", Contact);
 
