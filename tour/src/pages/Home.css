@@ -91,32 +91,50 @@
 }
 
 .tab-button {
+  position: relative;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #f9f9f9; /* Light background for buttons */
-  color: #333; /* Dark text color */
   font-size: 1rem;
-  font-weight: bold;
+  color: #333;
+  background-color: #f9f9f9;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth hover effect */
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Space between icon and text */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: color 0.3s, background-color 0.3s;
+  overflow: hidden;
 }
 
-.tab-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  color: #fff; /* White text on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+.tab-button::before,
+.tab-button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #4a6fa5;
+  transition: width 0.3s ease;
+}
+
+.tab-button::before {
+  top: 0;
+  left: 0;
+}
+
+.tab-button::after {
+  bottom: 0;
+  right: 0;
+}
+
+.tab-button:hover::before,
+.tab-button:hover::after {
+  width: 100%;
 }
 
 .tab-button.active {
-  background-color: #077dfb; /* Highlighted color for active tab */
-  color: #fff; /* White text for active tab */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow for active tab */
-  transform: scale(1.1); /* Slightly enlarge the active tab */
+  color: #fff;
+  background-color: #4a6fa5;
+}
+
+.tab-button.active::before,
+.tab-button.active::after {
+  width: 100%;
 }
 
 .tab-content-container {
@@ -664,21 +682,50 @@
 }
 
 .tab-button {
+  position: relative;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
   color: #333;
-  font-weight: bold;
+  background-color: #f9f9f9;
+  border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  transition: color 0.3s, background-color 0.3s;
+  overflow: hidden;
+}
+
+.tab-button::before,
+.tab-button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #4a6fa5;
+  transition: width 0.3s ease;
+}
+
+.tab-button::before {
+  top: 0;
+  left: 0;
+}
+
+.tab-button::after {
+  bottom: 0;
+  right: 0;
+}
+
+.tab-button:hover::before,
+.tab-button:hover::after {
+  width: 100%;
 }
 
 .tab-button.active {
-  background-color: #077dfb;
   color: #fff;
+  background-color: #4a6fa5;
+}
+
+.tab-button.active::before,
+.tab-button.active::after {
+  width: 100%;
 }
 
 .tab-icon {
