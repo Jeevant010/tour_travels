@@ -1,63 +1,145 @@
 .my-account {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 30px auto;
-  max-width: 800px;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .account-title {
-  font-size: 2.5rem;
-  font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 2.5rem;
 }
 
 .account-details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .account-section {
-  background-color: #fff;
-  padding: 15px;
+  background: white;
+  padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .account-section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #007bff;
-}
-
-.account-section p,
-.account-section ul {
-  font-size: 1rem;
-  color: #555;
-}
-
-.account-section ul {
-  list-style: disc;
-  padding-left: 20px;
+  margin-top: 0;
+  color: #3498db;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
 }
 
 .account-button {
-  background-color: #007bff;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background: #3498db;
   color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-right: 10px;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  transition: background 0.3s;
+  text-align: center;
 }
 
 .account-button:hover {
-  background-color: #0056b3;
+  background: #2980b9;
+}
+
+.logout-button {
+  background: #e74c3c;
+}
+
+.logout-button:hover {
+  background: #c0392b;
+}
+
+.booking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.booking-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #3498db;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.booking-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.booking-status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.booking-status.confirmed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.booking-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.booking-status.cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.booking-date, .booking-reference {
+  margin: 0.25rem 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.no-bookings {
+  text-align: center;
+  padding: 1rem;
+  color: #6c757d;
+}
+
+.explore-tours-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.explore-tours-link:hover {
+  text-decoration: underline;
+}
+
+.loading-message, .error-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.error-message {
+  color: #e74c3c;
 }

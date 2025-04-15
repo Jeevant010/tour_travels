@@ -27,7 +27,7 @@
   },
   "homepage": "https:Jeevant010.github.io/tour_travels>",
   "scripts": {
-    "start": "craco start",
+    "sanket": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
