@@ -270,7 +270,6 @@ function Home() {
         throw new Error('No flights found for your search criteria');
       }
 
-      // Process flight data
       const processedFlights = response.data.data.map(flight => ({
         id: flight.flight.number,
         airline: flight.airline.name,
@@ -383,7 +382,7 @@ function Home() {
     }
   };
 
-  const handleRentalSubmit = async (e) => { 
+  const handleFormSubmit = async (e) => { 
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -941,5 +940,381 @@ return (
     </div>
   );
 }
+
+export default Ourmain(Home);
+
+
+import React, { useState, useRef, useEffect } from 'react';
+import './Home.css';
+import axios from 'axios';
+import Explore from '../Components/Explore';
+import Ourmain from '../hoc/Ourmain';
+import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
+
+// Constants moved outside component
+const CITY_DATA = [
+  { name: "Mumbai", code: "BOM" },
+  { name: "Delhi", code: "DEL" },
+  { name: "Bangalore", code: "BLR" },
+  { name: "Hyderabad", code: "HYD" },
+  { name: "Chennai", code: "MAA" },
+  { name: "Kolkata", code: "CCU" },
+  { name: "Ahmedabad", code: "AMD" },
+  { name: "Pune", code: "PNQ" },
+  { name: "Jaipur", code: "JAI" },
+  { name: "Lucknow", code: "LKO" }
+];
+
+const HOTEL_DATA = [
+  "Grand Hyatt", "Marriott", "Hilton", "InterContinental",
+  "Four Seasons", "Ritz-Carlton", "Sheraton", "Westin"
+];
+
+const VEHICLE_TYPES = ["Car", "Bike", "Van", "SUV"];
+
+const STATE_DATA = [
+  "Haryana", "Bihar", "Uttar Pradesh", "Gujarat", "Maharashtra",
+  "Rajasthan", "Punjab", "Karnataka", "Tamil Nadu", "West Bengal",
+  "Kerala", "Madhya Pradesh", "Andhra Pradesh", "Odisha", "Assam",
+  "Jharkhand", "Chhattisgarh", "Himachal Pradesh", "Goa", "Telangana"
+];
+
+// Form initial states
+const INITIAL_FLIGHT_FORM = {
+  departureFrom: '',
+  departureFromName: '',
+  goingTo: '',
+  goingToName: '',
+  departureDate: '',
+  returnDate: '',
+  travelers: 1,
+  class: 'economy'
+};
+
+const INITIAL_TRAIN_FORM = {
+  departureFrom: '',
+  goingTo: '',
+  departureDate: '',
+  acType: 'sleeper'
+};
+
+// ... other initial form states
+
+function Home() {
+  // State management
+  const [activeTab, setActiveTab] = useState('flights');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [results, setResults] = useState(null);
+  
+  // Autocomplete state
+  const [suggestions, setSuggestions] = useState([]);
+  const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [currentField, setCurrentField] = useState('');
+  const [suggestionPosition, setSuggestionPosition] = useState({ top: 0, left: 0, width: 0 });
+  
+  // Form states
+  const [flightForm, setFlightForm] = useState(INITIAL_FLIGHT_FORM);
+  const [trainForm, setTrainForm] = useState(INITIAL_TRAIN_FORM);
+  // ... other form states
+
+  const inputRefs = useRef({});
+
+  // Helper functions
+  const getSuggestions = (field, value) => {
+    const valueLower = value.toLowerCase();
+    
+    switch(field) {
+      case 'departureFrom':
+      case 'goingTo':
+        return CITY_DATA.filter(item => 
+          item.name.toLowerCase().includes(valueLower) ||
+          item.code.toLowerCase().includes(valueLower)
+          .slice(0, 5); // Limit suggestions
+      
+      case 'location':
+      case 'pickupLocation':
+      case 'dropLocation':
+      case 'city':
+        return CITY_DATA
+          .map(city => city.name)
+          .filter(name => name.toLowerCase().includes(valueLower))
+          .slice(0, 5);
+      
+      case 'vehicleType':
+        return VEHICLE_TYPES.filter(type => 
+          type.toLowerCase().includes(valueLower));
+      
+      default:
+        return [];
+    }
+  };
+
+  // Event handlers
+  const handleInputChange = (e, field, formType) => {
+    const value = e.target.value;
+    handleChange(formType, field)(e);
+    
+    setCurrentField(field);
+    const newSuggestions = getSuggestions(field, value);
+    setSuggestions(newSuggestions);
+    
+    if (inputRefs.current[field]) {
+      const rect = inputRefs.current[field].getBoundingClientRect();
+      setSuggestionPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX,
+        width: rect.width
+      });
+    }
+    
+    setShowSuggestions(value.length > 0 && newSuggestions.length > 0);
+  };
+
+  const handleSuggestionClick = (value) => {
+    const formSetters = {
+      flights: setFlightForm,
+      trains: setTrainForm,
+      // ... other form setters
+    };
+    
+    const formState = {
+      flights: flightForm,
+      trains: trainForm,
+      // ... other form states
+    };
+    
+    const update = {...formState[activeTab]};
+    
+    if (['departureFrom', 'goingTo'].includes(currentField)) {
+      update[currentField] = value.code;
+      update[`${currentField}Name`] = value.name;
+    } else {
+      update[currentField] = value;
+    }
+    
+    formSetters[activeTab](update);
+    setShowSuggestions(false);
+  };
+
+  // API handlers
+  const handleFlightSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Validate form
+      if (!flightForm.departureFrom || !flightForm.goingTo) {
+        throw new Error('Please select departure and destination');
+      }
+      
+      // API call
+      const response = await axios.get('https://api.example.com/flights', {
+        params: {
+          from: flightForm.departureFrom,
+          to: flightForm.goingTo,
+          date: flightForm.departureDate,
+          passengers: flightForm.travelers,
+          class: flightForm.class
+        }
+      });
+      
+      setResults({
+        type: 'flights',
+        data: response.data.map(flight => ({
+          id: flight.id,
+          airline: flight.airline,
+          departure: flight.departure,
+          arrival: flight.arrival,
+          price: flight.price
+        }))
+      });
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || 'Flight search failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ... other form submit handlers
+
+  // Tab rendering
+  const renderTabContent = () => {
+    if (loading) return <div className="loading-spinner">Loading...</div>;
+    if (error) return <div className="error-message">{error}</div>;
+
+    switch (activeTab) {
+      case 'flights':
+        return (
+          <div className="tab-content">
+            <h3>Flight Booking</h3>
+            <form onSubmit={handleFlightSubmit}>
+              {/* Flight form fields */}
+              <button type="submit" className="submit-button">
+                Search Flights
+              </button>
+            </form>
+            
+            {results?.type === 'flights' && (
+              <FlightResults flights={results.data} />
+            )}
+          </div>
+        );
+      
+      // ... other tab cases
+      
+      default:
+        return null;
+    }
+  };
+
+  // Component cleanup
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.suggestions-container') && 
+          !e.target.closest('.form-group input')) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div className="home">
+      <section className="booking-tabs">
+        <h2>Book Your Travel</h2>
+        
+        <div className="tabs">
+          {['flights', 'trains', 'hotels', 'taxi', 'rentals'].map((tab) => (
+            <TabButton 
+              key={tab}
+              tab={tab}
+              activeTab={activeTab}
+              onClick={() => {
+                setActiveTab(tab);
+                setResults(null);
+                setError(null);
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="tab-content-container">
+          {renderTabContent()}
+          
+          <SuggestionsDropdown 
+            show={showSuggestions}
+            position={suggestionPosition}
+            suggestions={suggestions}
+            activeIndex={activeSuggestion}
+            onSelect={handleSuggestionClick}
+            isCityField={['departureFrom', 'goingTo'].includes(currentField)}
+          />
+        </div>
+      </section>
+      
+      <Explore />
+      
+      <FeaturesSection />
+    </div>
+  );
+}
+
+// Extracted components
+const TabButton = ({ tab, activeTab, onClick }) => {
+  const icons = {
+    flights: <FaPlane className="tab-icon" />,
+    trains: <FaTrain className="tab-icon" />,
+    hotels: <FaHotel className="tab-icon" />,
+    taxi: <FaTaxi className="tab-icon" />,
+    rentals: <FaCar className="tab-icon" />
+  };
+  
+  return (
+    <button
+      className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+      onClick={onClick}
+    >
+      {icons[tab]}
+      {tab.charAt(0).toUpperCase() + tab.slice(1)}
+    </button>
+  );
+};
+
+const SuggestionsDropdown = ({ show, position, suggestions, activeIndex, onSelect, isCityField }) => {
+  if (!show || !suggestions.length) return null;
+  
+  return (
+    <div 
+      className="suggestions-container"
+      style={{
+        position: 'absolute',
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+        width: `${position.width}px`,
+        zIndex: 1000
+      }}
+    >
+      <div className="suggestions-scroller">
+        {suggestions.map((suggestion, index) => (
+          <div
+            key={isCityField ? suggestion.code : suggestion}
+            className={`suggestion-item ${index === activeIndex ? 'active' : ''}`}
+            onClick={() => onSelect(suggestion)}
+          >
+            {isCityField ? `${suggestion.name} (${suggestion.code})` : suggestion}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const FlightResults = ({ flights }) => (
+  <div className="flight-results">
+    <h3>Available Flights</h3>
+    {flights.length > 0 ? (
+      <div className="flight-list">
+        {flights.map(flight => (
+          <FlightCard key={flight.id} flight={flight} />
+        ))}
+      </div>
+    ) : (
+      <p>No flights found</p>
+    )}
+  </div>
+);
+
+const FlightCard = ({ flight }) => (
+  <div className="flight-card">
+    {/* Flight card content */}
+  </div>
+);
+
+const FeaturesSection = () => (
+  <section className="features">
+    <h2>Why Choose Us?</h2>
+    <div className="feature-list">
+      <FeatureItem 
+        icon={<FaUserTie />}
+        title="Expert Guides"
+        text="Our experienced guides ensure you have the best travel experience."
+      />
+      {/* Other feature items */}
+    </div>
+  </section>
+);
+
+const FeatureItem = ({ icon, title, text }) => (
+  <div className="feature-item">
+    <div className="feature-icon">{icon}</div>
+    <h3>{title}</h3>
+    <p>{text}</p>
+  </div>
+);
 
 export default Ourmain(Home);
