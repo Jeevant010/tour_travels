@@ -1,7 +1,6 @@
 import './Footer.css';
 import { useState, useEffect } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
-import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 const popularDestinations = [
   { name: 'Goa', path: '/goa' },
@@ -49,27 +48,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links - Mobile Accordion */}
-          <div className="md:hidden">
-            <button
-              className="flex justify-between items-center w-full py-2 text-left"
-              aria-expanded="false"
-            >
-              <h3 className="text-lg font-semibold text-amber-400">Quick Links</h3>
-            </button>
-            <ul className="mt-2 space-y-2 pl-4">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.path}
-                    className="text-gray-300 hover:text-amber-400 transition-colors duration-300"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+         
 
           {/* Quick Links - Desktop */}
           <div className="hidden md:block">
