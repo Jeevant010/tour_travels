@@ -1,5 +1,11 @@
 .home {
   font-family: Arial, sans-serif;
+  background-image: url('../assets/images/Ocean.jpg'); /* Correct relative path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: white; /* Ensure text is visible on the background */
   padding: 20px;
 }
 
