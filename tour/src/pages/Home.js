@@ -18,6 +18,13 @@ const hotelData = [
 
 const vehicleTypes = ["Car", "Bike", "Van", "SUV"];
 
+const stateData = [
+  "Haryana", "Bihar", "Uttar Pradesh", "Gujarat", "Maharashtra",
+  "Rajasthan", "Punjab", "Karnataka", "Tamil Nadu", "West Bengal",
+  "Kerala", "Madhya Pradesh", "Andhra Pradesh", "Odisha", "Assam",
+  "Jharkhand", "Chhattisgarh", "Himachal Pradesh", "Goa", "Telangana"
+];
+
 function Home() {
   const [activeTab, setActiveTab] = useState('flights');
   const [loading, setLoading] = useState(false);
@@ -681,17 +688,18 @@ return (
     <h3>Rental Services</h3>
     <form onSubmit={(e) => handleFormSubmit(e, 'rentals', rentalForm)}>
     <div className="form-row">
-      <div className="form-group relative">
+      <div className="form-group">
         <label>State:</label>
-        <input
-          ref={el => inputRefs.current.state = el}
-          type="text"
-          placeholder="Enter state"
+        <select
           value={rentalForm.state}
-          onChange={(e) => handleInputChange(e, 'state', 'rentals')}
-          onFocus={(e) => handleInputChange(e, 'state', 'rentals')}
-          onKeyDown={handleKeyDown}
-        />
+          onChange={handleChange('rentals', 'state')}
+          required
+        >
+          <option value="" disabled>Select State</option>
+          {stateData.map((state) => (
+            <option key={state} value={state}>{state}</option>
+          ))}
+        </select>
       </div>
       
       <div className="form-group relative">
