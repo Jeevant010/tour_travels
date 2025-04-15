@@ -26,6 +26,13 @@ const hotelData = [
 
 const vehicleTypes = ["Car", "Bike", "Van", "SUV"];
 
+const stateData = [
+  "Haryana", "Bihar", "Uttar Pradesh", "Gujarat", "Maharashtra",
+  "Rajasthan", "Punjab", "Karnataka", "Tamil Nadu", "West Bengal",
+  "Kerala", "Madhya Pradesh", "Andhra Pradesh", "Odisha", "Assam",
+  "Jharkhand", "Chhattisgarh", "Himachal Pradesh", "Goa", "Telangana"
+];
+
 function Home() {
   const [activeTab, setActiveTab] = useState('flights');
   const [loading, setLoading] = useState(false);
