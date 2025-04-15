@@ -1,6 +1,6 @@
 .home {
   font-family: Arial, sans-serif;
-  background-image: url('../assets/images/Ocean.jpg'); /* Correct relative path */
+  background-image: url('shttps://images.pexels.com/photos/1165981/pexels-photo-1165981.jpeg?auto=compress&cs=tinysrgb&w=600'); /* Correct relative path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,7 +12,7 @@
 /* Why Choose Us Section */
 .features {
   padding: 40px 20px;
-  background-image: url('C:\\Desktop\\tours_travels\\tour\\src\\assets\\images\\Ocean.jpg'); /* Example background image */
+  background-image: url('https://images.pexels.com/photos/632522/pexels-photo-632522.jpeg?auto=compress&cs=tinysrgb&w=600'); /* Example background image */
   background-size: cover; /* Ensure the image covers the entire area */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent the image from repeating */
