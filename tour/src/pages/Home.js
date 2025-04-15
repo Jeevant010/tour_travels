@@ -26,6 +26,13 @@ const hotelData = [
 
 const vehicleTypes = ["Car", "Bike", "Van", "SUV"];
 
+const stateData = [
+  "Haryana", "Bihar", "Uttar Pradesh", "Gujarat", "Maharashtra",
+  "Rajasthan", "Punjab", "Karnataka", "Tamil Nadu", "West Bengal",
+  "Kerala", "Madhya Pradesh", "Andhra Pradesh", "Odisha", "Assam",
+  "Jharkhand", "Chhattisgarh", "Himachal Pradesh", "Goa", "Telangana"
+];
+
 function Home() {
   const [activeTab, setActiveTab] = useState('flights');
   const [loading, setLoading] = useState(false);
@@ -761,39 +768,40 @@ function Home() {
           </div>
         );
 
-      case 'rentals':
-        return (
-          <div className="tab-content">
-            <h3>Rental Services</h3>
-            <form onSubmit={handleRentalSubmit}>
-              <div className="form-row">
-                <div className="form-group relative">
-                  <label>State:</label>
-                  <input
-                    ref={el => inputRefs.current.state = el}
-                    type="text"
-                    placeholder="Enter state"
-                    value={rentalForm.state}
-                    onChange={(e) => handleInputChange(e, 'state', 'rentals')}
-                    onFocus={(e) => handleInputChange(e, 'state', 'rentals')}
-                    onKeyDown={handleKeyDown}
-                  />
-                </div>
-                
-                <div className="form-group relative">
-                  <label>City:</label>
-                  <input
-                    ref={el => inputRefs.current.city = el}
-                    type="text"
-                    placeholder="Enter city"
-                    value={rentalForm.city}
-                    onChange={(e) => handleInputChange(e, 'city', 'rentals')}
-                    onFocus={(e) => handleInputChange(e, 'city', 'rentals')}
-                    onKeyDown={handleKeyDown}
-                    required
-                  />
-                </div>
-              </div>
+case 'rentals':
+return (
+  <div className="tab-content">
+    <h3>Rental Services</h3>
+    <form onSubmit={(e) => handleFormSubmit(e, 'rentals', rentalForm)}>
+    <div className="form-row">
+      <div className="form-group">
+        <label>State:</label>
+        <select
+          value={rentalForm.state}
+          onChange={handleChange('rentals', 'state')}
+          required
+        >
+          <option value="" disabled>Select State</option>
+          {stateData.map((state) => (
+            <option key={state} value={state}>{state}</option>
+          ))}
+        </select>
+      </div>
+      
+      <div className="form-group relative">
+        <label>City:</label>
+        <input
+          ref={el => inputRefs.current.city = el}
+          type="text"
+          placeholder="Enter city"
+          value={rentalForm.city}
+          onChange={(e) => handleInputChange(e, 'city', 'rentals')}
+          onFocus={(e) => handleInputChange(e, 'city', 'rentals')}
+          onKeyDown={handleKeyDown}
+          required
+        />
+      </div>
+      </div>
 
               <div className="form-row">
                 <div className="form-group">

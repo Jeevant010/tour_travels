@@ -1,11 +1,18 @@
 .home {
   font-family: Arial, sans-serif;
+  background-image: url('shttps://images.pexels.com/photos/1165981/pexels-photo-1165981.jpeg?auto=compress&cs=tinysrgb&w=600'); /* Correct relative path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: white; /* Ensure text is visible on the background */
   padding: 20px;
 }
 
 /* Why Choose Us Section */
 .features {
   padding: 40px 20px;
+  background-image: url('https://images.pexels.com/photos/632522/pexels-photo-632522.jpeg?auto=compress&cs=tinysrgb&w=600'); /* Example background image */
   background-size: cover; /* Ensure the image covers the entire area */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent the image from repeating */
