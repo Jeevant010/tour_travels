@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
 import '../Contact.css';
-import Ourmain from '../hoc/Ourmain'; // Import the Ourmain HOC
+import Ourmain from '../hoc/Ourmain';
 
 function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
+    My_Name: '',  
     email: '',
     phone: '',
     message: '',
@@ -13,38 +12,42 @@ function Contact() {
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
 
-    emailjs
-      .send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-        {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
+    try {
+      const response = await fetch('http://localhost:8080/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        'YOUR_USER_ID' // Replace with your EmailJS user ID
-      )
-      .then(
-        (response) => {
-          setSuccessMessage('Your message has been sent successfully!');
-          setErrorMessage('');
-          setFormData({ name: '', email: '', phone: '', message: '' });
-        },
-        (error) => {
-          setErrorMessage('Failed to send your message. Please try again later.');
-          setSuccessMessage('');
-        }
-      );
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send your message.');
+      }
+
+      setSuccessMessage('Your message has been sent successfully!');
+      setFormData({ My_Name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      console.error('Submission error:', error);
+      setErrorMessage(error.message || 'Failed to send your message. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -58,12 +61,12 @@ function Contact() {
           <h2>Send Us a Message</h2>
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Your Name:</label>
+              <label htmlFor="My_Name">Your Name:</label>  {/* Changed id to My_Name */}
               <input
                 type="text"
-                id="name"
+                id="My_Name"
                 placeholder="Enter your name"
-                value={formData.name}
+                value={formData.My_Name}
                 onChange={handleChange}
                 required
               />
@@ -99,7 +102,13 @@ function Contact() {
                 required
               ></textarea>
             </div>
-            <button type="submit" className="submit-button">Submit</button>
+            <button 
+              type="submit" 
+              className="submit-button"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Sending...' : 'Submit'}
+            </button>
           </form>
           {successMessage && <p className="success-message">{successMessage}</p>}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -121,4 +130,4 @@ function Contact() {
   );
 }
 
-export default Ourmain(Contact); // Wrap the Contact component with Ourmain
+export default Ourmain(Contact);

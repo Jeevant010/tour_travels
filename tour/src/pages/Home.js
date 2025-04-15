@@ -469,69 +469,81 @@ const renderTabContent = () => {
 );
 
 case 'trains':
-return (
-  <div className="tab-content">
-    <h3>Train Booking</h3>
-    <form onSubmit={(e) => handleFormSubmit(e, 'trains', trainForm)}>
-    <div className="form-row">
-      <div className="form-group relative">
-        <label>Departure From:</label>
-        <input
-          ref={el => inputRefs.current.departureFrom = el}
-          type="text"
-          placeholder="Enter departure city"
-          value={trainForm.departureFrom}
-          onChange={(e) => handleInputChange(e, 'departureFrom', 'trains')}
-          onFocus={(e) => handleInputChange(e, 'departureFrom', 'trains')}
-          onKeyDown={handleKeyDown}
-          required
-        />
-      </div>
-      
-      <div className="form-group relative">
-        <label>Going To:</label>
-        <input
-          ref={el => inputRefs.current.goingTo = el}
-          type="text"
-          placeholder="Enter destination city"
-          value={trainForm.goingTo}
-          onChange={(e) => handleInputChange(e, 'goingTo', 'trains')}
-          onFocus={(e) => handleInputChange(e, 'goingTo', 'trains')}
-          onKeyDown={handleKeyDown}
-          required
-        />
-      </div>
-      </div>
+  return (
+    <div className="tab-content">
+      <h3>Train Booking</h3>
+      <form onSubmit={(e) => handleFormSubmit(e, 'trains', trainForm)}>
+        <div className="form-row">
+          <div className="form-group relative">
+            <label>Departure From:</label>
+            <input
+              ref={(el) => (inputRefs.current.departureFrom = el)}
+              type="text"
+              placeholder="Enter departure city"
+              value={trainForm.departureFrom}
+              onChange={(e) => handleInputChange(e, 'departureFrom', 'trains')}
+              onFocus={(e) => handleInputChange(e, 'departureFrom', 'trains')}
+              onKeyDown={handleKeyDown}
+              required
+            />
+          </div>
 
-      <div className="form-row">
-      <div className="form-group">
-        <label>Departure Date:</label>
-        <input
-          type="date"
-          value={trainForm.departureDate}
-          onChange={handleChange('trains', 'departureDate')}
-          required
-        />
-      </div>
-      
-      <div className="form-group">
-        <label>AC Type:</label>
-        <select
-          value={trainForm.acType}
-          onChange={handleChange('trains', 'acType')}
-        >
-          <option value="sleeper">Sleeper</option>
-          <option value="ac1">AC 1st Class</option>
-          <option value="ac2">AC 2nd Class</option>
-          <option value="ac3">AC 3rd Class</option>
-        </select>
+          <div className="form-group relative">
+            <label>Going To:</label>
+            <input
+              ref={(el) => (inputRefs.current.goingTo = el)}
+              type="text"
+              placeholder="Enter destination city"
+              value={trainForm.goingTo}
+              onChange={(e) => handleInputChange(e, 'goingTo', 'trains')}
+              onFocus={(e) => handleInputChange(e, 'goingTo', 'trains')}
+              onKeyDown={handleKeyDown}
+              required
+            />
+          </div>
         </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label>Departure Date:</label>
+            <input
+              type="date"
+              value={trainForm.departureDate}
+              onChange={handleChange('trains', 'departureDate')}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>AC Type:</label>
+            <select
+              value={trainForm.acType}
+              onChange={handleChange('trains', 'acType')}
+            >
+              <option value="sleeper">Sleeper</option>
+              <option value="ac1">AC 1st Class</option>
+              <option value="ac2">AC 2nd Class</option>
+              <option value="ac3">AC 3rd Class</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" className="submit-button">
+          Search Trains
+        </button>
+      </form>
+
+      {/* Train PNR Button */}
+      <div className="train-pnr-button-container">
+        <button
+          className="train-pnr-button"
+          onClick={() => window.location.href = '/trainPnr'} // Redirect to TrainPnr page
+        >
+          Check Train PNR Status
+        </button>
       </div>
-      
-      <button type="submit" className="submit-button">Search Trains</button>
-    </form>
-  </div>
-);
+    </div>
+  );
 
 case 'hotels':
 return (

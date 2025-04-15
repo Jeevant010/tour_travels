@@ -82,7 +82,11 @@ class PNRComponent extends React.Component {
             <div className="luxury-app">
                 <div className="luxury-header">
                     <div className="logo-container">
-                        <img src="https://via.placeholder.com/50x50" alt="Railway Logo" className="logo" />
+                        <img 
+                            src="https://t4.ftcdn.net/jpg/11/84/41/07/240_F_1184410703_n4GoBqQYn5lGN2ja78z81nbJl3hzEhoy.jpg" 
+                            alt="Railway Logo" 
+                            className="logo" 
+                        />
                         <h1>Premier Rail Enquiries</h1>
                     </div>
                     <div className="header-decoration"></div>

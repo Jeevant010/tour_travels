@@ -6,7 +6,12 @@
 /* Why Choose Us Section */
 .features {
   padding: 40px 20px;
-  background-color: #f9f9f9;
+  background-image: url('C:\\Desktop\\tours_travels\\tour\\src\\assets\\images\\Ocean.jpg'); /* Example background image */
+  background-size: cover; /* Ensure the image covers the entire area */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  height: 60vh; /* Full viewport height */
+  width: 93.8vw; /* Full viewport width */
   text-align: center;
 }
 
@@ -290,6 +295,27 @@
 .train-booking-form .submit-button:hover {
   background-color: #4a148c; /* Darker purple on hover */
   transform: scale(1.05);
+}
+
+/* Train PNR Button */
+.train-pnr-button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.train-pnr-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.train-pnr-button:hover {
+  background-color: #357ab8;
 }
 
 /* Hotel Booking Form */
