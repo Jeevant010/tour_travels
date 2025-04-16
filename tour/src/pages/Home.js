@@ -796,58 +796,58 @@ return (
   ))}
 </div>
 
-<div className="tab-content-container">
-  {renderTabContent()}
-  
-  {showSuggestions && suggestions.length > 0 && (
-    <div 
-      className="suggestions-container"
-      style={{
-        position: 'absolute',
-        top: `${suggestionPosition.top}px`,
-        left: `${suggestionPosition.left}px`,
-        width: `${suggestionPosition.width}px`
-      }}
-    >
-      <div className="suggestions-scroller">
-        {suggestions.map((suggestion, index) => (
-          <div
-            key={suggestion}
-            className={`suggestion-item ${index === activeSuggestion ? 'active' : ''}`}
-            onClick={() => handleSuggestionClick(suggestion)}
-          >
-            {suggestion}
+        <div className="tab-content-container">
+          {renderTabContent()}
+          
+          {showSuggestions && suggestions.length > 0 && (
+            <div 
+              className="suggestions-container"
+              style={{
+                position: 'absolute',
+                top: `${suggestionPosition.top}px`,
+                left: `${suggestionPosition.left}px`,
+                width: `${suggestionPosition.width}px`
+              }}
+            >
+              <div className="suggestions-scroller">
+                {suggestions.map((suggestion, index) => (
+                  <div
+                    key={currentField === 'departureFrom' || currentField === 'goingTo' ? suggestion.code : suggestion}
+                    className={`suggestion-item ${index === activeSuggestion ? 'active' : ''}`}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {currentField === 'departureFrom' || currentField === 'goingTo' ? 
+                      `${suggestion.name} (${suggestion.code})` : suggestion}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+      <Explore />
+      <section className="features">
+        <h2>Why Choose Us?</h2>
+        <div className="feature-list">
+          <div className="feature-item">
+            <FaUserTie className="feature-icon" />
+            <h3>Expert Guides</h3>
+            <p>Our experienced guides ensure you have the best travel experience.</p>
           </div>
-        ))}
-      </div>
+          <div className="feature-item">
+            <FaDollarSign className="feature-icon" />
+            <h3>Affordable Packages</h3>
+            <p>We offer competitive pricing without compromising on quality.</p>
+          </div>  
+          <div className="feature-item">
+            <FaHeadset className="feature-icon" />
+            <h3>24/7 Support</h3>
+            <p>Our team is here to assist you anytime, anywhere.</p>
+          </div>
+        </div>
+      </section>
     </div>
-  )}
-</div>
-</section>
- <Explore />
-<section className="features">
-<h2>Why Choose Us?</h2>
-<div className="feature-list">
-  <div className="feature-item">
-    <FaUserTie className="feature-icon" />
-    <h3>Expert Guides</h3>
-    <p>Our experienced guides ensure you have the best travel experience.</p>
-  </div>
-  <div className="feature-item">
-    <FaDollarSign className="feature-icon" />
-    <h3>Affordable Packages</h3>
-    <p>We offer competitive pricing without compromising on quality.</p>
-  </div>
-  <div className="feature-item">
-    <FaHeadset className="feature-icon" />
-    <h3>24/7 Support</h3>
-    <p>Our team is here to assist you anytime, anywhere.</p>
-  </div>
-</div>
-</section>
-</div>
-);
+  );
 }
-
 
 export default Ourmain(Home);
