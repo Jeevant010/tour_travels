@@ -5,11 +5,305 @@ import Ourmain from '../hoc/Ourmain';
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
 
 const cityData = [
-  "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai",
-  "Kolkata", "Ahmedabad", "Pune", "Jaipur", "Surat",
-  "Lucknow", "Kanpur", "Nagpur", "Indore", "Bhopal",
-  "Patna", "Vadodara", "Ludhiana", "Agra", "Varanasi"
+  { name: "Mumbai", code: "BOM" },
+  { name: "Delhi", code: "DEL" },
+  { name: "Bangalore", code: "BLR" },
+  { name: "Hyderabad", code: "HYD" },
+  { name: "Chennai", code: "MAA" },
+  { name: "Kolkata", code: "CCU" },
+  { name: "Ahmedabad", code: "AMD" },
+  { name: "Pune", code: "PNQ" },
+  { name: "Jaipur", code: "JAI" },
+  { name: "Surat", code: "STV" },
+  { name: "Lucknow", code: "LKO" },
+  { name: "Kanpur", code: "KNU" },
+  { name: "Nagpur", code: "NAG" },
+  { name: "Indore", code: "IDR" },
+  { name: "Bhopal", code: "BHO" },
+  { name: "Patna", code: "PAT" },
+  { name: "Vadodara", code: "BDQ" },
+  { name: "Ludhiana", code: "LUH" },
+  { name: "Agra", code: "AGR" },
+  { name: "Varanasi", code: "VNS" },
+  { name: "Goa", code: "GOI" },
+  { name: "Coimbatore", code: "CJB" },
+  { name: "Kochi", code: "COK" },
+  { name: "Trivandrum", code: "TRV" },
+  { name: "Guwahati", code: "GAU" },
+  { name: "Bhubaneswar", code: "BBI" },
+  { name: "Amritsar", code: "ATQ" },
+  { name: "Chandigarh", code: "IXC" },
+  { name: "Dehradun", code: "DED" },
+  { name: "Ranchi", code: "IXR" },
+  { name: "Raipur", code: "RPR" },
+  { name: "Visakhapatnam", code: "VTZ" },
+  { name: "Tiruchirappalli", code: "TRZ" },
+  { name: "Madurai", code: "IXM" },
+  { name: "Mangalore", code: "IXE" },
+  { name: "Vijayawada", code: "VGA" },
+  { name: "Rajkot", code: "RAJ" },
+  { name: "Jodhpur", code: "JDH" },
+  { name: "Udaipur", code: "UDR" },
+  { name: "Leh", code: "IXL" },
+  { name: "Srinagar", code: "SXR" },
+  { name: "Jammu", code: "IXJ" },
+  { name: "Imphal", code: "IMF" },
+  { name: "Agartala", code: "IXA" },
+  { name: "Shillong", code: "SHL" },
+  { name: "Aizawl", code: "AJL" },
+  { name: "Dimapur", code: "DMU" },
+  { name: "Silchar", code: "IXS" },
+  { name: "Dibrugarh", code: "DIB" },
+  { name: "Jorhat", code: "JRH" },
+  { name: "Port Blair", code: "IXZ" },
+  { name: "Belgaum", code: "IXG" },
+  { name: "Hubli", code: "HBX" },
+  { name: "Aurangabad", code: "IXU" },
+  { name: "Kolhapur", code: "KLH" },
+  { name: "Nashik", code: "ISK" },
+  { name: "Shirdi", code: "SAG" },
+  { name: "Gwalior", code: "GWL" },
+  { name: "Jabalpur", code: "JLR" },
+  { name: "Allahabad", code: "IXD" },
+  { name: "Gorakhpur", code: "GOP" },
+  { name: "Bareilly", code: "BEK" },
+  { name: "Bhagalpur", code: "BGP" },
+  { name: "Gaya", code: "GAY" },
+  { name: "Darbhanga", code: "DBR" },
+  { name: "Jamshedpur", code: "IXW" },
+  { name: "Durgapur", code: "RDP" },
+  { name: "Siliguri", code: "IXB" },
+  { name: "Cooch Behar", code: "COH" },
+  { name: "Bhavnagar", code: "BHU" },
+  { name: "Jamnagar", code: "JGA" },
+  { name: "Kandla", code: "IXY" },
+  { name: "Bhuj", code: "BHJ" },
+  { name: "Porbandar", code: "PBD" },
+  { name: "Diu", code: "DIU" },
+  { name: "Keshod", code: "IXK" },
+  { name: "Pondicherry", code: "PNY" },
+  { name: "Salem", code: "SXV" },
+  { name: "Tuticorin", code: "TCR" },
+  { name: "Neyveli", code: "NVY" },
+  { name: "Hosur", code: "HOX" },
+  { name: "Bellary", code: "BEP" },
+  { name: "Mysore", code: "MYQ" },
+  { name: "Kozhikode", code: "CCJ" },
+  { name: "Kannur", code: "CNN" },
+  { name: "Thiruvananthapuram", code: "TRV" },
+  { name: "Kottayam", code: "KTY" },
+  { name: "Agatti Island", code: "AGX" },
+  { name: "Kullu", code: "KUU" },
+  { name: "Shimla", code: "SLV" },
+  { name: "Dharamshala", code: "DHM" },
+  { name: "Pathankot", code: "IXP" },
+  { name: "Bhatinda", code: "BUP" },
+  { name: "Sahnewal", code: "LUH" },
+  { name: "Pantnagar", code: "PGH" },
+  { name: "Pithoragarh", code: "NNS" },
+  { name: "Jaisalmer", code: "JSA" },
+  { name: "Kota", code: "KTU" },
+  { name: "Kishangarh", code: "KQH" },
+  { name: "Bikaner", code: "BKB" },
+  { name: "Jharsuguda", code: "JRG" },
+  { name: "Rourkela", code: "RRK" },
+  { name: "Jeypore", code: "PYB" },
+  { name: "Vishakhapatnam", code: "VTZ" },
+  { name: "Rajahmundry", code: "RJA" },
+  { name: "Tirupati", code: "TIR" },
+  { name: "Kadapa", code: "CDP" },
+  { name: "Warangal", code: "WGC" },
+  { name: "Nanded", code: "NDC" },
+  { name: "Solapur", code: "SSE" },
+  { name: "Gulbarga", code: "GBI" },
+  { name: "Bidar", code: "IXX" },
+  { name: "Sholapur", code: "SSE" },
+  { name: "Latur", code: "LTU" },
+  { name: "Nanded", code: "NDC" },
+  { name: "Akola", code: "AKD" },
+  { name: "Gondia", code: "GDB" },
+  { name: "Jalgaon", code: "JLQ" },
+  { name: "Nandurbar", code: "NDB" },
+  { name: "Ratnagiri", code: "RTC" },
+  { name: "Sindhudurg", code: "SDW" }
 ];
+
+const indianStates = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal"
+];
+
+const indianAirports = [
+  "Indira Gandhi International Airport (Delhi, Delhi)",
+  "Chhatrapati Shivaji Maharaj International Airport (Mumbai, Maharashtra)",
+  "Kempegowda International Airport (Bengaluru, Karnataka)",
+  "Netaji Subhas Chandra Bose International Airport (Kolkata, West Bengal)",
+  "Chennai International Airport (Chennai, Tamil Nadu)",
+  "Rajiv Gandhi International Airport (Hyderabad, Telangana)",
+  "Sardar Vallabhbhai Patel International Airport (Ahmedabad, Gujarat)",
+  "Cochin International Airport (Kochi, Kerala)",
+  "Mangaluru International Airport (Mangaluru, Karnataka)",
+  "Goa International Airport (Dabolim, Goa)",
+  "Pune International Airport (Pune, Maharashtra)",
+  "Jaipur International Airport (Jaipur, Rajasthan)",
+  "Lucknow International Airport (Lucknow, Uttar Pradesh)",
+  "Chandigarh International Airport (Chandigarh, Chandigarh)",
+  "Thiruvananthapuram International Airport (Thiruvananthapuram, Kerala)",
+  "Srinagar International Airport (Srinagar, Jammu and Kashmir)",
+  "Madurai International Airport (Madurai, Tamil Nadu)",
+  "Vadodara Airport (Vadodara, Gujarat)",
+  "Surat International Airport (Surat, Gujarat)",
+  "Bhopal Raja Bhoj Airport (Bhopal, Madhya Pradesh)",
+  "Indore Devi Ahilyabai Holkar Airport (Indore, Madhya Pradesh)",
+  "Nagpur Dr. Babasaheb Ambedkar International Airport (Nagpur, Maharashtra)",
+  "Gaya International Airport (Gaya, Bihar)",
+  "Kochi International Airport (Kochi, Kerala)",
+  "Visakhapatnam International Airport (Visakhapatnam, Andhra Pradesh)",
+  "Dibrugarh Airport (Dibrugarh, Assam)",
+  "Guwahati Lokpriya Gopinath Bordoloi International Airport (Guwahati, Assam)",
+  "Mysuru Airport (Mysuru, Karnataka)",
+  "Rajkot Airport (Rajkot, Gujarat)",
+  "Bagdogra International Airport (Siliguri, West Bengal)",
+  "Kochi International Airport (Kochi, Kerala)",
+  "Agartala Maharaja Bir Bikram Airport (Agartala, Tripura)",
+  "Imphal Tulihal Airport (Imphal, Manipur)",
+  "Shillong Umroi Airport (Shillong, Meghalaya)",
+  "Bhubaneswar Biju Patnaik International Airport (Bhubaneswar, Odisha)",
+  "Ranchi Birsa Munda Airport (Ranchi, Jharkhand)",
+  "Kochi International Airport (Kochi, Kerala)",
+  "Udaipur Maharana Pratap Airport (Udaipur, Rajasthan)",
+  "Aurangabad Chikkalthana Airport (Aurangabad, Maharashtra)",
+  "Jammu Satwari Airport (Jammu, Jammu and Kashmir)",
+  "Kochi International Airport (Kochi, Kerala)",
+  "Kolkata Netaji Subhas Chandra Bose International Airport (Kolkata, West Bengal)",
+  "Surat International Airport (Surat, Gujarat)",
+  "Vadodara Airport (Vadodara, Gujarat)"
+];
+
+const indianRailwayStations = [
+  "Howrah Junction (Kolkata, West Bengal)",
+  "Chhatrapati Shivaji Maharaj Terminus (Mumbai, Maharashtra)",
+  "New Delhi Railway Station (Delhi, Delhi)",
+  "Chennai Egmore (Chennai, Tamil Nadu)",
+  "Bengaluru City Junction (Bengaluru, Karnataka)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Mumbai Lokmanya Tilak Terminus (Mumbai, Maharashtra)",
+  "Hyderabad Deccan (Hyderabad, Telangana)",
+  "Ahmedabad Junction (Ahmedabad, Gujarat)",
+  "Patna Junction (Patna, Bihar)",
+  "Jaipur Junction (Jaipur, Rajasthan)",
+  "Lucknow Charbagh (Lucknow, Uttar Pradesh)",
+  "Kanpur Central (Kanpur, Uttar Pradesh)",
+  "Nagpur Junction (Nagpur, Maharashtra)",
+  "Indore Junction (Indore, Madhya Pradesh)",
+  "Coimbatore Junction (Coimbatore, Tamil Nadu)",
+  "Kochi (Ernakulam Junction) (Kochi, Kerala)",
+  "Vadodara Junction (Vadodara, Gujarat)",
+  "Bhopal Junction (Bhopal, Madhya Pradesh)",
+  "Chandigarh Junction (Chandigarh, Chandigarh)",
+  "Patiala Junction (Patiala, Punjab)",
+  "Vijayawada Junction (Vijayawada, Andhra Pradesh)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Visakhapatnam Junction (Visakhapatnam, Andhra Pradesh)",
+  "Dibrugarh Railway Station (Dibrugarh, Assam)",
+  "Guwahati Junction (Guwahati, Assam)",
+  "Madurai Junction (Madurai, Tamil Nadu)",
+  "Rajkot Junction (Rajkot, Gujarat)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Gaya Junction (Gaya, Bihar)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Agra Cantt (Agra, Uttar Pradesh)",
+  "Varanasi Junction (Varanasi, Uttar Pradesh)",
+  "Pune Junction (Pune, Maharashtra)",
+  "Rajahmundry Railway Station (Rajahmundry, Andhra Pradesh)",
+  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
+  "Ranchi Junction (Ranchi, Jharkhand)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Udaipur City Railway Station (Udaipur, Rajasthan)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Vadodara Junction (Vadodara, Gujarat)",
+  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
+  "Ranchi Junction (Ranchi, Jharkhand)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Udaipur City Railway Station (Udaipur, Rajasthan)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Vadodara Junction (Vadodara, Gujarat)",
+  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
+  "Ranchi Junction (Ranchi, Jharkhand)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Udaipur City Railway Station (Udaipur, Rajasthan)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Vadodara Junction (Vadodara, Gujarat)",
+  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
+  "Ranchi Junction (Ranchi, Jharkhand)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Udaipur City Railway Station (Udaipur, Rajasthan)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Vadodara Junction (Vadodara, Gujarat)",
+  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
+  "Ranchi Junction (Ranchi, Jharkhand)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Udaipur City Railway Station (Udaipur, Rajasthan)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Vadodara Junction (Vadodara, Gujarat)",
+  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
+  "Ranchi Junction (Ranchi, Jharkhand)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Udaipur City Railway Station (Udaipur, Rajasthan)",
+  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
+  "Jammu Tawi (Jammu, Jammu & Kashmir)",
+  "Kochi Harbour Terminus (Kochi, Kerala)",
+  "Kolkata (Kolkata, West Bengal)",
+  "Surat Railway Station (Surat, Gujarat)",
+  "Vadodara Junction (Vadodara, Gujarat)"
+];
+
 
 const hotelData = [
   "Grand Hyatt", "Marriott", "Hilton", "InterContinental",
@@ -77,12 +371,20 @@ function Home() {
     switch(field) {
       case 'departureFrom':
       case 'goingTo':
+      case 'railways':
+        data = indianRailwayStations;
+        break;
+      case 'airports':
+        data = indianAirports;
+        break;
       case 'location':
       case 'pickupLocation':
       case 'dropLocation':
       case 'city':
-      case 'state':
         data = cityData;
+        break;
+      case 'state':
+        data = indianStates;
         break;
       case 'hotel':
         data = hotelData;
@@ -95,9 +397,11 @@ function Home() {
     }
     
     if (value.length > 0) {
-      return data.filter(item => 
-        item.toLowerCase().includes(value.toLowerCase())
-      );
+      return data.filter(item => {
+        
+        const itemName = typeof item === 'object' ? item.name : item;
+        return itemName.toLowerCase().includes(value.toLowerCase());
+      });
     }
     return data;
   };
@@ -122,15 +426,19 @@ function Home() {
     setShowSuggestions(value.length > 0 || suggestions.length > 0);
   };
 
+
   const handleSuggestionClick = (value) => {
+    // Extract the name if it's an object
+    const selectedValue = typeof value === 'object' ? value.name : value;
+    
     switch(activeTab) {
-        case 'flights':
-            if (currentField === 'departureFrom') {
-                setFlightForm({...flightForm, departureFrom: value});
-            } else if (currentField === 'goingTo') {
-                setFlightForm({...flightForm, goingTo: value});
-            }
-            break;
+      case 'flights':
+        if (currentField === 'departureFrom') {
+          setFlightForm({...flightForm, departureFrom: selectedValue});
+        } else if (currentField === 'goingTo') {
+          setFlightForm({...flightForm, goingTo: selectedValue});
+        }
+        break;
         case 'trains':
             if (currentField === 'departureFrom') {
                 setTrainForm({...trainForm, departureFrom: value});
@@ -161,7 +469,7 @@ function Home() {
             break;
     }
     setShowSuggestions(false);
-};
+  };
 
 const handleKeyDown = (e) => {
   if (e.key === 'ArrowDown') {
@@ -810,16 +1118,16 @@ return (
               }}
             >
               <div className="suggestions-scroller">
-                {suggestions.map((suggestion, index) => (
-                  <div
-                    key={currentField === 'departureFrom' || currentField === 'goingTo' ? suggestion.code : suggestion}
-                    className={`suggestion-item ${index === activeSuggestion ? 'active' : ''}`}
-                    onClick={() => handleSuggestionClick(suggestion)}
-                  >
-                    {currentField === 'departureFrom' || currentField === 'goingTo' ? 
-                      `${suggestion.name} (${suggestion.code})` : suggestion}
-                  </div>
-                ))}
+              {suggestions.map((suggestion, index) => (
+                <div
+                  key={typeof suggestion === 'object' ? suggestion.code : suggestion}
+                  className={`suggestion-item ${index === activeSuggestion ? 'active' : ''}`}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {typeof suggestion === 'object' ? 
+                    `${suggestion.name} (${suggestion.code})` : suggestion}
+                </div>
+              ))}
               </div>
             </div>
           )}

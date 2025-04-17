@@ -40,7 +40,7 @@ const afterLogin = () => {
           </li>
           <li><Link to="/gallery">Gallery</Link></li>
           <li>
-            <a href="#contact">Contact Us</a>
+            <a href="/contact">Contact Us</a>
           </li>
           <li>
           <Link to="/account">My Account</Link>
