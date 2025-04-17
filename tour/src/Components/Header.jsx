@@ -7,7 +7,7 @@ const beforeLogin = () => {
     return (
       <header className="header">
       <div className="logo">
-        <h1>EasyTravels.com</h1>
+        <h1>EzyTravels.com</h1>
       </div>
       <nav className="navbar">
         <ul className="nav-links">
@@ -31,7 +31,7 @@ const afterLogin = () => {
     return (
       <header className="header">
       <div className="logo">
-        <h1>EasyTravels.com</h1>
+        <h1>EzyTravels.com</h1>
       </div>
       <nav className="navbar">
         <ul className="nav-links">
