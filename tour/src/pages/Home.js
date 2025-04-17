@@ -245,7 +245,7 @@ function Home() {
         throw new Error('Please select departure and destination airports');
       }
 
-      const response = await axios.get('https://api.flightapi.io/onewaytrip', {
+      const response = await axios.get('https://api.flightapi.io/roundtrip', {
         params: {
           access_key: '67fe5cd215d21dafe1c87018',
           dep_iata: departureFrom,
