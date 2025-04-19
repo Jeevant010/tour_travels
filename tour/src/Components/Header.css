@@ -12,6 +12,10 @@
   font-size: 1.8rem;
   margin: 0;
   font-weight: bold;
+  background: linear-gradient(90deg, #e2694a, #dbfe7b); /* Gradient colors */
+  -webkit-background-clip: text; /* Clip the background to the text */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
 }
 
 .navbar {
