@@ -95,15 +95,46 @@ router.post("/login", async (req, res) => {
 
 // Get Current User Profile
 router.get("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
+    console.log("Authorization header:", req.headers.authorization); // Debugging header
+    if (!req.user) {
+        console.error("Unauthorized access: No user found in request");
+        return res.status(401).json({ error: "Unauthorized: User not found" });
+    }
+    console.log("Authenticated user:", req.user); // Debugging user data
     res.json({
         success: true,
         user: req.user, // Assuming `req.user` contains the authenticated user data
     });
 });
 
+// Token validation endpoint
+router.get('/validate', authMiddleware, (req, res) => {
+    if (!req.user) {
+        console.error("Token validation failed: No user found in request");
+        return res.status(401).json({ error: "Unauthorized: Invalid token" });
+    }
+    console.log("Token validation successful for user:", req.user);
+    res.status(200).json({ valid: true });
+});
+
+// Logout endpoint
+router.post('/logout', authMiddleware, (req, res) => {
+    if (!req.user) {
+        console.error("Logout failed: No user found in request");
+        return res.status(401).json({ error: "Unauthorized: User not logged in" });
+    }
+    res.clearCookie('token');
+    console.log("User logged out successfully:", req.user);
+    res.status(200).json({ message: 'Logged out successfully' });
+});
+
 // Get User Bookings
 router.get("/bookings", authMiddleware, async (req, res) => {
     try {
+        if (!req.user) {
+            return res.status(401).json({ error: "Unauthorized: User not found" });
+        }
+
         const bookings = await Booking.find({ user: req.user.id })
             .populate("tour", "name description price") // Adjust fields as needed
             .lean();
@@ -111,7 +142,7 @@ router.get("/bookings", authMiddleware, async (req, res) => {
         return res.status(200).json(bookings);
 
     } catch (error) {
-        console.error("Get bookings error:", error);
+        console.error("Get bookings error:", error.message);
         return res.status(500).json({ error: "Internal server error" });
     }
 });

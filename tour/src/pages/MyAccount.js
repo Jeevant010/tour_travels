@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from 'react';
 import './MyAccount.css';
 import Ourmain from '../hoc/Ourmain.jsx';
@@ -5,188 +7,194 @@ import { backendUrl } from '../utils/config.js';
 import { useCookies } from 'react-cookie';
 import { useNavigate, Link } from 'react-router-dom';
 
-// Decode JWT token to extract user data
-const decodeToken = (token) => {
-  try {
-    const payload = token.split('.')[1];
-    const decoded = JSON.parse(atob(payload));
-    return decoded.user || decoded; // Handle both nested and flat token structures
-  } catch (err) {
-    console.error('Token decode error:', err);
-    return null;
-  }
-};
-
 function MyAccount() {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    bookings: []
-  });
+  const [userData, setUserData] = useState(null); // Start with null
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cookies, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
 
-  // Fetch user data from backend
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
         const token = cookies.token;
+        
+        // 1. Validate token exists
         if (!token) {
-          console.error("No token found. Redirecting to login.");
-          navigate('/auth/login');
-          return;
+          throw new Error('No authentication token found');
         }
-    
-        const isDev = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV;
-        const apiUrl = isDev 
-          ? 'http://localhost:8080/auth/me' // Explicitly define the local development URL
-          : `${backendUrl}/auth/me`;
-    
-        console.log("API URL:", apiUrl);
-        console.log("Token:", token);
-    
-        const response = await fetch(apiUrl, {
+  
+        // 2. Make API request
+        const response = await fetch(`${backendUrl}/api/auth/me`, {
           headers: {
-            'Authorization': `Bearer ${token.trim()}`
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           },
           credentials: 'include'
         });
-    
-        if (!response.ok) {
-          console.error(`HTTP error! status: ${response.status}`);
-          if (response.status === 404) {
-            throw new Error('The requested resource was not found. Please contact support.');
-          }
-          throw new Error(`HTTP error! status: ${response.status}`);
+  
+        // 3. Handle 404 specifically
+        if (response.status === 404) {
+          throw new Error('Endpoint not found. Contact support.');
         }
-    
+  
+        // 4. Handle all other errors
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.statusText}`);
+        }
+  
+        // 5. Process successful response
         const data = await response.json();
-        console.log("Fetched user data:", data);
-    
         setUserData({
-          name: data.fullName || data.name || 'No name',
-          email: data.email || 'No email',
-          phone: data.phone || 'No phone',
+          name: data.fullName || data.name || 'Guest',
+          email: data.email || 'No email provided',
+          phone: data.phone || 'Not provided',
           bookings: data.bookings || []
         });
+  
       } catch (err) {
-        console.error("Fetch error:", err);
+        console.error('Fetch error:', err);
         setError(err.message);
-        if (err.message.includes('401')) {
-          handleLogout();
-        } else if (err.message.includes('404')) {
-          setError('The requested resource was not found. Please try again later or contact support.');
-        } else {
-          const tokenData = decodeToken(cookies.token);
-          if (tokenData) {
-            console.log("Decoded token data:", tokenData);
-            setUserData({
-              name: tokenData.fullName || tokenData.name || 'No name (from token)',
-              email: tokenData.email || 'No email (from token)',
-              phone: tokenData.phone || 'No phone (from token)',
-              bookings: tokenData.bookings || []
-            });
-            setError('Using limited data from token. Some features may not work.');
-          } else {
-            setError(err.message || 'Failed to load profile data');
-          }
+        
+        // 6. Handle specific error cases
+        if (err.message.includes('No authentication') || 
+            err.message.includes('expired')) {
+          removeCookie('token', { path: '/' });
+          navigate('/auth/login');
         }
       } finally {
         setLoading(false);
       }
     };
+  
+    fetchData();
+  }, [cookies.token, navigate, removeCookie]); // Correct dependencies
 
-    fetchUserData();
-  }, [cookies.token, navigate]);
-
-  // Handle logout
   const handleLogout = () => {
+    // Clear token from cookies
     removeCookie('token', { path: '/' });
-    navigate('/auth/login');
+    
+    // Optional: Call backend logout
+    fetch(`${backendUrl}/api/auth/logout`, {
+      method: 'POST',
+      credentials: 'include'
+    }).finally(() => {
+      navigate('/auth/login');
+    });
   };
 
   // Loading state
   if (loading) {
     return (
-      <div className="my-account">
-        <h1 className="account-title">My Account</h1>
-        <div className="loading-message">
-          <div className="spinner"></div>
-          Loading your account information...
-        </div>
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>Loading your account...</p>
       </div>
     );
   }
 
   // Error state
-  if (error && !userData.email) {
+  if (error) {
     return (
-      <div className="my-account">
-        <h1 className="account-title">My Account</h1>
-        <div className="error-message">
-          <p>{error}</p>
-          <div className="action-buttons">
-            <button onClick={() => window.location.reload()} className="retry-button">
-              Retry
-            </button>
-            <button onClick={handleLogout} className="logout-button">
-              Login Again
-            </button>
-          </div>
+      <div className="error-screen">
+        <h2>Something went wrong</h2>
+        <p className="error-message">{error}</p>
+        <div className="action-buttons">
+          <button onClick={() => window.location.reload()}>Retry</button>
+          <button onClick={handleLogout}>Back to Login</button>
         </div>
       </div>
     );
   }
 
+  // No data state (prevents white screen)
+  if (!userData) {
+    return (
+      <div className="no-data-screen">
+        <h2>No account data available</h2>
+        <button onClick={handleLogout}>Please login again</button>
+      </div>
+    );
+  }
+
   // Main render
+  // return (
+  //   <div className="account-container">
+  //     <h1>Welcome, {userData.name}</h1>
+      
+  //     <section className="account-section">
+  //       <h2>Personal Information</h2>
+  //       <p><strong>Email:</strong> {userData.email}</p>
+  //       <p><strong>Phone:</strong> {userData.phone}</p>
+  //     </section>
+
+  //     {/* Rest of your account UI */}
+  //   </div>
+  // );
+
   return (
     <div className="my-account">
-      <h1 className="account-title">My Account</h1>
+      <h1>Welcome, {userData.name}</h1>
       
-      {error && (
-        <div className="warning-message">
-          <p>{error}</p>
-        </div>
-      )}
-
-      <div className="account-details">
-        <div className="account-section">
+      <div className="account-sections">
+        {/* Personal Info Section */}
+        <section className="account-section">
           <h2>Personal Information</h2>
-          <p><strong>Name:</strong> {userData.name}</p>
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>Phone:</strong> {userData.phone}</p>
-          <button className="account-button">Edit Profile</button>
-        </div>
+          <div className="info-grid">
+            <div className="info-item">
+              <span className="info-label">Name:</span>
+              <span className="info-value">{userData.name}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Email:</span>
+              <span className="info-value">{userData.email}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Phone:</span>
+              <span className="info-value">{userData.phone}</span>
+            </div>
+          </div>
+          <button className="btn-edit">Edit Profile</button>
+        </section>
 
-        <div className="account-section">
-          <h2>Booking History</h2>
+        {/* Bookings Section */}
+        <section className="account-section">
+          <h2>Your Bookings</h2>
           {userData.bookings.length > 0 ? (
             <ul className="booking-list">
               {userData.bookings.map((booking, index) => (
-                <li key={index} className="booking-item">
-                  <h3>{booking.tour?.name || 'Unnamed Tour'}</h3>
-                  <p><strong>Date:</strong> {booking.date ? new Date(booking.date).toLocaleDateString() : 'Not specified'}</p>
-                  <p><strong>Status:</strong> {booking.status || 'Pending'}</p>
+                <li key={index} className="booking-card">
+                  <h3>{booking.tour?.name || 'Unnamed Experience'}</h3>
+                  <div className="booking-details">
+                    <span>Date: {new Date(booking.date).toLocaleDateString()}</span>
+                    <span className={`status-${booking.status.toLowerCase()}`}>
+                      {booking.status}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="no-bookings">
-              No bookings found. <Link to="/tours" className="explore-link">Explore tours</Link>
-            </p>
+            <div className="no-bookings">
+              <p>You haven't made any bookings yet.</p>
+              <Link to="/tours" className="btn-explore">
+                Explore Available Tours
+              </Link>
+            </div>
           )}
-        </div>
+        </section>
 
-        <div className="account-section">
-          <h2>Account Actions</h2>
-          <button className="account-button">Change Password</button>
-          <button className="account-button danger" onClick={handleLogout}>
-            Logout
+        {/* Account Actions */}
+        <section className="account-section actions">
+          <h2>Account Management</h2>
+          <button className="btn-change-password">Change Password</button>
+          <button 
+            className="btn-logout"
+            onClick={handleLogout}
+          >
+            Sign Out
           </button>
-        </div>
+        </section>
       </div>
     </div>
   );

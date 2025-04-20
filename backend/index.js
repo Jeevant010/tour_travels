@@ -9,6 +9,7 @@ const passport = require("passport");
 const User = require("./models/User");
 const authRoutes = require("./routes/auth");
 const core = require("cors");
+const myAccountRoutes = require("./routes/myaccount");
 
 app.use(core({
     origin: "http://localhost:3000",
@@ -75,6 +76,7 @@ if (typeof contactRoutes !== "function") {
 
 app.use("/auth", authRoutes);
 app.use("/contact", contactRoutes);
+app.use("/myaccount", myAccountRoutes);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");
