@@ -6,7 +6,7 @@ exports.getToken = async( email, user ) => {
 
     const token = jwt.sign(
         { id : user._id },
-        "supposedtobe"
+        "supposedtobe",
     );
     return token;
 };
