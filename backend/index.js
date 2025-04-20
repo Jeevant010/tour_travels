@@ -1,6 +1,5 @@
 const express = require("express");
 
-
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -49,7 +48,6 @@ mongoose.connect(
     console.error("Error while connecting to MongoDB:", err);
 });
 
-
 let opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = "supposedtobe";
@@ -67,11 +65,16 @@ try {
 }
 }));
 
-
+// Validate that authRoutes and contactRoutes are functions
+if (typeof authRoutes !== "function") {
+    throw new TypeError("authRoutes must be a middleware function");
+}
+if (typeof contactRoutes !== "function") {
+    throw new TypeError("contactRoutes must be a middleware function");
+}
 
 app.use("/auth", authRoutes);
-
-app.use("/contact", contactRoutes );
+app.use("/contact", contactRoutes);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");

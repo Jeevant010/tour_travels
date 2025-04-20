@@ -30,4 +30,9 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/", (req, res) => {
+    // ...handle contact retrieval...
+    res.send("Contact route");
+});
+
 module.exports = router;

@@ -5,6 +5,7 @@ const Booking = require("../models/Booking"); // Make sure to import Booking mod
 const bcrypt = require("bcrypt");
 const { getToken } = require("../utils/helpers");
 const authMiddleware = require("../middleware/auth"); // Make sure you have this middleware
+const passport = require("passport"); // Import passport
 
 // User Registration
 router.post("/signup", async (req, res) => {
@@ -93,22 +94,11 @@ router.post("/login", async (req, res) => {
 });
 
 // Get Current User Profile
-router.get("/me", authMiddleware, async (req, res) => {
-    try {
-        const user = await User.findById(req.user.id)
-            .select("-password -__v")
-            .lean();
-
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        return res.status(200).json(user);
-
-    } catch (error) {
-        console.error("Get user error:", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+router.get("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
+    res.json({
+        success: true,
+        user: req.user, // Assuming `req.user` contains the authenticated user data
+    });
 });
 
 // Get User Bookings
