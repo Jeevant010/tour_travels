@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import './MyAccount.css';
 import Ourmain from '../hoc/Ourmain.jsx';
@@ -18,13 +16,8 @@ function MyAccount() {
     const fetchData = async () => {
       try {
         const token = cookies.token;
-        
-        // 1. Validate token exists
-        if (!token) {
-          throw new Error('No authentication token found');
-        }
-  
-        // 2. Make API request
+        if (!token) throw new Error('No authentication token found');
+
         const response = await fetch(`${backendUrl}/api/auth/me`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -32,33 +25,30 @@ function MyAccount() {
           },
           credentials: 'include'
         });
-  
-        // 3. Handle 404 specifically
-        if (response.status === 404) {
-          throw new Error('Endpoint not found. Contact support.');
-        }
-  
-        // 4. Handle all other errors
+
         if (!response.ok) {
-          throw new Error(`Request failed: ${response.statusText}`);
+          const errorMessage = response.status === 404
+            ? 'The requested endpoint does not exist. Please contact support.'
+            : `Request failed: ${response.statusText}`;
+          throw new Error(errorMessage);
         }
-  
-        // 5. Process successful response
+
         const data = await response.json();
+        console.log("Fetched user data:", data);
         setUserData({
-          name: data.fullName || data.name || 'Guest',
-          email: data.email || 'No email provided',
-          phone: data.phone || 'Not provided',
-          bookings: data.bookings || []
+            name: data.fullName || data.name || 'Guest',
+            email: data.email || 'No email provided',
+            phone: data.phone || 'Not provided',
+            bookings: Array.isArray(data.bookings) ? data.bookings.map(booking => ({
+                tourName: booking.tourName,
+                date: booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A',
+                status: booking.status
+            })) : []
         });
-  
       } catch (err) {
         console.error('Fetch error:', err);
         setError(err.message);
-        
-        // 6. Handle specific error cases
-        if (err.message.includes('No authentication') || 
-            err.message.includes('expired')) {
+        if (err.message.includes('No authentication') || err.message.includes('expired')) {
           removeCookie('token', { path: '/' });
           navigate('/auth/login');
         }
@@ -66,7 +56,7 @@ function MyAccount() {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, [cookies.token, navigate, removeCookie]); // Correct dependencies
 
@@ -117,21 +107,6 @@ function MyAccount() {
     );
   }
 
-  // Main render
-  // return (
-  //   <div className="account-container">
-  //     <h1>Welcome, {userData.name}</h1>
-      
-  //     <section className="account-section">
-  //       <h2>Personal Information</h2>
-  //       <p><strong>Email:</strong> {userData.email}</p>
-  //       <p><strong>Phone:</strong> {userData.phone}</p>
-  //     </section>
-
-  //     {/* Rest of your account UI */}
-  //   </div>
-  // );
-
   return (
     <div className="my-account">
       <h1>Welcome, {userData.name}</h1>
@@ -164,9 +139,9 @@ function MyAccount() {
             <ul className="booking-list">
               {userData.bookings.map((booking, index) => (
                 <li key={index} className="booking-card">
-                  <h3>{booking.tour?.name || 'Unnamed Experience'}</h3>
+                  <h3>{booking.tourName}</h3>
                   <div className="booking-details">
-                    <span>Date: {new Date(booking.date).toLocaleDateString()}</span>
+                    <span>Date: {booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</span>
                     <span className={`status-${booking.status.toLowerCase()}`}>
                       {booking.status}
                     </span>

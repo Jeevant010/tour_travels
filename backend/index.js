@@ -3,13 +3,11 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
 
-const contactRoutes = require("./routes/contact");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const User = require("./models/User");
 const authRoutes = require("./routes/auth");
 const core = require("cors");
-const myAccountRoutes = require("./routes/myaccount");
 
 app.use(core({
     origin: "http://localhost:3000",
@@ -66,17 +64,7 @@ try {
 }
 }));
 
-// Validate that authRoutes and contactRoutes are functions
-if (typeof authRoutes !== "function") {
-    throw new TypeError("authRoutes must be a middleware function");
-}
-if (typeof contactRoutes !== "function") {
-    throw new TypeError("contactRoutes must be a middleware function");
-}
-
 app.use("/auth", authRoutes);
-app.use("/contact", contactRoutes);
-app.use("/myaccount", myAccountRoutes);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");
