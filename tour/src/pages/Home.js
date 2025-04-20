@@ -3,14 +3,8 @@ import './Home.css';
 import Explore from '../Components/Explore';
 import Ourmain from '../hoc/Ourmain';
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
+import {indianAirports, indianRailwayStations, indianStates, cityData, hotelData, vehicleTypes } from '../pages/homeTop';
 
-
-const hotelData = [
-  "Grand Hyatt", "Marriott", "Hilton", "InterContinental",
-  "Four Seasons", "Ritz-Carlton", "Sheraton", "Westin"
-];
-
-const vehicleTypes = ["Car", "Bike", "Van", "SUV"];
 
 function Home() {
   const [activeTab, setActiveTab] = useState('flights');
@@ -210,215 +204,180 @@ const handleKeyDown = (e) => {
     }
 };
 
-// API Keys Configuration (Store these securely in production)
-const API_KEYS = {
-  flights: {
-    amadeus: 'YOUR_AMADEUS_API_KEY',
-    skyscanner: 'YOUR_SKYSCANNER_API_KEY',
-    kiwi: 'YOUR_KIWI_API_KEY'
-  },
-  hotels: {
-    booking: 'YOUR_BOOKING_COM_API_KEY',
-    expedia: 'YOUR_EXPEDIA_API_KEY',
-    agoda: 'YOUR_AGODA_API_KEY'
-  },
-  trains: {
-    railapi: 'YOUR_RAILAPI_KEY',
-    irctc: 'YOUR_IRCTC_API_KEY',
-    eurail: 'YOUR_EURAIL_API_KEY'
-  },
-  taxis: {
-    uber: 'YOUR_UBER_API_KEY',
-    lyft: 'YOUR_LYFT_API_KEY',
-    bolt: 'YOUR_BOLT_API_KEY'
-  },
-  rentals: {
-    rentalcars: 'YOUR_RENTALCARS_API_KEY',
-    kayak: 'YOUR_KAYAK_API_KEY',
-    turo: 'YOUR_TURO_API_KEY'
+const handleFormSubmit = async (e, formType, formData) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
+  
+  try {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // In a real app, you would use actual API calls:
+    // const response = await fetch(`https://api.example.com/${formType}`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(formData)
+    // });
+    
+    // if (!response.ok) throw new Error('Request failed');
+    
+    // const data = await response.json();
+    setResults({ type: formType, data: formData });
+  } catch (err) {
+    setError(err.message || 'An error occurred');
+  } finally {
+    setLoading(false);
   }
 };
 
-  // Base API URLs
-const API_ENDPOINTS = {
-  flights: {
-    amadeus: 'https://api.amadeus.com/v1',
-    skyscanner: 'https://partners.api.skyscanner.net/apiservices',
-    kiwi: 'https://api.skypicker.com'
-  },
-  hotels: {
-    booking: 'https://api.booking.com/v1',
-    expedia: 'https://api.expedia.com/v1',
-    agoda: 'https://api.agoda.com/v1'
-  },
-  trains: {
-    railapi: 'https://api.railapi.com/v1',
-    irctc: 'https://api.irctc.co.in/v1',
-    eurail: 'https://api.eurail.com/v1'
-  },
-  taxis: {
-    uber: 'https://api.uber.com/v1',
-    lyft: 'https://api.lyft.com/v1',
-    bolt: 'https://api.bolt.com/v1'
-  },
-  rentals: {
-    rentalcars: 'https://api.rentalcars.com/v1',
-    kayak: 'https://api.kayak.com/v1',
-    turo: 'https://api.turo.com/v1'
-  }
-};
+const handleFlightSubmit = async (e) => { e.preventDefault();
+setLoading(true);
+setError(null);
 
-const travelAPI = {
-  // FLIGHTS - Using Amadeus API
-  searchFlights: async (flightData) => {
-    try {
-      const response = await fetch(`${API_ENDPOINTS.flights.amadeus}/shopping/flight-offers`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEYS.flights.amadeus}`
-        },
-        body: JSON.stringify({
-          originLocationCode: flightData.departureFrom,
-          destinationLocationCode: flightData.goingTo,
-          departureDate: flightData.departureDate,
-          returnDate: flightData.returnDate,
-          adults: flightData.travelers,
-          travelClass: flightData.class.toUpperCase()
-        })
-      });
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
 
-      if (!response.ok) throw new Error('Failed to fetch flights');
-      return await response.json();
-    } catch (error) {
-      console.error('Flight search error:', error);
-      // Fallback to Skyscanner
-      return await fetch(`${API_ENDPOINTS.flights.skyscanner}/browsequotes/v1.0/US/USD/en-US/${flightData.departureFrom}/${flightData.goingTo}/${flightData.departureDate}`, {
-        headers: { 'X-API-Key': API_KEYS.flights.skyscanner }
-      });
-    }
-  },
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
 
-  // HOTELS - Using Booking.com API
-  searchHotels: async (hotelData) => {
-    try {
-      const response = await fetch(`${API_ENDPOINTS.hotels.booking}/hotels`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Booking-API-Key': API_KEYS.hotels.booking
-        },
-        body: JSON.stringify({
-          location: hotelData.location,
-          checkIn: hotelData.checkinDate,
-          checkOut: hotelData.checkoutDate,
-          rooms: hotelData.rooms,
-          guests: hotelData.guests
-        })
-      });
-      if (!response.ok) throw new Error('Failed to fetch hotels');
-      return await response.json();
-    } catch (error) {
-      console.error('Hotel search error:', error);
-      // Fallback to Expedia
-      return await fetch(`${API_ENDPOINTS.hotels.expedia}/properties`, {
-        headers: { 'X-Expedia-API-Key': API_KEYS.hotels.expedia }
-      });
-    }
-  },
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+} 
+}; 
 
-  // TRAINS - Using RailAPI
-  searchTrains: async (trainData) => {
-    try {
-      const response = await fetch(`${API_ENDPOINTS.trains.railapi}/trains`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-RailAPI-Key': API_KEYS.trains.railapi
-        },
-        body: JSON.stringify({
-          from: trainData.departureFrom,
-          to: trainData.goingTo,
-          date: trainData.departureDate,
-          class: trainData.acType
-        })
-      });
-      if (!response.ok) throw new Error('Failed to fetch trains');
-      return await response.json();
-    } catch (error) {
-      console.error('Train search error:', error);
-      // Fallback to IRCTC
-      return await fetch(`${API_ENDPOINTS.trains.irctc}/trains`, {
-        headers: { 'X-IRCTC-Key': API_KEYS.trains.irctc }
-      });
-    }
-  },
+const handleTrainSubmit = async (e) => { e.preventDefault();
+setLoading(true);
+setError(null);
 
-  // TAXIS - Using Uber API
-  bookTaxi: async (taxiData) => {
-    try {
-      const response = await fetch(`${API_ENDPOINTS.taxis.uber}/book`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEYS.taxis.uber}`
-        },
-        body: JSON.stringify({
-          pickup: taxiData.pickupLocation,
-          dropoff: taxiData.dropLocation,
-          time: taxiData.pickupTime
-        })
-      });
-      if (!response.ok) throw new Error('Failed to book taxi');
-      return await response.json();
-    } catch (error) {
-      console.error('Taxi booking error:', error);
-      // Fallback to Lyft
-      return await fetch(`${API_ENDPOINTS.taxis.lyft}/rides`, {
-        headers: { 'Authorization': `Bearer ${API_KEYS.taxis.lyft}` }
-      });
-    }
-  },
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
 
-  // RENTALS - Using RentalCars API
-  searchRentals: async (rentalData) => {
-    try {
-      const response = await fetch(`${API_ENDPOINTS.rentals.rentalcars}/search`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-RentalCars-Key': API_KEYS.rentals.rentalcars
-        },
-        body: JSON.stringify({
-          location: rentalData.location,
-          from: rentalData.date,
-          to: new Date(new Date(rentalData.date).getTime() + rentalData.duration * 86400000).toISOString().split('T')[0],
-          vehicleType: rentalData.vehicleType
-        })
-      });
-      if (!response.ok) throw new Error('Failed to fetch rentals');
-      return await response.json();
-    } catch (error) {
-      console.error('Rental search error:', error);
-      // Fallback to Kayak
-      return await fetch(`${API_ENDPOINTS.rentals.kayak}/cars`, {
-        headers: { 'X-Kayak-Key': API_KEYS.rentals.kayak }
-      });
-    }
-  }
-};
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+} 
+}; 
+const handleHotelSubmit = async (e) => { 
+e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+} 
+}; 
+const handleTaxiSubmit = async (e) => { 
+e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+}
+}; 
+const handleRentalSubmit = async (e) => { 
+e.preventDefault();
+setLoading(true);
+setError(null);
+
+try {
+// Replace with actual API call
+const response = await fetch('https://api.example.com/flights', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(flightForm)
+});
+
+if (!response.ok) {
+throw new Error('Wait your request has been sent to the server!');
+}
+
+const data = await response.json();
+setResults({ type: 'flights', data });
+} catch (err) {
+setError(err.message);
+} finally {
+setLoading(false);
+}
+}; 
 
 useEffect(() => {
-  const handleClickOutside = (e) => {
-    if (!e.target.closest('.suggestions-container') && 
-        !e.target.closest('.form-group input')) {
-      setShowSuggestions(false);
-    }
-  };
+const handleClickOutside = (e) => {
+if (!e.target.closest('.suggestions-container') && 
+!e.target.closest('.form-group input')) {
+setShowSuggestions(false);
+}
+};
 
-  document.addEventListener('mousedown', handleClickOutside);
-  return () => document.removeEventListener('mousedown', handleClickOutside);
+document.addEventListener('mousedown', handleClickOutside);
+return () => document.removeEventListener('mousedown', handleClickOutside);
 }, []);
+
 
 const renderTabContent = () => {
   if (loading) return <div className="loading">Loading...</div>;
