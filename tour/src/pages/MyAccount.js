@@ -3,22 +3,25 @@ import './MyAccount.css';
 import Ourmain from '../hoc/Ourmain.jsx';
 import { backendUrl } from '../utils/config.js';
 import { useCookies } from 'react-cookie';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 
 function MyAccount() {
-  const [userData, setUserData] = useState(null); // Start with null
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cookies, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
+  const { userId } = useParams(); 
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
       try {
         const token = cookies.token;
-        if (!token) throw new Error('No authentication token found');
+        if (!token) {
+          throw new Error('No authentication token found');
+        }
 
-        const response = await fetch(`${backendUrl}/api/auth/me`, {
+        const meResponse = await fetch(`${backendUrl}/auth/get/me`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -26,29 +29,47 @@ function MyAccount() {
           credentials: 'include'
         });
 
-        if (!response.ok) {
-          const errorMessage = response.status === 404
-            ? 'The requested endpoint does not exist. Please contact support.'
-            : `Request failed: ${response.statusText}`;
-          throw new Error(errorMessage);
+        if (!meResponse.ok) {
+          throw new Error(meResponse.status === 401 ? 'Session expired' : 'Failed to fetch user data');
         }
 
-        const data = await response.json();
-        console.log("Fetched user data:", data);
-        setUserData({
-            name: data.fullName || data.name || 'Guest',
-            email: data.email || 'No email provided',
-            phone: data.phone || 'Not provided',
-            bookings: Array.isArray(data.bookings) ? data.bookings.map(booking => ({
-                tourName: booking.tourName,
-                date: booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A',
-                status: booking.status
-            })) : []
+        const meData = await meResponse.json();
+        const userId = meData._id;
+
+        const userResponse = await fetch(`${backendUrl}/auth/get/user/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include'
         });
+
+        if (!userResponse.ok) {
+          throw new Error('Failed to fetch detailed user data');
+        }
+
+        const userData = await userResponse.json();
+        
+        setUserData({
+          _id: userData._id,
+          name: userData.fullName || 'Guest',
+          email: userData.email || 'No email provided',
+          phone: userData.phone || 'Not provided',
+          address: userData.address || 'Not provided',
+          bookings: Array.isArray(userData.bookings) ? userData.bookings.map(booking => ({
+            id: booking._id,
+            tourName: booking.tourName,
+            date: booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A',
+            status: booking.status || 'Pending'
+          })) : []
+        });
+
       } catch (err) {
         console.error('Fetch error:', err);
         setError(err.message);
-        if (err.message.includes('No authentication') || err.message.includes('expired')) {
+        if (err.message.includes('No authentication') || 
+            err.message.includes('expired') || 
+            err.message.includes('Session')) {
           removeCookie('token', { path: '/' });
           navigate('/auth/login');
         }
@@ -57,23 +78,26 @@ function MyAccount() {
       }
     };
 
-    fetchData();
-  }, [cookies.token, navigate, removeCookie]); // Correct dependencies
+    fetchUserData();
+  }, [cookies.token, navigate, removeCookie, userId]);
 
-  const handleLogout = () => {
-    // Clear token from cookies
-    removeCookie('token', { path: '/' });
-    
-    // Optional: Call backend logout
-    fetch(`${backendUrl}/api/auth/logout`, {
-      method: 'POST',
-      credentials: 'include'
-    }).finally(() => {
+  const handleLogout = async () => {
+    try {
+      
+      await fetch(`${backendUrl}/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${cookies.token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+    } finally {
+      removeCookie('token', { path: '/' });
       navigate('/auth/login');
-    });
+    }
   };
 
-  // Loading state
   if (loading) {
     return (
       <div className="loading-screen">
@@ -83,7 +107,6 @@ function MyAccount() {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="error-screen">
@@ -97,7 +120,6 @@ function MyAccount() {
     );
   }
 
-  // No data state (prevents white screen)
   if (!userData) {
     return (
       <div className="no-data-screen">
@@ -112,7 +134,6 @@ function MyAccount() {
       <h1>Welcome, {userData.name}</h1>
       
       <div className="account-sections">
-        {/* Personal Info Section */}
         <section className="account-section">
           <h2>Personal Information</h2>
           <div className="info-grid">
@@ -128,20 +149,25 @@ function MyAccount() {
               <span className="info-label">Phone:</span>
               <span className="info-value">{userData.phone}</span>
             </div>
+            {userData.address && (
+              <div className="info-item">
+                <span className="info-label">Address:</span>
+                <span className="info-value">{userData.address}</span>
+              </div>
+            )}
           </div>
           <button className="btn-edit">Edit Profile</button>
         </section>
 
-        {/* Bookings Section */}
         <section className="account-section">
           <h2>Your Bookings</h2>
           {userData.bookings.length > 0 ? (
             <ul className="booking-list">
-              {userData.bookings.map((booking, index) => (
-                <li key={index} className="booking-card">
+              {userData.bookings.map((booking) => (
+                <li key={booking.id} className="booking-card">
                   <h3>{booking.tourName}</h3>
                   <div className="booking-details">
-                    <span>Date: {booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</span>
+                    <span>Date: {booking.date}</span>
                     <span className={`status-${booking.status.toLowerCase()}`}>
                       {booking.status}
                     </span>
@@ -159,14 +185,10 @@ function MyAccount() {
           )}
         </section>
 
-        {/* Account Actions */}
         <section className="account-section actions">
           <h2>Account Management</h2>
           <button className="btn-change-password">Change Password</button>
-          <button 
-            className="btn-logout"
-            onClick={handleLogout}
-          >
+          <button className="btn-logout" onClick={handleLogout}>
             Sign Out
           </button>
         </section>
