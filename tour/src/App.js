@@ -7,6 +7,7 @@ import MyAccount from './pages/MyAccount';
 import ContactUs from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Flightpage from './pages/Flightpage.js';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
 import PNRcomponent from './Components/PNRcomponent.jsx';
 
@@ -30,6 +31,7 @@ function Main() {
           <Route path="/account" element={<MyAccount />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/trainPnr" element={<PNRcomponent />} />
+          <Route path="/flights" element={<Flightpage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -39,6 +41,7 @@ function Main() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/trainPnr" element={<PNRcomponent />} />
+          <Route path="/flights" element={<Flightpage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>
