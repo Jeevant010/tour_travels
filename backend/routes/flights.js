@@ -3,48 +3,50 @@ const router = express.Router();
 const Flight = require("../models/Flight");
 
 router.post("/", async (req, res) => {
-    const { Flight_Number, Departure_Date, Arrival_Date, Passenger_Name, Email, Phone } = req.body;
+  
+
+    const { Departure_From, Going_to, Departure_Date, Return_Date, Travelers, Class } = req.body;
 
     // Validate input fields
-    if (!Flight_Number || !Departure_Date || !Arrival_Date || !Passenger_Name || !Email || !Phone) {
-        return res.status(400).json({ error: "All fields are required." });
+    if (!Departure_From || !Going_to || !Departure_Date || !Return_Date || !Travelers || !Class) {
+        return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Parse date strings into Date objects
+    // Parse date strings into Date objects for validation
     const parsedDepartureDate = new Date(Departure_Date);
-    const parsedArrivalDate = new Date(Arrival_Date);
+    const parsedReturnDate = new Date(Return_Date);
 
-    if (isNaN(parsedDepartureDate) || isNaN(parsedArrivalDate)) {
+    if (isNaN(parsedDepartureDate) || isNaN(parsedReturnDate)) {
         return res.status(400).json({ error: "Invalid date format. Use YYYY-MM-DD." });
     }
 
     try {
-        const newBooking = await Flight.create({
-            Flight_Number,
+        const newFlight = await Flight.create({
+            Departure_From,
+            Going_to,
             Departure_Date: parsedDepartureDate,
-            Arrival_Date: parsedArrivalDate,
-            Passenger_Name,
-            Email,
-            Phone,
+            Return_Date: parsedReturnDate,
+            Travelers,
+            Class,
         });
 
         return res.status(201).json({
             success: true,
-            message: "Flight booking successful",
-            booking: newBooking,
+            message: "Flight added successfully",
+            flight: newFlight,
         });
     } catch (error) {
-        console.error("Error during flight booking submission:", error);
-        return res.status(500).json({ error: "Internal server error." });
+        console.error("Error adding flight:", error);
+        return res.status(500).json({ error: "Failed to add flight" });
     }
 });
 
 router.get("/", async (req, res) => {
     try {
-        const flightBookings = []; // Mocked data
-        res.status(200).json(flightBookings);
+        const flights = await Flight.find({}, "-__v"); // Exclude the __v field
+        res.status(200).json(flights);
     } catch (error) {
-        console.error("Error fetching flight bookings:", error);
+        console.error("Error fetching flights:", error);
         res.status(500).json({ error: "Internal server error." });
     }
 });

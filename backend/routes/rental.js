@@ -3,47 +3,48 @@ const router = express.Router();
 const Rental = require("../models/Rental");
 
 router.post("/", async (req, res) => {
-    const { Rental_Type, Start_Date, End_Date, Customer_Name, Phone } = req.body;
+    const { State, City, Vehicle_Type, Duration, Date: rentalDate, Location } = req.body;
 
-    // Validate input fields
-    if (!Rental_Type || !Start_Date || !End_Date || !Customer_Name || !Phone) {
+    
+    if (!State || !City || !Vehicle_Type || !Duration || !rentalDate || !Location) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Parse date strings into Date objects
-    const parsedStartDate = new Date(Start_Date);
-    const parsedEndDate = new Date(End_Date);
+    
 
-    if (isNaN(parsedStartDate) || isNaN(parsedEndDate)) {
+    
+    const parsedDate = new Date(rentalDate);
+    if (isNaN(parsedDate)) {
         return res.status(400).json({ error: "Invalid date format. Use YYYY-MM-DD." });
     }
 
     try {
-        const newBooking = await Rental.create({
-            Rental_Type,
-            Start_Date: parsedStartDate,
-            End_Date: parsedEndDate,
-            Customer_Name,
-            Phone,
+        const newRental = await Rental.create({
+            State,
+            City,
+            Vehicle_Type,
+            Duration,
+            Date: parsedDate,
+            Location,
         });
 
         return res.status(201).json({
             success: true,
-            message: "Rental booking successful",
-            booking: newBooking,
+            message: "Rental added successfully",
+            rental: newRental,
         });
     } catch (error) {
-        console.error("Error creating rental booking:", error);
-        return res.status(500).json({ error: "Failed to create booking" });
+        console.error("Error adding rental:", error);
+        return res.status(500).json({ error: "Failed to add rental" });
     }
 });
 
 router.get("/", async (req, res) => {
     try {
-        const rentalBookings = [];
-        res.status(200).json(rentalBookings);
+        const rentals = await Rental.find({}, "-__v");
+        res.status(200).json(rentals);
     } catch (error) {
-        console.error("Error fetching rental bookings:", error);
+        console.error("Error fetching rentals:", error);
         res.status(500).json({ error: "Internal server error." });
     }
 });

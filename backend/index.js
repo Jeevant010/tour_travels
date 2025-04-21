@@ -75,7 +75,7 @@ const contactRoute = require("./routes/contact");
 app.use("/auth", authRoutes);
 
 
-app.use("/flights", flightsRoute);
+app.use("/flight", flightsRoute);
 app.use("/rental", rentalRoute);
 app.use("/hotel", hotelRoute);
 app.use("/train", trainRoute);
