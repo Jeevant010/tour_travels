@@ -68,7 +68,18 @@ function Home() {
     let data = [];
     switch(field) {
       case 'departureFrom':
+        if (activeTab === 'flights') {
+          data = indianAirports; 
+        } else if (activeTab === 'trains') {
+          data = indianRailwayStations; 
+        }
       case 'goingTo':
+        if (activeTab === 'flights') {
+          data = indianAirports;
+        } else if (activeTab === 'trains') {
+          data = indianRailwayStations; 
+        }
+        break;
       case 'railways':
         data = indianRailwayStations;
         break;
@@ -126,9 +137,7 @@ function Home() {
 
 
   const handleSuggestionClick = (value) => {
-    
-    const selectedValue = typeof value === 'object' ? value.name : value;
-    
+    const selectedValue = typeof value === 'object' ? value.name : value; // Ensure correct value is selected
     switch(activeTab) {
       case 'flights':
         if (currentField === 'departureFrom') {
@@ -137,34 +146,34 @@ function Home() {
           setFlightForm({...flightForm, goingTo: selectedValue});
         }
         break;
-        case 'trains':
-            if (currentField === 'departureFrom') {
-                setTrainForm({...trainForm, departureFrom: value});
-            } else if (currentField === 'goingTo') {
-                setTrainForm({...trainForm, goingTo: value});
-            }
-            break;
-        case 'hotels':
-            setHotelForm({...hotelForm, location: value});
-            break;
-        case 'taxi':
-            if (currentField === 'pickupLocation') {
-                setTaxiForm({...taxiForm, pickupLocation: value});
-            } else if (currentField === 'dropLocation') {
-                setTaxiForm({...taxiForm, dropLocation: value});
-            }
-            break;
-        case 'rentals':
-            if (currentField === 'city') {
-                setRentalForm({...rentalForm, city: value});
-            } else if (currentField === 'state') {
-                setRentalForm({...rentalForm, state: value});
-            } else if (currentField === 'location') {
-                setRentalForm({...rentalForm, location: value});
-            }
-            break;
-        default:
-            break;
+      case 'trains':
+        if (currentField === 'departureFrom') {
+          setTrainForm({...trainForm, departureFrom: selectedValue});
+        } else if (currentField === 'goingTo') {
+          setTrainForm({...trainForm, goingTo: selectedValue});
+        }
+        break;
+      case 'hotel':
+        setHotelForm({...hotelForm, location: selectedValue}); // Fix for hotels
+        break;
+      case 'taxi':
+        if (currentField === 'pickupLocation') {
+          setTaxiForm({...taxiForm, pickupLocation: selectedValue});
+        } else if (currentField === 'dropLocation') {
+          setTaxiForm({...taxiForm, dropLocation: selectedValue});
+        }
+        break;
+      case 'rentals':
+        if (currentField === 'city') {
+          setRentalForm({...rentalForm, city: selectedValue});
+        } else if (currentField === 'state') {
+          setRentalForm({...rentalForm, state: selectedValue});
+        } else if (currentField === 'location') {
+          setRentalForm({...rentalForm, location: selectedValue});
+        }
+        break;
+      default:
+        break;
     }
     setShowSuggestions(false);
   };
@@ -194,7 +203,7 @@ const handleKeyDown = (e) => {
         case 'trains':
             setTrainForm({...trainForm, [field]: value});
             break;
-        case 'hotels':
+        case 'hotel':
             setHotelForm({...hotelForm, [field]: value});
             break;
         case 'taxi':
@@ -228,25 +237,65 @@ const handleFormSubmit = async (e, formType, formData) => {
   setSuccessMessage('');
   setErrorMessage('');
 
+  // Map frontend field names to backend field names for hotel form
+  let mappedFormData = { ...formData };
+  if (formType === 'hotel') {
+    mappedFormData = {
+      Location: formData.location,
+      Checkin_Date: formData.checkinDate,
+      Checkout_Date: formData.checkoutDate,
+      No_of_Rooms: formData.rooms,
+      Guests: formData.guests,
+    };
+  }
+
+  // Trim string fields and validate required fields
+  const trimmedFormData = Object.fromEntries(
+    Object.entries(mappedFormData).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : value])
+  );
+
+  const isFormValid = Object.entries(trimmedFormData).every(([key, value]) => {
+    if (value === '' || value === null || value === undefined) {
+      console.error(`Missing field: ${key}`); // Log missing fields for debugging
+      return false;
+    }
+    return true;
+  });
+
+  if (!isFormValid) {
+    setErrorMessage('All fields are required');
+    setIsLoading(false);
+    return;
+  }
+
   try {
-    const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
+    let endpoint;
+    if (formType === 'hotel') {
+      endpoint = `${backendUrl1 || 'http://localhost:8080'}/hotel`; // Corrected endpoint for hotels
+    } else {
+      endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
+    }
+
     console.log(`Submitting to endpoint: ${endpoint}`);
+    console.log('Payload:', JSON.stringify(trimmedFormData)); // Log exact payload for debugging
 
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(trimmedFormData),
     });
 
     if (!response.ok) {
       const contentType = response.headers.get('Content-Type');
       if (response.status === 404) {
-        throw new Error(`The requested resource for ${formType} was not found (404).`);
+        throw new Error(
+          `The requested resource for "${formType}" was not found (404). Please verify the endpoint or contact support.`
+        );
       } else if (contentType && contentType.includes('application/json')) {
         const errorData = await response.json();
-        throw new Error(errorData.error || `Failed to submit ${formType} form.`);
+        throw new Error(errorData.error || `Failed to submit "${formType}" form.`);
       } else {
         throw new Error(`Unexpected response: ${response.status} ${response.statusText}`);
       }
@@ -254,10 +303,10 @@ const handleFormSubmit = async (e, formType, formData) => {
 
     const data = await response.json();
     setResults(data);
-    setSuccessMessage(`Your ${formType} booking request has been submitted successfully!`);
+    setSuccessMessage(`Your "${formType}" booking request has been submitted successfully!`);
   } catch (error) {
     console.error('Submission error:', error);
-    setErrorMessage(error.message || `Failed to submit ${formType} form. Please try again later.`);
+    setErrorMessage(error.message || `Failed to submit "${formType}" form. Please try again later.`);
   } finally {
     setIsLoading(false);
   }
@@ -435,11 +484,11 @@ const renderTabContent = () => {
         </div>
       );
 
-    case 'hotels':
+    case 'hotel':
       return (
         <div className="tab-content">
           <h3>Hotel Booking</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, 'hotels', hotelForm)}>
+          <form onSubmit={(e) => handleFormSubmit(e, 'hotel', hotelForm)}>
             <div className="form-row">
               <div className="form-group relative">
                 <label>Select City/Location:</label>
@@ -448,8 +497,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="Enter city or location"
                   value={hotelForm.location}
-                  onChange={(e) => handleInputChange(e, 'location', 'hotels')}
-                  onFocus={(e) => handleInputChange(e, 'location', 'hotels')}
+                  onChange={(e) => handleInputChange(e, 'location', 'hotel')}
+                  onFocus={(e) => handleInputChange(e, 'location', 'hotel')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -460,7 +509,7 @@ const renderTabContent = () => {
                 <input
                   type="date"
                   value={hotelForm.checkinDate}
-                  onChange={handleChange('hotels', 'checkinDate')}
+                  onChange={handleChange('hotel', 'checkinDate')}
                   required
                 />
               </div>
@@ -472,7 +521,7 @@ const renderTabContent = () => {
                 <input
                   type="date"
                   value={hotelForm.checkoutDate}
-                  onChange={handleChange('hotels', 'checkoutDate')}
+                  onChange={handleChange('hotel', 'checkoutDate')}
                   required
                 />
               </div>
@@ -483,7 +532,7 @@ const renderTabContent = () => {
                   type="number"
                   min="1"
                   value={hotelForm.rooms}
-                  onChange={handleChange('hotels', 'rooms')}
+                  onChange={handleChange('hotel', 'rooms')}
                   required
                 />
               </div>
@@ -494,7 +543,7 @@ const renderTabContent = () => {
                   type="number"
                   min="1"
                   value={hotelForm.guests}
-                  onChange={handleChange('hotels', 'guests')}
+                  onChange={handleChange('hotel', 'guests')}
                   required
                 />
               </div>
@@ -678,7 +727,7 @@ return (
 <section className="booking-tabs">
 <h2>Book Your Travel</h2>
 <div className="tabs">
-  {['flights', 'trains', 'hotels', 'taxi', 'rentals'].map((tab) => (
+  {['flights', 'trains', 'hotel', 'taxi', 'rentals'].map((tab) => (
     <button
       key={tab}
       className={`tab-button ${activeTab === tab ? 'active' : ''}`}
@@ -690,7 +739,7 @@ return (
     >
       {tab === 'flights' && <FaPlane className="tab-icon" />}
       {tab === 'trains' && <FaTrain className="tab-icon" />}
-      {tab === 'hotels' && <FaHotel className="tab-icon" />}
+      {tab === 'hotel' && <FaHotel className="tab-icon" />}
       {tab === 'taxi' && <FaTaxi className="tab-icon" />}
       {tab === 'rentals' && <FaCar className="tab-icon" />}
       {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -718,8 +767,7 @@ return (
                   className={`suggestion-item ${index === activeSuggestion ? 'active' : ''}`}
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
-                  {typeof suggestion === 'object' ? 
-                    `${suggestion.name} (${suggestion.code})` : suggestion}
+                  {typeof suggestion === 'object' ? suggestion.name : suggestion} {/* Display correct value */}
                 </div>
               ))}
               </div>

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Flight = new mongoose.Schema({
-    Departure_Form : {
+    Departure_From : {
         type : String,
         required : true,
     },

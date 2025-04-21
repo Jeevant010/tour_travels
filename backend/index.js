@@ -64,7 +64,7 @@ try {
 }
 }));
 
-// Import additional routes
+
 const flightsRoute = require("./routes/flights");
 const rentalRoute = require("./routes/rental");
 const hotelRoute = require("./routes/hotel");
@@ -74,7 +74,7 @@ const contactRoute = require("./routes/contact");
 
 app.use("/auth", authRoutes);
 
-// Use additional routes
+
 app.use("/flights", flightsRoute);
 app.use("/rental", rentalRoute);
 app.use("/hotel", hotelRoute);

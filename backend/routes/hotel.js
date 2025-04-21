@@ -2,21 +2,29 @@ const express = require("express");
 const router = express.Router();
 const Hotel = require("../models/Hotel");
 
-// Create a new hotel booking
-router.post("/hotels", async (req, res) => {
-    const { location, checkinDate, checkoutDate, rooms, guests } = req.body;
+router.post("/", async (req, res) => {
+    const { Location, Checkin_Date, Checkout_Date, No_of_Rooms, Guests } = req.body;
 
-    if (!location || !checkinDate || !checkoutDate || !rooms || !guests) {
+    // Validate input fields
+    if (!Location || !Checkin_Date || !Checkout_Date || !No_of_Rooms || !Guests) {
         return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Parse date strings into Date objects
+    const parsedCheckinDate = new Date(Checkin_Date);
+    const parsedCheckoutDate = new Date(Checkout_Date);
+
+    if (isNaN(parsedCheckinDate) || isNaN(parsedCheckoutDate)) {
+        return res.status(400).json({ error: "Invalid date format. Use YYYY-MM-DD." });
     }
 
     try {
         const newBooking = await Hotel.create({
-            Location: location,
-            Checkin_Date: checkinDate,
-            Checkout_Date: checkoutDate,
-            No_of_Rooms: rooms,
-            Guests: guests,
+            Location,
+            Checkin_Date: parsedCheckinDate,
+            Checkout_Date: parsedCheckoutDate,
+            No_of_Rooms,
+            Guests,
         });
 
         return res.status(201).json({
@@ -30,27 +38,9 @@ router.post("/hotels", async (req, res) => {
     }
 });
 
-// Handle hotel booking submissions
-router.post("/", async (req, res) => {
-  try {
-    const { hotelName, customerName, email, phone } = req.body;
-
-    // Validate input
-    if (!hotelName || !customerName || !email || !phone) {
-      return res.status(400).json({ error: "All fields are required." });
-    }
-
-    res.status(201).json({ message: "Hotel booking submitted successfully." });
-  } catch (error) {
-    console.error("Error during hotel booking submission:", error);
-    res.status(500).json({ error: "Internal server error." });
-  }
-});
-
-// Get all hotel bookings
 router.get("/", async (req, res) => {
   try {
-    const hotelBookings = []; // Mocked data
+    const hotelBookings = [];
     res.status(200).json(hotelBookings);
   } catch (error) {
     console.error("Error fetching hotel bookings:", error);
