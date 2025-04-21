@@ -3,10 +3,10 @@ const router = express.Router();
 const Train = require("../models/Train");
 
 router.post("/", async (req, res) => {
-    const { Train_Number, Departure_Date, Arrival_Date, Passenger_Name, Email, Phone } = req.body;
+    const { Train_Number, Departure_Date, Arrival_Date, Passenger_Name, Email, Phone, Class, Fare } = req.body;
 
     // Validate input fields
-    if (!Train_Number || !Departure_Date || !Arrival_Date || !Passenger_Name || !Email || !Phone) {
+    if (!Train_Number || !Departure_Date || !Arrival_Date || !Passenger_Name || !Email || !Phone || !Class || !Fare) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -26,6 +26,8 @@ router.post("/", async (req, res) => {
             Passenger_Name,
             Email,
             Phone,
+            Class,
+            Fare,
         });
 
         return res.status(201).json({
@@ -41,7 +43,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const trainBookings = [];
+        const trainBookings = await Train.find({}, "-__v"); // Exclude the __v field
         res.status(200).json(trainBookings);
     } catch (error) {
         console.error("Error fetching train bookings:", error);
