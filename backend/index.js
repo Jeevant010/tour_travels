@@ -8,7 +8,6 @@ const passport = require("passport");
 const User = require("./models/User");
 const authRoutes = require("./routes/auth");
 const core = require("cors");
-const hotelRoutes = require("./routes/hotel");
 
 app.use(core({
     origin: "http://localhost:3000",
@@ -65,7 +64,23 @@ try {
 }
 }));
 
+
+const flightsRoute = require("./routes/flights");
+const rentalRoute = require("./routes/rental");
+const hotelRoute = require("./routes/hotel");
+const trainRoute = require("./routes/train");
+const taxiRoute = require("./routes/taxi");
+const contactRoute = require("./routes/contact");
+
 app.use("/auth", authRoutes);
+
+
+app.use("/flights", flightsRoute);
+app.use("/rental", rentalRoute);
+app.use("/hotel", hotelRoute);
+app.use("/train", trainRoute);
+app.use("/taxi", taxiRoute);
+app.use("/contact", contactRoute);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");
