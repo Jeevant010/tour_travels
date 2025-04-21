@@ -1,181 +1,197 @@
-
 import React, { useEffect, useState } from 'react';
 import './MyAccount.css';
 import Ourmain from '../hoc/Ourmain.jsx';
 import { backendUrl } from '../utils/config.js';
 import { useCookies } from 'react-cookie';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 
 function MyAccount() {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    bookings: []
-  });
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cookies] = useCookies(['token']);
+  const [cookies, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
+  const { userId } = useParams(); 
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        if (!cookies.token) {
-          navigate('/auth/login');
-          return;
+        const token = cookies.token;
+        if (!token) {
+          throw new Error('No authentication token found');
         }
 
-        setLoading(true);
-        setError(null);
+        const meResponse = await fetch(`${backendUrl}/auth/get/me`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include'
+        });
+
+        if (!meResponse.ok) {
+          throw new Error(meResponse.status === 401 ? 'Session expired' : 'Failed to fetch user data');
+        }
+
+        const meData = await meResponse.json();
+        const userId = meData._id;
+
+        const userResponse = await fetch(`${backendUrl}/auth/get/user/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include'
+        });
+
+        if (!userResponse.ok) {
+          throw new Error('Failed to fetch detailed user data');
+        }
+
+        const userData = await userResponse.json();
         
-        // Try multiple possible endpoints
-        const endpoints = [
-          '/api/user/profile',  // Most common REST convention
-          '/user/me',          // Alternative common pattern
-          '/api/me',           // Simpler version
-          '/auth/user'         // Auth service endpoint
-        ];
-
-        let response;
-        let successful = false;
-
-        for (const endpoint of endpoints) {
-          try {
-            response = await fetch(`${backendUrl}${endpoint}`, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${cookies.token}`
-              }
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              setUserData(data);
-              successful = true;
-              break;
-            }
-          } catch (err) {
-            console.log(`Attempt failed for ${endpoint}:`, err);
-            continue;
-          }
-        }
-
-        if (!successful) {
-          // Fallback to token data if all endpoints fail
-          const tokenData = decodeToken(cookies.token);
-          if (tokenData) {
-            setUserData({
-              name: tokenData.name || '',
-              email: tokenData.email || '',
-              phone: tokenData.phone || '',
-              bookings: tokenData.bookings || []
-            });
-            setError('Using limited profile data from token. Some features may not be available.');
-          } else {
-            throw new Error('All endpoints failed and token could not be decoded');
-          }
-        }
+        setUserData({
+          _id: userData._id,
+          name: userData.fullName || 'Guest',
+          email: userData.email || 'No email provided',
+          phone: userData.phone || 'Not provided',
+          address: userData.address || 'Not provided',
+          bookings: Array.isArray(userData.bookings) ? userData.bookings.map(booking => ({
+            id: booking._id,
+            tourName: booking.tourName,
+            date: booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A',
+            status: booking.status || 'Pending'
+          })) : []
+        });
 
       } catch (err) {
-        console.error('Error:', err);
-        setError('Could not load full profile data. Please try again later.');
+        console.error('Fetch error:', err);
+        setError(err.message);
+        if (err.message.includes('No authentication') || 
+            err.message.includes('expired') || 
+            err.message.includes('Session')) {
+          removeCookie('token', { path: '/' });
+          navigate('/auth/login');
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [cookies.token, navigate]);
+  }, [cookies.token, navigate, removeCookie, userId]);
 
-  const decodeToken = (token) => {
+  const handleLogout = async () => {
     try {
-      const payload = token.split('.')[1];
-      const decoded = JSON.parse(atob(payload));
-      console.log('Decoded token data:', decoded);
-      return decoded;
-    } catch (err) {
-      console.error('Token decode error:', err);
-      return null;
+      
+      await fetch(`${backendUrl}/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${cookies.token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+    } finally {
+      removeCookie('token', { path: '/' });
+      navigate('/auth/login');
     }
-  };
-
-  const handleLogout = () => {
-    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    navigate('/auth/login');
   };
 
   if (loading) {
     return (
-      <div className="my-account">
-        <h1 className="account-title">My Account</h1>
-        <div className="loading-message">Loading your account information...</div>
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>Loading your account...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-screen">
+        <h2>Something went wrong</h2>
+        <p className="error-message">{error}</p>
+        <div className="action-buttons">
+          <button onClick={() => window.location.reload()}>Retry</button>
+          <button onClick={handleLogout}>Back to Login</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <div className="no-data-screen">
+        <h2>No account data available</h2>
+        <button onClick={handleLogout}>Please login again</button>
       </div>
     );
   }
 
   return (
     <div className="my-account">
-      <h1 className="account-title">My Account</h1>
+      <h1>Welcome, {userData.name}</h1>
       
-      {error && (
-        <div className="error-message">
-          {error}
-          <div className="debug-info">
-            <small>Please ensure you're using the correct endpoint</small>
-          </div>
-          <button 
-            className="retry-button"
-            onClick={() => window.location.reload()}
-          >
-            Retry
-          </button>
-          <button 
-            className="contact-support-button"
-            onClick={() => navigate('/support')}
-          >
-            Contact Support
-          </button>
-        </div>
-      )}
-
-<div className="account-details">
-      <div className="account-section">
+      <div className="account-sections">
+        <section className="account-section">
           <h2>Personal Information</h2>
-          <p><strong>Name:</strong> {userData.name || 'Not available'}</p>
-          <p><strong>Email:</strong> {userData.email || 'Not available'}</p>
-          <p><strong>Phone:</strong> {userData.phone || 'Not available'}</p>
-          <button className="account-button">Edit Profile</button>
-        </div>
+          <div className="info-grid">
+            <div className="info-item">
+              <span className="info-label">Name:</span>
+              <span className="info-value">{userData.name}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Email:</span>
+              <span className="info-value">{userData.email}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Phone:</span>
+              <span className="info-value">{userData.phone}</span>
+            </div>
+            {userData.address && (
+              <div className="info-item">
+                <span className="info-label">Address:</span>
+                <span className="info-value">{userData.address}</span>
+              </div>
+            )}
+          </div>
+          <button className="btn-edit">Edit Profile</button>
+        </section>
 
-        <div className="account-section">
-          <h2>Booking History</h2>
-          {userData.bookings && userData.bookings.length > 0 ? (
+        <section className="account-section">
+          <h2>Your Bookings</h2>
+          {userData.bookings.length > 0 ? (
             <ul className="booking-list">
-              {userData.bookings.map((booking, index) => (
-                <li key={index} className="booking-item">
+              {userData.bookings.map((booking) => (
+                <li key={booking.id} className="booking-card">
                   <h3>{booking.tourName}</h3>
-                  <p><strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}</p>
-                  <p><strong>Status:</strong> {booking.status}</p>
+                  <div className="booking-details">
+                    <span>Date: {booking.date}</span>
+                    <span className={`status-${booking.status.toLowerCase()}`}>
+                      {booking.status}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No bookings found. <Link to="/tours">Explore available tours</Link></p>
+            <div className="no-bookings">
+              <p>You haven't made any bookings yet.</p>
+              <Link to="/tours" className="btn-explore">
+                Explore Available Tours
+              </Link>
+            </div>
           )}
-        </div>
+        </section>
 
-        <div className="account-section">
-          <h2>Account Actions</h2>
-          <button className="account-button">Change Password</button>
-          <button 
-            className="account-button logout-button" 
-            onClick={handleLogout}
-          >
-            Logout
+        <section className="account-section actions">
+          <h2>Account Management</h2>
+          <button className="btn-change-password">Change Password</button>
+          <button className="btn-logout" onClick={handleLogout}>
+            Sign Out
           </button>
-        </div>
+        </section>
       </div>
     </div>
   );
