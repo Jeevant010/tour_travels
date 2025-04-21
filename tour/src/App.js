@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Hotelpage from './pages/Hotelpage';
 import Flightpage from './pages/Flightpage.js';
 import Trainpage from './pages/Trainpage';
+import Rentalpage from './pages/Rentalpage';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
 import PNRcomponent from './Components/PNRcomponent.jsx';
 
@@ -36,6 +37,7 @@ function Main() {
           <Route path="/flights" element={<Flightpage />} />
           <Route path="/hotels" element={<Hotelpage />} />
           <Route path="/trains" element={<Trainpage />} />
+          <Route path="/rentals" element={<Rentalpage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -48,6 +50,7 @@ function Main() {
           <Route path="/flights" element={<Flightpage />} />
           <Route path="/hotels" element={<Hotelpage />} />
           <Route path="/trains" element={<Trainpage />} />
+          <Route path="/rentals" element={<Rentalpage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>

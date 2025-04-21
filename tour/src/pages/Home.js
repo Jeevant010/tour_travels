@@ -249,6 +249,11 @@ const handleFormSubmit = async (e, formType, formData) => {
     navigate('/hotels', { state: formData });
     return; // Skip the rest of the logic for hotel form
   }
+  if (formType === 'rentals') {
+    // Redirect to Rentalpage.js with form data
+    navigate('/rentals', { state: formData });
+    return;
+  }
 
   setIsLoading(true);
   setSuccessMessage('');
