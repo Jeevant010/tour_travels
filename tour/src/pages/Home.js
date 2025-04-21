@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom'; 
 import './Home.css';
 import Explore from '../Components/Explore';
 import Ourmain from '../hoc/Ourmain';
@@ -22,7 +22,7 @@ function Home() {
   const [currentField, setCurrentField] = useState('');
   const [suggestionPosition, setSuggestionPosition] = useState({ top: 0, left: 0, width: 0 });
   const inputRefs = useRef({});
-
+  const navigate = useNavigate();
 
   const [flightForm, setFlightForm] = useState({
     departureFrom: '',
@@ -233,11 +233,28 @@ return () => document.removeEventListener('mousedown', handleClickOutside);
 
 const handleFormSubmit = async (e, formType, formData) => {
   e.preventDefault();
+
+  if (formType === 'flights') {
+    // Redirect to Flightpage.js with form data
+    navigate('/flights', { state: formData });
+    return; // Skip the rest of the logic for flights
+  }
+  if (formType === 'trains') {
+    // Redirect to Trainpage.js with form data
+    navigate('/trains', { state: formData });
+    return;
+  }
+  if (formType === 'hotel') {
+    // Redirect to Hotelpage.js with form data
+    navigate('/hotels', { state: formData });
+    return; // Skip the rest of the logic for hotel form
+  }
+
   setIsLoading(true);
   setSuccessMessage('');
   setErrorMessage('');
 
-  // Map frontend field names to backend field names for hotel form
+  // Map frontend field names to backend field names for other forms
   let mappedFormData = { ...formData };
   if (formType === 'hotel') {
     mappedFormData = {
