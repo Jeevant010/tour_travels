@@ -5,16 +5,16 @@ import Explore from '../Components/Explore';
 import Ourmain from '../hoc/Ourmain';
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
 import {indianAirports, indianRailwayStations, indianStates, cityData, hotelData, vehicleTypes } from '../pages/homeTop';
-import { backendUrl1 } from '../utils/config'; // Import backend URL configuration
+import { backendUrl1 } from '../utils/config'; 
 
 function Home() {
   const [activeTab, setActiveTab] = useState('flight');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Added state for isLoading
-  const [successMessage, setSuccessMessage] = useState(''); // Added state for successMessage
-  const [errorMessage, setErrorMessage] = useState(''); // Added state for errorMessage
+  const [isLoading, setIsLoading] = useState(false); 
+  const [successMessage, setSuccessMessage] = useState(''); 
+  const [errorMessage, setErrorMessage] = useState('');
   
   const [suggestions, setSuggestions] = useState([]);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
@@ -238,7 +238,6 @@ const handleFormSubmit = async (e, formType, formData) => {
   setSuccessMessage('');
   setErrorMessage('');
 
-  // Validate date range for flights
   if (formType === 'flight' && formData.returnDate) {
     const departureDate = new Date(formData.departureDate);
     const returnDate = new Date(formData.returnDate);
@@ -250,7 +249,6 @@ const handleFormSubmit = async (e, formType, formData) => {
     }
   }
 
-  // Map frontend field names to backend field names
   let mappedFormData = { ...formData };
   if (formType === 'hotel') {
     mappedFormData = {
@@ -269,8 +267,8 @@ const handleFormSubmit = async (e, formType, formData) => {
     };
   } else if (formType === 'flight') {
     mappedFormData = {
-      Departure_From: formData.departureFrom.split('(')[0].trim(), // Extract city/airport name
-      Going_to: formData.goingTo.split('(')[0].trim(), // Extract city/airport name
+      Departure_From: formData.departureFrom.split('(')[0].trim(), 
+      Going_to: formData.goingTo.split('(')[0].trim(), 
       Departure_Date: formData.departureDate,
       Return_Date: formData.returnDate || null,
       Travelers: parseInt(formData.travelers, 10),
@@ -278,8 +276,8 @@ const handleFormSubmit = async (e, formType, formData) => {
     };
   } else if (formType === 'train') {
     mappedFormData = {
-      Departure_Form: formData.departureFrom.split('(')[0].trim(), // Extract city/station name
-      Going_to: formData.goingTo.split('(')[0].trim(), // Extract city/station name
+      Departure_Form: formData.departureFrom.split('(')[0].trim(), 
+      Going_to: formData.goingTo.split('(')[0].trim(),
       Departure_Date: formData.departureDate,
       AC_Type: formData.acType,
     };
@@ -294,14 +292,13 @@ const handleFormSubmit = async (e, formType, formData) => {
     };
   }
 
-  // Trim string fields and validate required fields
   const trimmedFormData = Object.fromEntries(
     Object.entries(mappedFormData).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : value])
   );
 
   const isFormValid = Object.entries(trimmedFormData).every(([key, value]) => {
     if (value === '' || value === null || value === undefined) {
-      console.error(`Missing field: ${key}`); // Log missing fields for debugging
+      console.error(`Missing field: ${key}`);
       return false;
     }
     return true;
@@ -316,7 +313,7 @@ const handleFormSubmit = async (e, formType, formData) => {
   try {
     const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
     console.log(`Submitting to endpoint: ${endpoint}`);
-    console.log('Payload:', JSON.stringify(trimmedFormData)); // Log exact payload for debugging
+    console.log('Payload:', JSON.stringify(trimmedFormData));
 
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -330,7 +327,7 @@ const handleFormSubmit = async (e, formType, formData) => {
       const contentType = response.headers.get('Content-Type');
       if (contentType && contentType.includes('application/json')) {
         const errorData = await response.json();
-        console.error('Backend error response:', errorData); // Log backend error response
+        console.error('Backend error response:', errorData);
         throw new Error(errorData.error || `Failed to submit "${formType}" form.`);
       } else {
         throw new Error(`Unexpected response: ${response.status} ${response.statusText}`);
@@ -340,6 +337,10 @@ const handleFormSubmit = async (e, formType, formData) => {
     const data = await response.json();
     setResults(data);
     setSuccessMessage(`Your "${formType}" booking request has been submitted successfully and stored in MongoDB!`);
+
+    if (formType === 'flight') {
+      navigate('/flight', { state: { flightData: data } });
+    }
   } catch (error) {
     console.error('Submission error:', error);
     setErrorMessage(error.message || `Failed to submit "${formType}" form. Please try again later.`);
