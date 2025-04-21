@@ -1,6 +1,6 @@
 import { backendUrl1 } from "./config";
 
-const baseUrl = backendUrl1 || "http://localhost:3000"; // Fallback to a default URL
+const baseUrl = backendUrl1 || "http://localhost:8080"; // Fallback to a default URL
 
 export const makeUnauthenticatedPOSTRequest = async (route, body) => {
     try {
@@ -21,7 +21,11 @@ export const makeUnauthenticatedPOSTRequest = async (route, body) => {
         const formattedResponse = await response.json();
         return formattedResponse;
     } catch (error) {
-        console.error("Error in POST request:", error); // Log error details
+        if (error instanceof TypeError && error.message === "Failed to fetch") {
+            console.error("Network error: Unable to reach the server. Please check your connection or server URL.");
+        } else {
+            console.error("Error in POST request:", error); // Log error details
+        }
         throw error;
     }
 };

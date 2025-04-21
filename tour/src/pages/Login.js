@@ -14,17 +14,22 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = { email, password };
-    const response = await makeUnauthenticatedPOSTRequest('/auth/login', data);
-    if (response && !response.error) {
-      console.log(response);
-      const token = response.token;
-      const date = new Date();
-      date.setDate(date.getDate() + 30);
-      setCookie('token', token, { path: '/', expires: date });
-      alert('Login successful!');
-      navigate('/dashboard');
-    } else {
-      alert('Login failed');
+    try {
+      const response = await makeUnauthenticatedPOSTRequest('/auth/login', data);
+      if (response && !response.error) {
+        console.log(response);
+        const token = response.token;
+        const date = new Date();
+        date.setDate(date.getDate() + 30);
+        setCookie('token', token, { path: '/', expires: date });
+        alert('Login successful!');
+        navigate('/dashboard');
+      } else {
+        alert(response.error || 'Login failed');
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert('Failed to connect to the server. Please try again later.');
     }
   };
 
