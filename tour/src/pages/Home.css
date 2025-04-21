@@ -10,13 +10,7 @@
 }
 
 /* Background Images */
-const backgroundImages = {
-  flights: 'url("/assets/images/flight.jpg")',
-  trains: 'url("/assets/images/train.jpg")',
-  rentals: 'url("/assets/images/rentals.jpg")',
-  taxi: 'url("/assets/images/taxi.jpg")',
-  hotels: 'url("/assets/images/hotels.jpg")',
-};
+
 
 /* Why Choose Us Section */
 .features {
