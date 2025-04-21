@@ -3,46 +3,50 @@ const router = express.Router();
 const Taxi = require("../models/Taxi");
 
 router.post("/", async (req, res) => {
-    const { Pickup_Location, Drop_Location, Pickup_Date, Customer_Name, Phone } = req.body;
+    const { PickUp_Location, Drop_Location, PickUp_Date, PickUp_Time } = req.body;
 
     // Validate input fields
-    if (!Pickup_Location || !Drop_Location || !Pickup_Date || !Customer_Name || !Phone) {
+    if (!PickUp_Location || !Drop_Location || !PickUp_Date || !PickUp_Time) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Parse date strings into Date objects
-    const parsedPickupDate = new Date(Pickup_Date);
-
-    if (isNaN(parsedPickupDate)) {
+    // Parse and validate the PickUp_Date field
+    const parsedDate = new Date(PickUp_Date);
+    if (isNaN(parsedDate)) {
         return res.status(400).json({ error: "Invalid date format. Use YYYY-MM-DD." });
     }
 
+    // Parse and validate the PickUp_Time field
+    const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/; // Matches HH:mm format
+    if (!timeRegex.test(PickUp_Time)) {
+        return res.status(400).json({ error: "Invalid time format. Use HH:mm." });
+    }
+
     try {
-        const newBooking = await Taxi.create({
-            Pickup_Location,
+        const newTaxi = await Taxi.create({
+            PickUp_Location,
             Drop_Location,
-            Pickup_Date: parsedPickupDate,
-            Customer_Name,
-            Phone,
+            PickUp_Date: parsedDate,
+            PickUp_Time,
         });
 
         return res.status(201).json({
             success: true,
-            message: "Taxi booking successful",
-            booking: newBooking,
+            message: "Taxi added successfully",
+            taxi: newTaxi,
         });
     } catch (error) {
-        console.error("Error creating taxi booking:", error);
-        return res.status(500).json({ error: "Failed to create booking" });
+        console.error("Error adding taxi:", error);
+        return res.status(500).json({ error: "Failed to add taxi" });
     }
 });
 
 router.get("/", async (req, res) => {
     try {
-        const taxiBookings = [];
-        res.status(200).json(taxiBookings);
+        const taxis = await Taxi.find({}, "-__v"); // Exclude the __v field
+        res.status(200).json(taxis);
     } catch (error) {
-        console.error("Error fetching taxi bookings:", error);
+        console.error("Error fetching taxis:", error);
         res.status(500).json({ error: "Internal server error." });
     }
 });

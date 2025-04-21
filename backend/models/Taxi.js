@@ -10,7 +10,7 @@ const Taxi = new mongoose.Schema({
         required : true,
     },
     PickUp_Date : {
-        type : String,
+        type : Date, 
         required : true,
     },
     PickUp_Time : {
