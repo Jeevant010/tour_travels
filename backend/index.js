@@ -1,10 +1,8 @@
 const express = require("express");
 
-
 const app = express();
 const port = process.env.PORT || 8080;
 
-const contactRoutes = require("./routes/contact");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const User = require("./models/User");
@@ -50,7 +48,6 @@ mongoose.connect(
     console.error("Error while connecting to MongoDB:", err);
 });
 
-
 let opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = "supposedtobe";
@@ -68,13 +65,7 @@ try {
 }
 }));
 
-
-
 app.use("/auth", authRoutes);
-
-app.use("/contact", contactRoutes );
-
-app.use("/hotel", hotelRoutes);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");
