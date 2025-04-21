@@ -552,7 +552,7 @@ case 'hotels':
 return (
   <div className="tab-content">
     <h3>Hotel Booking</h3>
-    <form onSubmit={(e) => handleFormSubmit(e, 'hotels', hotelForm)}>
+    <form onSubmit={(e) => handleFormSubmit(e, 'hotel', hotelForm)}>
     <div className="form-row">
       <div className="form-group relative">
         <label>Select City/Location:</label>
