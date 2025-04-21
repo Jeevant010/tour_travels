@@ -268,27 +268,6 @@ const indianRailwayStations = [
   "Udaipur City Railway Station (Udaipur, Rajasthan)",
   "Aurangabad Railway Station (Aurangabad, Maharashtra)",
   "Jammu Tawi (Jammu, Jammu & Kashmir)",
-  "Kochi Harbour Terminus (Kochi, Kerala)",
-  "Kolkata (Kolkata, West Bengal)",
-  "Surat Railway Station (Surat, Gujarat)",
-  "Vadodara Junction (Vadodara, Gujarat)",
-  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
-  "Ranchi Junction (Ranchi, Jharkhand)",
-  "Kochi Harbour Terminus (Kochi, Kerala)",
-  "Udaipur City Railway Station (Udaipur, Rajasthan)",
-  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
-  "Jammu Tawi (Jammu, Jammu & Kashmir)",
-  "Kochi Harbour Terminus (Kochi, Kerala)",
-  "Kolkata (Kolkata, West Bengal)",
-  "Surat Railway Station (Surat, Gujarat)",
-  "Vadodara Junction (Vadodara, Gujarat)",
-  "Bhubaneswar Railway Station (Bhubaneswar, Odisha)",
-  "Ranchi Junction (Ranchi, Jharkhand)",
-  "Kochi Harbour Terminus (Kochi, Kerala)",
-  "Udaipur City Railway Station (Udaipur, Rajasthan)",
-  "Aurangabad Railway Station (Aurangabad, Maharashtra)",
-  "Jammu Tawi (Jammu, Jammu & Kashmir)",
-  "Kochi Harbour Terminus (Kochi, Kerala)",
   "Kolkata (Kolkata, West Bengal)",
   "Surat Railway Station (Surat, Gujarat)",
   "Vadodara Junction (Vadodara, Gujarat)",
@@ -511,31 +490,30 @@ const handleKeyDown = (e) => {
 };
 
 const handleFormSubmit = async (e, formType, formData) => {
-          e.preventDefault();
-          setLoading(true);
-          setError(null);
-          
-          try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // In a real app, you would use actual API calls:
-            // const response = await fetch(`https://api.example.com/${formType}`, {
-            //   method: 'POST',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify(formData)
-            // });
-            
-            // if (!response.ok) throw new Error('Request failed');
-            
-            // const data = await response.json();
-            setResults({ type: formType, data: formData });
-          } catch (err) {
-            setError(err.message || 'An error occurred');
-          } finally {
-            setLoading(false);
-          }
-        };
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+        const response = await fetch(`http://localhost:8080/${formType}/book`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to book");
+        }
+
+        const data = await response.json();
+        setResults({ type: formType, data });
+        alert("Booking successful!");
+    } catch (err) {
+        setError(err.message || "An error occurred");
+    } finally {
+        setLoading(false);
+    }
+};
 
 const handleFlightSubmit = async (e) => { e.preventDefault();
   setLoading(true);
@@ -857,7 +835,7 @@ case 'hotels':
 return (
   <div className="tab-content">
     <h3>Hotel Booking</h3>
-    <form onSubmit={(e) => handleFormSubmit(e, 'hotels', hotelForm)}>
+    <form onSubmit={(e) => handleFormSubmit(e, 'hotel', hotelForm)}>
     <div className="form-row">
       <div className="form-group relative">
         <label>Select City/Location:</label>

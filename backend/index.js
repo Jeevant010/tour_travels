@@ -10,6 +10,7 @@ const passport = require("passport");
 const User = require("./models/User");
 const authRoutes = require("./routes/auth");
 const core = require("cors");
+const hotelRoutes = require("./routes/hotel");
 
 app.use(core({
     origin: "http://localhost:3000",
@@ -72,6 +73,8 @@ try {
 app.use("/auth", authRoutes);
 
 app.use("/contact", contactRoutes );
+
+app.use("/hotel", hotelRoutes);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");
