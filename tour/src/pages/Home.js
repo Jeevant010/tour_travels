@@ -8,7 +8,7 @@ import {indianAirports, indianRailwayStations, indianStates, cityData, hotelData
 import { backendUrl1 } from '../utils/config'; // Import backend URL configuration
 
 function Home() {
-  const [activeTab, setActiveTab] = useState('flights');
+  const [activeTab, setActiveTab] = useState('flight');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
@@ -68,15 +68,15 @@ function Home() {
     let data = [];
     switch(field) {
       case 'departureFrom':
-        if (activeTab === 'flights') {
+        if (activeTab === 'flight') {
           data = indianAirports; 
-        } else if (activeTab === 'trains') {
+        } else if (activeTab === 'train') {
           data = indianRailwayStations; 
         }
       case 'goingTo':
-        if (activeTab === 'flights') {
+        if (activeTab === 'flight') {
           data = indianAirports;
-        } else if (activeTab === 'trains') {
+        } else if (activeTab === 'train') {
           data = indianRailwayStations; 
         }
         break;
@@ -139,14 +139,14 @@ function Home() {
   const handleSuggestionClick = (value) => {
     const selectedValue = typeof value === 'object' ? value.name : value; // Ensure correct value is selected
     switch(activeTab) {
-      case 'flights':
+      case 'flight':
         if (currentField === 'departureFrom') {
           setFlightForm({...flightForm, departureFrom: selectedValue});
         } else if (currentField === 'goingTo') {
           setFlightForm({...flightForm, goingTo: selectedValue});
         }
         break;
-      case 'trains':
+      case 'train':
         if (currentField === 'departureFrom') {
           setTrainForm({...trainForm, departureFrom: selectedValue});
         } else if (currentField === 'goingTo') {
@@ -163,7 +163,7 @@ function Home() {
           setTaxiForm({...taxiForm, dropLocation: selectedValue});
         }
         break;
-      case 'rentals':
+      case 'rental':
         if (currentField === 'city') {
           setRentalForm({...rentalForm, city: selectedValue});
         } else if (currentField === 'state') {
@@ -197,10 +197,10 @@ const handleKeyDown = (e) => {
     const value = e.target.value;
     
     switch(formType) {
-        case 'flights':
+        case 'flight':
             setFlightForm({...flightForm, [field]: value});
             break;
-        case 'trains':
+        case 'train':
             setTrainForm({...trainForm, [field]: value});
             break;
         case 'hotel':
@@ -209,7 +209,7 @@ const handleKeyDown = (e) => {
         case 'taxi':
             setTaxiForm({...taxiForm, [field]: value});
             break;
-        case 'rentals':
+        case 'rental':
             setRentalForm({...rentalForm, [field]: value});
             break;
         default:
@@ -234,32 +234,23 @@ return () => document.removeEventListener('mousedown', handleClickOutside);
 const handleFormSubmit = async (e, formType, formData) => {
   e.preventDefault();
 
-  if (formType === 'flights') {
-    // Redirect to Flightpage.js with form data
-    navigate('/flights', { state: formData });
-    return; // Skip the rest of the logic for flights
-  }
-  if (formType === 'trains') {
-    // Redirect to Trainpage.js with form data
-    navigate('/trains', { state: formData });
-    return;
-  }
-  if (formType === 'hotel') {
-    // Redirect to Hotelpage.js with form data
-    navigate('/hotels', { state: formData });
-    return; // Skip the rest of the logic for hotel form
-  }
-  if (formType === 'rentals') {
-    // Redirect to Rentalpage.js with form data
-    navigate('/rentals', { state: formData });
-    return;
-  }
-
   setIsLoading(true);
   setSuccessMessage('');
   setErrorMessage('');
 
-  // Map frontend field names to backend field names for other forms
+  // Validate date range for flights
+  if (formType === 'flight' && formData.returnDate) {
+    const departureDate = new Date(formData.departureDate);
+    const returnDate = new Date(formData.returnDate);
+
+    if (returnDate < departureDate) {
+      setErrorMessage('Return date cannot be earlier than departure date.');
+      setIsLoading(false);
+      return;
+    }
+  }
+
+  // Map frontend field names to backend field names
   let mappedFormData = { ...formData };
   if (formType === 'hotel') {
     mappedFormData = {
@@ -268,6 +259,38 @@ const handleFormSubmit = async (e, formType, formData) => {
       Checkout_Date: formData.checkoutDate,
       No_of_Rooms: formData.rooms,
       Guests: formData.guests,
+    };
+  } else if (formType === 'taxi') {
+    mappedFormData = {
+      PickUp_Location: formData.pickupLocation,
+      Drop_Location: formData.dropLocation,
+      PickUp_Date: formData.pickupDate,
+      PickUp_Time: formData.pickupTime,
+    };
+  } else if (formType === 'flight') {
+    mappedFormData = {
+      Departure_From: formData.departureFrom.split('(')[0].trim(), // Extract city/airport name
+      Going_to: formData.goingTo.split('(')[0].trim(), // Extract city/airport name
+      Departure_Date: formData.departureDate,
+      Return_Date: formData.returnDate || null,
+      Travelers: parseInt(formData.travelers, 10),
+      Class: formData.class.toLowerCase(),
+    };
+  } else if (formType === 'train') {
+    mappedFormData = {
+      Departure_Form: formData.departureFrom.split('(')[0].trim(), // Extract city/station name
+      Going_to: formData.goingTo.split('(')[0].trim(), // Extract city/station name
+      Departure_Date: formData.departureDate,
+      AC_Type: formData.acType,
+    };
+  } else if (formType === 'rental') {
+    mappedFormData = {
+      State: formData.state,
+      City: formData.city,
+      Vehicle_Type: formData.vehicleType,
+      Duration: formData.duration,
+      Date: formData.date,
+      Location: formData.location,
     };
   }
 
@@ -291,13 +314,7 @@ const handleFormSubmit = async (e, formType, formData) => {
   }
 
   try {
-    let endpoint;
-    if (formType === 'hotel') {
-      endpoint = `${backendUrl1 || 'http://localhost:8080'}/hotel`; // Corrected endpoint for hotels
-    } else {
-      endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
-    }
-
+    const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
     console.log(`Submitting to endpoint: ${endpoint}`);
     console.log('Payload:', JSON.stringify(trimmedFormData)); // Log exact payload for debugging
 
@@ -311,12 +328,9 @@ const handleFormSubmit = async (e, formType, formData) => {
 
     if (!response.ok) {
       const contentType = response.headers.get('Content-Type');
-      if (response.status === 404) {
-        throw new Error(
-          `The requested resource for "${formType}" was not found (404). Please verify the endpoint or contact support.`
-        );
-      } else if (contentType && contentType.includes('application/json')) {
+      if (contentType && contentType.includes('application/json')) {
         const errorData = await response.json();
+        console.error('Backend error response:', errorData); // Log backend error response
         throw new Error(errorData.error || `Failed to submit "${formType}" form.`);
       } else {
         throw new Error(`Unexpected response: ${response.status} ${response.statusText}`);
@@ -325,7 +339,7 @@ const handleFormSubmit = async (e, formType, formData) => {
 
     const data = await response.json();
     setResults(data);
-    setSuccessMessage(`Your "${formType}" booking request has been submitted successfully!`);
+    setSuccessMessage(`Your "${formType}" booking request has been submitted successfully and stored in MongoDB!`);
   } catch (error) {
     console.error('Submission error:', error);
     setErrorMessage(error.message || `Failed to submit "${formType}" form. Please try again later.`);
@@ -336,11 +350,11 @@ const handleFormSubmit = async (e, formType, formData) => {
 
 const renderTabContent = () => {
   switch (activeTab) {
-    case 'flights':
+    case 'flight':
       return (
         <div className="tab-content">
           <h3>Flight Booking</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, 'flights', flightForm)}>
+          <form onSubmit={(e) => handleFormSubmit(e, 'flight', flightForm)}>
             <div className="form-row">
               <div className="form-group relative" style={{width: '48%'}}>
                 <label>Departure From:</label>
@@ -349,8 +363,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="City"
                   value={flightForm.departureFrom}
-                  onChange={(e) => handleInputChange(e, 'departureFrom', 'flights')}
-                  onFocus={(e) => handleInputChange(e, 'departureFrom', 'flights')}
+                  onChange={(e) => handleInputChange(e, 'departureFrom', 'flight')}
+                  onFocus={(e) => handleInputChange(e, 'departureFrom', 'flight')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -363,8 +377,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="City"
                   value={flightForm.goingTo}
-                  onChange={(e) => handleInputChange(e, 'goingTo', 'flights')}
-                  onFocus={(e) => handleInputChange(e, 'goingTo', 'flights')}
+                  onChange={(e) => handleInputChange(e, 'goingTo', 'flight')}
+                  onFocus={(e) => handleInputChange(e, 'goingTo', 'flight')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -377,7 +391,7 @@ const renderTabContent = () => {
                 <input
                   type="date"
                   value={flightForm.departureDate}
-                  onChange={handleChange('flights', 'departureDate')}
+                  onChange={handleChange('flight', 'departureDate')}
                   required
                 />
               </div>
@@ -387,7 +401,7 @@ const renderTabContent = () => {
                 <input
                   type="date"
                   value={flightForm.returnDate}
-                  onChange={handleChange('flights', 'returnDate')}
+                  onChange={handleChange('flight', 'returnDate')}
                 />
               </div>
             </div>
@@ -400,7 +414,7 @@ const renderTabContent = () => {
                   min="1"
                   placeholder="1"
                   value={flightForm.travelers}
-                  onChange={handleChange('flights', 'travelers')}
+                  onChange={handleChange('flight', 'travelers')}
                   required
                 />
               </div>
@@ -409,7 +423,7 @@ const renderTabContent = () => {
                 <label>Class:</label>
                 <select
                   value={flightForm.class}
-                  onChange={handleChange('flights', 'class')}
+                  onChange={handleChange('flight', 'class')}
                 >
                   <option value="economy">Economy</option>
                   <option value="business">Business</option>
@@ -427,11 +441,11 @@ const renderTabContent = () => {
         </div>
       );
 
-    case 'trains':
+    case 'train':
       return (
         <div className="tab-content">
           <h3>Train Booking</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, 'trains', trainForm)}>
+          <form onSubmit={(e) => handleFormSubmit(e, 'train', trainForm)}>
             <div className="form-row">
               <div className="form-group relative">
                 <label>Departure From:</label>
@@ -440,8 +454,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="Enter departure city"
                   value={trainForm.departureFrom}
-                  onChange={(e) => handleInputChange(e, 'departureFrom', 'trains')}
-                  onFocus={(e) => handleInputChange(e, 'departureFrom', 'trains')}
+                  onChange={(e) => handleInputChange(e, 'departureFrom', 'train')}
+                  onFocus={(e) => handleInputChange(e, 'departureFrom', 'train')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -454,8 +468,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="Enter destination city"
                   value={trainForm.goingTo}
-                  onChange={(e) => handleInputChange(e, 'goingTo', 'trains')}
-                  onFocus={(e) => handleInputChange(e, 'goingTo', 'trains')}
+                  onChange={(e) => handleInputChange(e, 'goingTo', 'train')}
+                  onFocus={(e) => handleInputChange(e, 'goingTo', 'train')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -468,7 +482,7 @@ const renderTabContent = () => {
                 <input
                   type="date"
                   value={trainForm.departureDate}
-                  onChange={handleChange('trains', 'departureDate')}
+                  onChange={handleChange('train', 'departureDate')}
                   required
                 />
               </div>
@@ -477,7 +491,7 @@ const renderTabContent = () => {
                 <label>AC Type:</label>
                 <select
                   value={trainForm.acType}
-                  onChange={handleChange('trains', 'acType')}
+                  onChange={handleChange('train', 'acType')}
                 >
                   <option value="sleeper">Sleeper</option>
                   <option value="ac1">AC 1st Class</option>
@@ -644,11 +658,11 @@ const renderTabContent = () => {
         </div>
       );
 
-    case 'rentals':
+    case 'rental':
       return (
         <div className="tab-content">
           <h3>Rental Services</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, 'rentals', rentalForm)}>
+          <form onSubmit={(e) => handleFormSubmit(e, 'rental', rentalForm)}>
             <div className="form-row">
               <div className="form-group relative">
                 <label>State:</label>
@@ -657,8 +671,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="Enter state"
                   value={rentalForm.state}
-                  onChange={(e) => handleInputChange(e, 'state', 'rentals')}
-                  onFocus={(e) => handleInputChange(e, 'state', 'rentals')}
+                  onChange={(e) => handleInputChange(e, 'state', 'rental')}
+                  onFocus={(e) => handleInputChange(e, 'state', 'rental')}
                   onKeyDown={handleKeyDown}
                 />
               </div>
@@ -670,8 +684,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="Enter city"
                   value={rentalForm.city}
-                  onChange={(e) => handleInputChange(e, 'city', 'rentals')}
-                  onFocus={(e) => handleInputChange(e, 'city', 'rentals')}
+                  onChange={(e) => handleInputChange(e, 'city', 'rental')}
+                  onFocus={(e) => handleInputChange(e, 'city', 'rental')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -683,7 +697,7 @@ const renderTabContent = () => {
                 <label>Vehicle Type:</label>
                 <select
                   value={rentalForm.vehicleType}
-                  onChange={handleChange('rentals', 'vehicleType')}
+                  onChange={handleChange('rental', 'vehicleType')}
                 >
                   {vehicleTypes.map(type => (
                     <option key={type} value={type.toLowerCase()}>{type}</option>
@@ -697,7 +711,7 @@ const renderTabContent = () => {
                   type="number"
                   min="1"
                   value={rentalForm.duration}
-                  onChange={handleChange('rentals', 'duration')}
+                  onChange={handleChange('rental', 'duration')}
                   required
                 />
               </div>
@@ -709,7 +723,7 @@ const renderTabContent = () => {
                 <input
                   type="date"
                   value={rentalForm.date}
-                  onChange={handleChange('rentals', 'date')}
+                  onChange={handleChange('rental', 'date')}
                   required
                 />
               </div>
@@ -721,8 +735,8 @@ const renderTabContent = () => {
                   type="text"
                   placeholder="Enter pickup location"
                   value={rentalForm.location}
-                  onChange={(e) => handleInputChange(e, 'location', 'rentals')}
-                  onFocus={(e) => handleInputChange(e, 'location', 'rentals')}
+                  onChange={(e) => handleInputChange(e, 'location', 'rental')}
+                  onFocus={(e) => handleInputChange(e, 'location', 'rental')}
                   onKeyDown={handleKeyDown}
                   required
                 />
@@ -749,7 +763,7 @@ return (
 <section className="booking-tabs">
 <h2>Book Your Travel</h2>
 <div className="tabs">
-  {['flights', 'trains', 'hotel', 'taxi', 'rentals'].map((tab) => (
+  {['flight', 'train', 'hotel', 'taxi', 'rental'].map((tab) => (
     <button
       key={tab}
       className={`tab-button ${activeTab === tab ? 'active' : ''}`}
@@ -759,11 +773,11 @@ return (
         setShowSuggestions(false);
       }}
     >
-      {tab === 'flights' && <FaPlane className="tab-icon" />}
-      {tab === 'trains' && <FaTrain className="tab-icon" />}
+      {tab === 'flight' && <FaPlane className="tab-icon" />}
+      {tab === 'train' && <FaTrain className="tab-icon" />}
       {tab === 'hotel' && <FaHotel className="tab-icon" />}
       {tab === 'taxi' && <FaTaxi className="tab-icon" />}
-      {tab === 'rentals' && <FaCar className="tab-icon" />}
+      {tab === 'rental' && <FaCar className="tab-icon" />}
       {tab.charAt(0).toUpperCase() + tab.slice(1)}
     </button>
   ))}
