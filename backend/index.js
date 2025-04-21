@@ -75,12 +75,12 @@ const contactRoute = require("./routes/contact");
 app.use("/auth", authRoutes);
 
 // Use additional routes
-app.use("/api/flights", flightsRoute);
-app.use("/api/rental", rentalRoute);
-app.use("/api/hotel", hotelRoute);
-app.use("/api/train", trainRoute);
-app.use("/api/taxi", taxiRoute);
-app.use("/api/contact", contactRoute);
+app.use("/flights", flightsRoute);
+app.use("/rental", rentalRoute);
+app.use("/hotel", hotelRoute);
+app.use("/train", trainRoute);
+app.use("/taxi", taxiRoute);
+app.use("/contact", contactRoute);
 
 app.get("/",(req,res) => {
     res.send("Hello , World!");

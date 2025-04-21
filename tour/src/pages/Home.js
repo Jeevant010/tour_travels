@@ -224,13 +224,13 @@ return () => document.removeEventListener('mousedown', handleClickOutside);
 
 const handleFormSubmit = async (e, formType, formData) => {
   e.preventDefault();
-  setIsLoading(true); // Set loading state
-  setSuccessMessage(''); // Reset success message
-  setErrorMessage(''); // Reset error message
+  setIsLoading(true);
+  setSuccessMessage('');
+  setErrorMessage('');
 
   try {
-    const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`; // Use dynamic base URL
-    console.log(`Submitting to endpoint: ${endpoint}`); // Log the endpoint URL
+    const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
+    console.log(`Submitting to endpoint: ${endpoint}`);
 
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -259,7 +259,7 @@ const handleFormSubmit = async (e, formType, formData) => {
     console.error('Submission error:', error);
     setErrorMessage(error.message || `Failed to submit ${formType} form. Please try again later.`);
   } finally {
-    setIsLoading(false); // Reset loading state
+    setIsLoading(false);
   }
 };
 
@@ -422,7 +422,7 @@ const renderTabContent = () => {
             {successMessage && <p className="success-message">{successMessage}</p>}
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-            {/* Train PNR Button */}
+
             <div className="train-pnr-button-container">
               <button
                 className="train-pnr-button"
