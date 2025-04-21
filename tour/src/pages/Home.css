@@ -187,7 +187,7 @@ const backgroundImages = {
 }
 
 .submit-button {
-  grid-column: span 2; /* Make the button span across two columns */
+  grid-column: span 2;
   padding: 0.5rem;
   background-color: #007bff;
   color: white;

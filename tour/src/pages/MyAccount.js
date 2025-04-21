@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import './MyAccount.css';
 import Ourmain from '../hoc/Ourmain.jsx';
@@ -7,18 +8,12 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function MyAccount() {
   const [userData, setUserData] = useState({
-    name: 'John Doe', // Default values for testing
-    email: 'john@example.com',
-    phone: '1234567890',
-    bookings: [
-      {
-        tourName: 'Paris Adventure',
-        date: '2023-12-15T00:00:00.000Z',
-        status: 'confirmed'
-      }
-    ]
+    name: '',
+    email: '',
+    phone: '',
+    bookings: []
   });
-  const [loading, setLoading] = useState(false); // Set to false for testing
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cookies] = useCookies(['token']);
   const navigate = useNavigate();
@@ -32,50 +27,60 @@ function MyAccount() {
         }
 
         setLoading(true);
-
-        let response = await fetch(`${backendUrl}/api/users/me`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${cookies.token}`
-          }
-        });
-
-        if (response.status === 404) {
-          console.warn('Endpoint /api/users/me not found. Trying alternative endpoint...');
-          response = await fetch(`${backendUrl}/user/profile`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${cookies.token}`
-            }
-          });
-        }
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setUserData(data);
         setError(null);
-      } catch (err) {
-        console.error('Error fetching user data:', err.message);
-        setError('Failed to load account information. Showing demo data instead.');
+        
+        // Try multiple possible endpoints
+        const endpoints = [
+          '/api/user/profile',  // Most common REST convention
+          '/user/me',          // Alternative common pattern
+          '/api/me',           // Simpler version
+          '/auth/user'         // Auth service endpoint
+        ];
 
-        // Use default demo data if API fails
-        setUserData({
-          name: 'John Doe',
-          email: 'john@example.com',
-          phone: '1234567890',
-          bookings: [
-            {
-              tourName: 'Paris Adventure',
-              date: '2023-12-15T00:00:00.000Z',
-              status: 'confirmed'
+        let response;
+        let successful = false;
+
+        for (const endpoint of endpoints) {
+          try {
+            response = await fetch(`${backendUrl}${endpoint}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${cookies.token}`
+              }
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              setUserData(data);
+              successful = true;
+              break;
             }
-          ]
-        });
+          } catch (err) {
+            console.log(`Attempt failed for ${endpoint}:`, err);
+            continue;
+          }
+        }
+
+        if (!successful) {
+          // Fallback to token data if all endpoints fail
+          const tokenData = decodeToken(cookies.token);
+          if (tokenData) {
+            setUserData({
+              name: tokenData.name || '',
+              email: tokenData.email || '',
+              phone: tokenData.phone || '',
+              bookings: tokenData.bookings || []
+            });
+            setError('Using limited profile data from token. Some features may not be available.');
+          } else {
+            throw new Error('All endpoints failed and token could not be decoded');
+          }
+        }
+
+      } catch (err) {
+        console.error('Error:', err);
+        setError('Could not load full profile data. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -84,13 +89,24 @@ function MyAccount() {
     fetchUserData();
   }, [cookies.token, navigate]);
 
+  const decodeToken = (token) => {
+    try {
+      const payload = token.split('.')[1];
+      const decoded = JSON.parse(atob(payload));
+      console.log('Decoded token data:', decoded);
+      return decoded;
+    } catch (err) {
+      console.error('Token decode error:', err);
+      return null;
+    }
+  };
+
   const handleLogout = () => {
     document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     navigate('/auth/login');
   };
 
-  // Remove loading state for now since we're using demo data
-  if (false) {
+  if (loading) {
     return (
       <div className="my-account">
         <h1 className="account-title">My Account</h1>
@@ -105,22 +121,37 @@ function MyAccount() {
       
       {error && (
         <div className="error-message">
-          {error} <button onClick={() => window.location.reload()}>Retry</button>
+          {error}
+          <div className="debug-info">
+            <small>Please ensure you're using the correct endpoint</small>
+          </div>
+          <button 
+            className="retry-button"
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </button>
+          <button 
+            className="contact-support-button"
+            onClick={() => navigate('/support')}
+          >
+            Contact Support
+          </button>
         </div>
       )}
 
-      <div className="account-details">
-        <div className="account-section">
+<div className="account-details">
+      <div className="account-section">
           <h2>Personal Information</h2>
-          <p><strong>Name:</strong> {userData.name}</p>
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>Phone:</strong> {userData.phone}</p>
+          <p><strong>Name:</strong> {userData.name || 'Not available'}</p>
+          <p><strong>Email:</strong> {userData.email || 'Not available'}</p>
+          <p><strong>Phone:</strong> {userData.phone || 'Not available'}</p>
           <button className="account-button">Edit Profile</button>
         </div>
 
         <div className="account-section">
           <h2>Booking History</h2>
-          {userData.bookings.length > 0 ? (
+          {userData.bookings && userData.bookings.length > 0 ? (
             <ul className="booking-list">
               {userData.bookings.map((booking, index) => (
                 <li key={index} className="booking-item">
@@ -131,14 +162,17 @@ function MyAccount() {
               ))}
             </ul>
           ) : (
-            <p>No bookings yet. <Link to="/tours">Explore tours</Link></p>
+            <p>No bookings found. <Link to="/tours">Explore available tours</Link></p>
           )}
         </div>
 
         <div className="account-section">
           <h2>Account Actions</h2>
           <button className="account-button">Change Password</button>
-          <button className="account-button logout-button" onClick={handleLogout}>
+          <button 
+            className="account-button logout-button" 
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </div>
