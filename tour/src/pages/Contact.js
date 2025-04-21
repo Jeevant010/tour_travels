@@ -61,7 +61,7 @@ function Contact() {
           <h2>Send Us a Message</h2>
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="My_Name">Your Name:</label>  {/* Changed id to My_Name */}
+              <label htmlFor="My_Name">Your Name:</label> 
               <input
                 type="text"
                 id="My_Name"
