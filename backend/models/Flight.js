@@ -15,7 +15,6 @@ const Flight = new mongoose.Schema({
     },
     Return_Date : {
         type : String,
-        required : true,
     },
     Travelers : {
         type : String,
