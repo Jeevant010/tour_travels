@@ -1,11 +1,11 @@
 import React from 'react';
 import './Flightpage.css';
-import Ourmain from '../hoc/Ourmain'; // Import Ourmain HOC
-import { useLocation } from 'react-router-dom'; // Import useLocation to retrieve passed data
+import Ourmain from '../hoc/Ourmain';
+import { useLocation } from 'react-router-dom';
 
 const Flightpage = () => {
   const location = useLocation();
-  const flightData = location.state || {}; // Retrieve the data passed via navigation
+  const flightData = location.state || {};
 
   return (
     <div className="flight-page">
@@ -22,7 +22,9 @@ const Flightpage = () => {
             {Object.entries(flightData).map(([key, value]) => (
               <tr key={key}>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{key}</td>
-                <td style={{ border: '1px solid #ddd', padding: '8px' }}>{value}</td>
+                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                  {typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -32,4 +34,4 @@ const Flightpage = () => {
   );
 };
 
-export default Ourmain(Flightpage); // Wrap the component with Ourmain
+export default Ourmain(Flightpage);

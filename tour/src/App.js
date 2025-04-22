@@ -34,10 +34,11 @@ function Main() {
           <Route path="/account" element={<MyAccount />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/trainPnr" element={<PNRcomponent />} />
-          <Route path="/flights" element={<Flightpage />} />
-          <Route path="/hotels" element={<Hotelpage />} />
-          <Route path="/trains" element={<Trainpage />} />
-          <Route path="/rentals" element={<Rentalpage />} />
+          <Route path="/flight" element={<Flightpage />} />
+          <Route path="/hotel" element={<Hotelpage />} />
+          <Route path="/train" element={<Trainpage />} />
+          <Route path="/taxi" element={<Rentalpage />} />
+          <Route path="/rental" element={<Rentalpage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -47,10 +48,11 @@ function Main() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/trainPnr" element={<PNRcomponent />} />
-          <Route path="/flights" element={<Flightpage />} />
-          <Route path="/hotels" element={<Hotelpage />} />
-          <Route path="/trains" element={<Trainpage />} />
-          <Route path="/rentals" element={<Rentalpage />} />
+          <Route path="/flight" element={<Flightpage />} />
+          <Route path="/hotel" element={<Hotelpage />} />
+          <Route path="/train" element={<Trainpage />} />
+          <Route path="/taxi" element={<Rentalpage />} />
+          <Route path="/rental" element={<Rentalpage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>

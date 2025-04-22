@@ -7,12 +7,10 @@ router.post("/", async (req, res) => {
 
     const { Departure_From, Going_to, Departure_Date, Return_Date, Travelers, Class } = req.body;
 
-    // Validate input fields
     if (!Departure_From || !Going_to || !Departure_Date || !Return_Date || !Travelers || !Class) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Parse date strings into Date objects for validation
     const parsedDepartureDate = new Date(Departure_Date);
     const parsedReturnDate = new Date(Return_Date);
 

@@ -24,32 +24,27 @@ function Signup() {
     }
 
     const data = { userName, fullName, email, password, confirmPassword, phone, address };
-    const response = await makeUnauthenticatedPOSTRequest('/auth/signup', data);
-    if (response && !response.error) {
-      const token = response.token;
-      const date = new Date();
-      date.setDate(date.getDate() + 30);
-      setCookie('token', token, { path: '/', expires: date });
-      alert('Signup successful');
-      navigate('/account');
-    } else {
-      alert('Signup failed');
+    try {
+      const response = await makeUnauthenticatedPOSTRequest('/auth/signup', data);
+      if (response && !response.error) {
+        const token = response.token;
+        const date = new Date();
+        date.setDate(date.getDate() + 30);
+        setCookie('token', token, { path: '/', expires: date });
+        alert('Signup successful');
+        navigate('/account');
+      } else {
+        alert(response?.error || 'Signup failed');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('An error occurred during signup. Please try again.');
     }
   };
 
-  const Submit = () => {
-    return (
-      <button
-        type="submit"
-        className="signup-button"
-        onClick={(e) => {
-          e.preventDefault();
-          Signup1();
-        }}
-      >
-        Signup
-      </button>
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    Signup1();
   };
 
   return (
@@ -61,7 +56,7 @@ function Signup() {
         <div className="signup-container">
           <h2>Hey, hello</h2>
           <p>Enter your information.</p>
-          <form className="signup-form">
+          <form className="signup-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <input
@@ -139,7 +134,9 @@ function Signup() {
                 required
               ></textarea>
             </div>
-            <Submit />
+            <button type="submit" className="signup-button">
+              Signup
+            </button>
           </form>
           <p className="login-redirect">
             Already have an account? <Link to="/auth/login" className="login-link">Login</Link>

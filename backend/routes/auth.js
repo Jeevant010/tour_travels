@@ -32,6 +32,7 @@ router.post("/signup", async (req, res) => {
             fullName,
             email,
             password: hashedPassword,
+            confirmPassword: hashedPassword,
             phone,
             address
         });

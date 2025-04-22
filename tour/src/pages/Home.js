@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, Navigate } from 'react-router-dom'; 
 import './Home.css';
 import Explore from '../Components/Explore';
 import Ourmain from '../hoc/Ourmain';
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
 import {indianAirports, indianRailwayStations, indianStates, cityData, hotelData, vehicleTypes } from '../pages/homeTop';
 import { backendUrl1 } from '../utils/config'; 
+import { Link } from 'react-router-dom';
+
+
 
 function Home() {
   const [activeTab, setActiveTab] = useState('flight');
@@ -241,7 +244,61 @@ const handleFormSubmit = async (e, formType, formData) => {
   if (formType === 'flight' && formData.returnDate) {
     const departureDate = new Date(formData.departureDate);
     const returnDate = new Date(formData.returnDate);
+    try {
+      <Link to='/flight' state={{ flightData: formData }} />
+  } catch (error) {
+      console.error('Navigation error:', error);
+      setErrorMessage('Failed to navigate to the train page. Please try again.');
+  }
+    if (returnDate < departureDate) {
+      setErrorMessage('Return date cannot be earlier than departure date.');
+      setIsLoading(false);
+      return;
+    }
+  }
 
+  if (formType === 'train' && formData.returnDate) {
+    const departureDate = new Date(formData.departureDate);
+    const returnDate = new Date(formData.returnDate);
+    try {
+        navigate('/train', { state: { trainData: formData } });
+    } catch (error) {
+        console.error('Navigation error:', error);
+        setErrorMessage('Failed to navigate to the train page. Please try again.');
+    }
+    if (returnDate < departureDate) {
+      setErrorMessage('Return date cannot be earlier than departure date.');
+      setIsLoading(false);
+      return;
+    }
+  }
+
+  if (formType === 'hotel' && formData.returnDate) {
+    const departureDate = new Date(formData.departureDate);
+    const returnDate = new Date(formData.returnDate);
+    navigate('/hotel', { state: { flightData: formData } });
+    if (returnDate < departureDate) {
+      setErrorMessage('Return date cannot be earlier than departure date.');
+      setIsLoading(false);
+      return;
+    }
+  }
+
+  if (formType === 'taxi' && formData.returnDate) {
+    const departureDate = new Date(formData.departureDate);
+    const returnDate = new Date(formData.returnDate);
+    navigate('/taxi', { state: { flightData: formData } });
+    if (returnDate < departureDate) {
+      setErrorMessage('Return date cannot be earlier than departure date.');
+      setIsLoading(false);
+      return;
+    }
+  }
+
+  if (formType === 'rental' && formData.returnDate) {
+    const departureDate = new Date(formData.departureDate);
+    const returnDate = new Date(formData.returnDate);
+    navigate('/rental', { state: { flightData: formData } });
     if (returnDate < departureDate) {
       setErrorMessage('Return date cannot be earlier than departure date.');
       setIsLoading(false);
@@ -435,6 +492,7 @@ const renderTabContent = () => {
             
             <button type="submit" className="submit-button" disabled={isLoading}>
               {isLoading ? 'Searching...' : 'Search Flights'}
+              
             </button>
             {successMessage && <p className="success-message">{successMessage}</p>}
             {errorMessage && <p className="error-message">{errorMessage}</p>}
