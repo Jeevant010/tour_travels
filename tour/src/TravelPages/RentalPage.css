@@ -1,16 +1,16 @@
-.flight-page {
+.train-page {
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
   }
   
-  .flight-page h1 {
+  .train-page h1 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
   }
   
-  .flight-page table {
+  .train-page table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -18,27 +18,27 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
-  .flight-page th,
-  .flight-page td {
+  .train-page th,
+  .train-page td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
   }
   
-  .flight-page th {
+  .train-page th {
     background-color: #f4f4f4;
     color: #555;
     font-weight: bold;
   }
   
-  .flight-page tr:nth-child(even) {
+  .train-page tr:nth-child(even) {
     background-color: #f9f9f9;
   }
   
-  .flight-page tr:hover {
+  .train-page tr:hover {
     background-color: #f1f1f1;
   }
   
-  .flight-page td {
+  .train-page td {
     color: #333;
   }

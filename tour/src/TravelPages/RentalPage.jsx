@@ -1,16 +1,16 @@
 import React from 'react';
-import './Flightpage.css';
+import './Rentalpage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation } from 'react-router-dom';
 
-const Flightpage = () => {
+const Rentalpage = () => {
   const location = useLocation();
-  const flightData = location.state || {};
+  const rentalData = location.state || {};
 
   return (
-    <div className="flight-page">
+    <div className="rental-page">
       <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-        <h1>Flight Booking Details</h1>
+        <h1>Rental Booking Details</h1>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
           <thead>
             <tr>
@@ -19,7 +19,7 @@ const Flightpage = () => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(flightData).map(([key, value]) => (
+            {Object.entries(rentalData).map(([key, value]) => (
               <tr key={key}>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>{key}</td>
                 <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -34,4 +34,4 @@ const Flightpage = () => {
   );
 };
 
-export default Ourmain(Flightpage);
+export default Ourmain(Rentalpage);
