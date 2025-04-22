@@ -8,7 +8,7 @@ import ContactUs from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Hotelpage from './pages/Hotelpage';
-import Flightpage from './pages/Flightpage.js';
+import Flightpage from './TravelPages/Flightpage.js';
 import Trainpage from './pages/Trainpage';
 import Rentalpage from './pages/Rentalpage';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
