@@ -1,9 +1,9 @@
 import React from 'react';
-import './Taxipage.css';
+import './TaxiPage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation } from 'react-router-dom';
 
-const Taxipage = () => {
+const TaxiPage = () => {
   const location = useLocation();
   const taxiData = location.state || {};
 
@@ -34,4 +34,4 @@ const Taxipage = () => {
   );
 };
 
-export default Ourmain(Taxipage);
+export default Ourmain(TaxiPage);

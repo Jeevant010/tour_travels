@@ -1,9 +1,9 @@
 import React from 'react';
-import './Trainpage.css';
+import './TrainPage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation } from 'react-router-dom';
 
-const Trainpage = () => {
+const TrainPage = () => {
   const location = useLocation();
   const trainData = location.state || {};
 
@@ -34,4 +34,4 @@ const Trainpage = () => {
   );
 };
 
-export default Ourmain(Trainpage);
+export default Ourmain(TrainPage);

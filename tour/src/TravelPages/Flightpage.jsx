@@ -1,9 +1,9 @@
 import React from 'react';
-import './Flightpage.css';
+import './FlightPage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation } from 'react-router-dom';
 
-const Flightpage = () => {
+const FlightPage = () => {
   const location = useLocation();
   const flightData = location.state || {};
 
@@ -34,4 +34,4 @@ const Flightpage = () => {
   );
 };
 
-export default Ourmain(Flightpage);
+export default Ourmain(FlightPage);

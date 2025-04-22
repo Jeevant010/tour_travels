@@ -7,12 +7,13 @@ import MyAccount from './pages/MyAccount';
 import ContactUs from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import Hotelpage from './pages/Hotelpage';
-import Flightpage from './TravelPages/Flightpage';
-import Trainpage from './pages/Trainpage';
-import Rentalpage from './pages/Rentalpage';
+import HotelPage from './TravelPages/HotelPage';
+import FlightPage from './TravelPages/FlightPage';
+import TrainPage from './TravelPages/TrainPage';
+import TaxiPage from './TravelPages/TaxiPage';
+import RentalPage from './TravelPages/RentalPage';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
-import PNRcomponent from './Components/PNRcomponent.jsx';
+import PNRcomponent from './Components/PNRcomponent';
 
 function App() {
   return (
@@ -34,11 +35,11 @@ function Main() {
           <Route path="/account" element={<MyAccount />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/trainPnr" element={<PNRcomponent />} />
-          <Route path="/flight" element={<Flightpage />} />
-          <Route path="/hotel" element={<Hotelpage />} />
-          <Route path="/train" element={<Trainpage />} />
-          <Route path="/taxi" element={<Rentalpage />} />
-          <Route path="/rental" element={<Rentalpage />} />
+          <Route path="/flight" element={<FlightPage />} />
+          <Route path="/hotel" element={<HotelPage />} />
+          <Route path="/train" element={<TrainPage />} />
+          <Route path="/taxi" element={<TaxiPage />} />
+          <Route path="/rental" element={<RentalPage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -48,11 +49,11 @@ function Main() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/trainPnr" element={<PNRcomponent />} />
-          <Route path="/flight" element={<Flightpage />} />
-          <Route path="/hotel" element={<Hotelpage />} />
-          <Route path="/train" element={<Trainpage />} />
-          <Route path="/taxi" element={<Rentalpage />} />
-          <Route path="/rental" element={<Rentalpage />} />
+          <Route path="/flight" element={<FlightPage />} />
+          <Route path="/hotel" element={<HotelPage />} />
+          <Route path="/train" element={<TrainPage />} />
+          <Route path="/taxi" element={<TaxiPage />} />
+          <Route path="/rental" element={<RentalPage />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>

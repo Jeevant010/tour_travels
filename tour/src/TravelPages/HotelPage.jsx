@@ -1,9 +1,9 @@
 import React from 'react';
-import './Hotelpage.css';
+import './HotelPage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation } from 'react-router-dom';
 
-const Hotelpage = () => {
+const HotelPage = () => {
   const location = useLocation();
   const hotelData = location.state || {};
 
@@ -34,4 +34,4 @@ const Hotelpage = () => {
   );
 };
 
-export default Ourmain(Hotelpage);
+export default Ourmain(HotelPage);

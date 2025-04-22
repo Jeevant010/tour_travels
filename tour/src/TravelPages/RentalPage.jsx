@@ -1,9 +1,9 @@
 import React from 'react';
-import './Rentalpage.css';
+import './RentalPage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation } from 'react-router-dom';
 
-const Rentalpage = () => {
+const RentalPage = () => {
   const location = useLocation();
   const rentalData = location.state || {};
 
@@ -34,4 +34,4 @@ const Rentalpage = () => {
   );
 };
 
-export default Ourmain(Rentalpage);
+export default Ourmain(RentalPage);

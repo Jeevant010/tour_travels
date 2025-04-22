@@ -171,8 +171,6 @@ function Home() {
           setRentalForm({...rentalForm, city: selectedValue});
         } else if (currentField === 'state') {
           setRentalForm({...rentalForm, state: selectedValue});
-        } else if (currentField === 'location') {
-          setRentalForm({...rentalForm, location: selectedValue});
         }
         break;
       default:
@@ -236,171 +234,138 @@ return () => document.removeEventListener('mousedown', handleClickOutside);
 
 const handleFormSubmit = async (e, formType, formData) => {
   e.preventDefault();
-
   setIsLoading(true);
   setSuccessMessage('');
   setErrorMessage('');
 
-  if (formType === 'flight' && formData.returnDate) {
-    const departureDate = new Date(formData.departureDate);
-    const returnDate = new Date(formData.returnDate);
-    try {
-      <Link to='/flight' state={{ flightData: formData }} />
-  } catch (error) {
-      console.error('Navigation error:', error);
-      setErrorMessage('Failed to navigate to the train page. Please try again.');
-  }
-    if (returnDate < departureDate) {
-      setErrorMessage('Return date cannot be earlier than departure date.');
-      setIsLoading(false);
-      return;
-    }
-  }
+  // 1. Form Data Mapping
+  const formMappers = {
+    hotel: (data) => ({
+      Location: data.location,
+      Checkin_Date: data.checkinDate,
+      Checkout_Date: data.checkoutDate,
+      No_of_Rooms: data.rooms,
+      Guests: data.guests,
+    }),
+    taxi: (data) => ({
+      PickUp_Location: data.pickupLocation,
+      Drop_Location: data.dropLocation,
+      PickUp_Date: data.pickupDate,
+      PickUp_Time: data.pickupTime,
+    }),
+    flight: (data) => ({
+      Departure_From: data.departureFrom.split('(')[0].trim(),
+      Going_to: data.goingTo.split('(')[0].trim(),
+      Departure_Date: data.departureDate,
+      Return_Date: data.returnDate || null,
+      Travelers: parseInt(data.travelers, 10),
+      Class: data.class.toLowerCase(),
+    }),
+    train: (data) => ({
+      Departure_Form: data.departureFrom.split('(')[0].trim(),
+      Going_to: data.goingTo.split('(')[0].trim(),
+      Departure_Date: data.departureDate,
+      AC_Type: data.acType,
+    }),
+    rental: (data) => ({
+      State: data.state,
+      City: data.city,
+      Vehicle_Type: data.vehicleType,
+      Duration: data.duration,
+      Date: data.date,
+      Location: data.location,
+    }),
+  };
 
-  if (formType === 'train' && formData.returnDate) {
-    const departureDate = new Date(formData.departureDate);
-    const returnDate = new Date(formData.returnDate);
-    try {
-        navigate('/train', { state: { trainData: formData } });
-    } catch (error) {
-        console.error('Navigation error:', error);
-        setErrorMessage('Failed to navigate to the train page. Please try again.');
-    }
-    if (returnDate < departureDate) {
-      setErrorMessage('Return date cannot be earlier than departure date.');
-      setIsLoading(false);
-      return;
-    }
-  }
+  // 2. Data Processing
+  const processFormData = (data) => {
+    const mapper = formMappers[formType];
+    if (!mapper) throw new Error(`Unsupported form type: ${formType}`);
+    
+    const mappedData = mapper(data);
+    return Object.fromEntries(
+      Object.entries(mappedData).map(([key, value]) => 
+        [key, typeof value === 'string' ? value.trim() : value]
+      )
+    );
+  };
 
-  if (formType === 'hotel' && formData.returnDate) {
-    const departureDate = new Date(formData.departureDate);
-    const returnDate = new Date(formData.returnDate);
-    navigate('/hotel', { state: { flightData: formData } });
-    if (returnDate < departureDate) {
-      setErrorMessage('Return date cannot be earlier than departure date.');
-      setIsLoading(false);
-      return;
-    }
-  }
-
-  if (formType === 'taxi' && formData.returnDate) {
-    const departureDate = new Date(formData.departureDate);
-    const returnDate = new Date(formData.returnDate);
-    navigate('/taxi', { state: { flightData: formData } });
-    if (returnDate < departureDate) {
-      setErrorMessage('Return date cannot be earlier than departure date.');
-      setIsLoading(false);
-      return;
-    }
-  }
-
-  if (formType === 'rental' && formData.returnDate) {
-    const departureDate = new Date(formData.departureDate);
-    const returnDate = new Date(formData.returnDate);
-    navigate('/rental', { state: { flightData: formData } });
-    if (returnDate < departureDate) {
-      setErrorMessage('Return date cannot be earlier than departure date.');
-      setIsLoading(false);
-      return;
-    }
-  }
-
-  let mappedFormData = { ...formData };
-  if (formType === 'hotel') {
-    mappedFormData = {
-      Location: formData.location,
-      Checkin_Date: formData.checkinDate,
-      Checkout_Date: formData.checkoutDate,
-      No_of_Rooms: formData.rooms,
-      Guests: formData.guests,
-    };
-  } else if (formType === 'taxi') {
-    mappedFormData = {
-      PickUp_Location: formData.pickupLocation,
-      Drop_Location: formData.dropLocation,
-      PickUp_Date: formData.pickupDate,
-      PickUp_Time: formData.pickupTime,
-    };
-  } else if (formType === 'flight') {
-    mappedFormData = {
-      Departure_From: formData.departureFrom.split('(')[0].trim(), 
-      Going_to: formData.goingTo.split('(')[0].trim(), 
-      Departure_Date: formData.departureDate,
-      Return_Date: formData.returnDate || null,
-      Travelers: parseInt(formData.travelers, 10),
-      Class: formData.class.toLowerCase(),
-    };
-  } else if (formType === 'train') {
-    mappedFormData = {
-      Departure_Form: formData.departureFrom.split('(')[0].trim(), 
-      Going_to: formData.goingTo.split('(')[0].trim(),
-      Departure_Date: formData.departureDate,
-      AC_Type: formData.acType,
-    };
-  } else if (formType === 'rental') {
-    mappedFormData = {
-      State: formData.state,
-      City: formData.city,
-      Vehicle_Type: formData.vehicleType,
-      Duration: formData.duration,
-      Date: formData.date,
-      Location: formData.location,
-    };
-  }
-
-  const trimmedFormData = Object.fromEntries(
-    Object.entries(mappedFormData).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : value])
-  );
-
-  const isFormValid = Object.entries(trimmedFormData).every(([key, value]) => {
-    if (value === '' || value === null || value === undefined) {
-      console.error(`Missing field: ${key}`);
-      return false;
-    }
-    return true;
-  });
-
-  if (!isFormValid) {
-    setErrorMessage('All fields are required');
-    setIsLoading(false);
-    return;
-  }
-
-  try {
-    const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
-    console.log(`Submitting to endpoint: ${endpoint}`);
-    console.log('Payload:', JSON.stringify(trimmedFormData));
-
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(trimmedFormData),
-    });
-
-    if (!response.ok) {
-      const contentType = response.headers.get('Content-Type');
-      if (contentType && contentType.includes('application/json')) {
-        const errorData = await response.json();
-        console.error('Backend error response:', errorData);
-        throw new Error(errorData.error || `Failed to submit "${formType}" form.`);
-      } else {
-        throw new Error(`Unexpected response: ${response.status} ${response.statusText}`);
+  // 3. Validation
+  const validateForm = (data) => {
+    // Date validation for relevant forms
+    if (['flight', 'hotel', 'taxi', 'rental'].includes(formType) && data.returnDate) {
+      if (new Date(data.returnDate) < new Date(data.departureDate)) {
+        throw new Error('Return date cannot be earlier than departure date.');
       }
     }
 
-    const data = await response.json();
-    setResults(data);
-    setSuccessMessage(`Your "${formType}" booking request has been submitted successfully and stored in MongoDB!`);
+    // Required fields validation
+    const missingFields = Object.entries(data)
+      .filter(([_, value]) => value === '' || value === null || value === undefined)
+      .map(([key]) => key);
 
-    if (formType === 'flight') {
-      navigate('/flight', { state: { flightData: data } });
+    if (missingFields.length > 0) {
+      console.error('Missing fields:', missingFields);
+      throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
     }
+  };
+
+  // 4. API Submission
+  const submitFormData = async (data) => {
+    const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
+    console.log('Submitting to:', endpoint, 'Payload:', data);
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        errorData.error || 
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
+    }
+
+    return response.json();
+  };
+
+  // 5. Navigation
+  const navigateToResults = (data) => {
+    const routeConfig = {
+      flight: { path: '/flight', stateKey: 'flightData' },
+      train: { path: '/train', stateKey: 'trainData' },
+      hotel: { path: '/hotel', stateKey: 'hotelData' },
+      taxi: { path: '/taxi', stateKey: 'taxiData' },
+      rental: { path: '/rental', stateKey: 'rentalData' },
+    };
+
+    const config = routeConfig[formType];
+    if (config) {
+      navigate(config.path, { state: { [config.stateKey]: data } });
+    }
+  };
+
+  // Main execution flow
+  try {
+    // Process and validate
+    const processedData = processFormData(formData);
+    validateForm(processedData);
+
+    // Submit and handle response
+    const responseData = await submitFormData(processedData);
+    setResults(responseData);
+    setSuccessMessage(
+      `Your "${formType}" booking request has been submitted successfully!`
+    );
+
+    // Navigate to results
+    navigateToResults(responseData);
   } catch (error) {
-    console.error('Submission error:', error);
-    setErrorMessage(error.message || `Failed to submit "${formType}" form. Please try again later.`);
+    console.error(`${formType} form error:`, error);
+    setErrorMessage(error.message || `Failed to process ${formType} form.`);
   } finally {
     setIsLoading(false);
   }
@@ -790,13 +755,9 @@ const renderTabContent = () => {
               <div className="form-group relative">
                 <label>Location:</label>
                 <input
-                  ref={el => inputRefs.current.location = el}
                   type="text"
                   placeholder="Enter pickup location"
-                  value={rentalForm.location}
                   onChange={(e) => handleInputChange(e, 'location', 'rental')}
-                  onFocus={(e) => handleInputChange(e, 'location', 'rental')}
-                  onKeyDown={handleKeyDown}
                   required
                 />
               </div>
