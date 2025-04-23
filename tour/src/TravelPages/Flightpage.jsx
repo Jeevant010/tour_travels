@@ -53,7 +53,6 @@ const FlightPage = () => {
     }
   };
 
-  // Prepare display data
   const displayData = flightDetails ? [
     { 
       icon: <FaPlane className="flight-icon departure" />,
@@ -175,6 +174,24 @@ const FlightPage = () => {
           <FaEdit /> Modify Booking
         </button>
       </div>
+      <br />
+      <br />
+      <div className="train-pnr-button-container">
+              <h2 
+          className="train-pnr-button"
+          onClick={() => window.location.href = '/Optflight'}
+        >
+          Check the Most Optimized Flight
+        </h2>
+
+        {/* With this */}
+        <button 
+          className="train-pnr-button"
+          onClick={() => navigate('/Optflight', { state: { flightData: flightDetails } })}
+        >
+          Check the Most Optimized Flight
+        </button>
+        </div>
     </div>
   );
 };

@@ -12,6 +12,7 @@ import FlightPage from './TravelPages/FlightPage';
 import TrainPage from './TravelPages/TrainPage';
 import TaxiPage from './TravelPages/TaxiPage';
 import RentalPage from './TravelPages/RentalPage';
+import FlightOpt from './optiflight/FlightOpt';
 import {  CookiesProvider, useCookies, } from 'react-cookie';
 import PNRcomponent from './Components/PNRcomponent';
 
@@ -40,6 +41,7 @@ function Main() {
           <Route path="/train" element={<TrainPage />} />
           <Route path="/taxi" element={<TaxiPage />} />
           <Route path="/rental" element={<RentalPage />} />
+          <Route path="/OptFlight" element={<FlightOpt />} />
           <Route path='*' element={ <Navigate to='/' /> } />
         </Routes> :
         <Routes>
@@ -54,6 +56,7 @@ function Main() {
           <Route path="/train" element={<TrainPage />} />
           <Route path="/taxi" element={<TaxiPage />} />
           <Route path="/rental" element={<RentalPage />} />
+          <Route path="/OptFlight" element={<FlightOpt />} />
           <Route path='*' element={ <Navigate to='/' /> } />
           
         </Routes>
