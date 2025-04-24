@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Ourmain from "../hoc/Ourmain";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import './Opt.css';
+
 
 const airports = [
     { code: "DEL", name: "Indira Gandhi International Airport", lat: 28.5562, lon: 77.1000, connections: ["BOM", "BLR", "CCU", "MAA", "HYD", "JAI", "LKO", "AMD", "PNQ", "SXR", "GAU"] },
@@ -63,6 +65,7 @@ function hasConnection(fromCode, toCode) {
 }
 
 function FlightOpt() {
+  const [showPlane, setShowPlane] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const flightData = location.state?.flightData || {};
@@ -144,7 +147,10 @@ function FlightOpt() {
 
   const handleOptimizeClick = () => {
     if (!optimizationData) return;
-    
+  
+    setShowPlane(true);
+  
+    setTimeout(() => setShowPlane(false), 3000);
     setShowOptimized(true);
     
     if (optimizationData.hasDirectConnection) {
@@ -161,6 +167,8 @@ function FlightOpt() {
       });
     }
   };
+
+  {showPlane && <div className="plane-takeoff">✈</div>}
 
   if (Object.keys(flightData).length === 0) {
     return (

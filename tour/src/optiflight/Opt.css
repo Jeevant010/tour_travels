@@ -1,0 +1,259 @@
+/* Blockbuster Flight Optimization Styles - Enhanced Visibility */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Montserrat:wght@300;400;600;700&family=Bebas+Neue&display=swap');
+
+:root {
+  --space-dark: #0a0e17;
+  --space-darker: #05080f;
+  --space-light: #1a2238;
+  --neon-blue: #00f0ff;
+  --neon-pink: #ff00aa;
+  --neon-purple: #9d00ff;
+  --neon-yellow: #ffee00;
+  --text-primary: #ffffff; /* Brighter text for better visibility */
+  --text-secondary: #c0c0c0; /* Increased contrast */
+  --highlight: rgba(0, 240, 255, 0.15); /* More visible highlight */
+  --glow: 0 0 10px rgba(0, 240, 255, 0.7);
+}
+
+/* Base Styles with Enhanced Contrast */
+.flight-page {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-primary);
+  background: 
+    radial-gradient(ellipse at bottom, var(--space-dark) 0%, var(--space-darker) 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="10%" cy="15%" r="1" fill="white" opacity="0.5"/><circle cx="25%" cy="30%" r="1" fill="white" opacity="0.3"/><circle cx="75%" cy="25%" r="1" fill="white" opacity="0.4"/><circle cx="85%" cy="40%" r="1" fill="white" opacity="0.5"/><circle cx="15%" cy="70%" r="1" fill="white" opacity="0.6"/><circle cx="50%" cy="80%" r="1" fill="white" opacity="0.3"/><circle cx="90%" cy="85%" r="1" fill="white" opacity="0.2"/></svg>');
+  min-height: 100vh;
+  padding: 2rem;
+  margin: 0;
+  overflow-x: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  line-height: 1.6; /* Better readability */
+}
+
+/* Improved Text Visibility */
+.flight-page p, 
+.flight-page td, 
+.flight-page li {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* Header with Better Contrast */
+.flight-page h1, 
+.flight-page h2, 
+.flight-page h3, 
+.flight-page h4 {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0;
+  text-shadow: 0 0 10px var(--neon-blue);
+  position: relative;
+  color: var(--text-primary); /* Ensure bright text */
+}
+
+.flight-page h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulse 2s infinite alternate;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+/* Enhanced Table Visibility */
+.flight-page table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  background: rgba(20, 25, 40, 0.8); /* Darker background for better contrast */
+  border-radius: 10px;
+  webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.3),
+    inset 0 0 10px rgba(0, 240, 255, 0.2);
+  overflow: hidden;
+  transform: translateZ(20px);
+  transition: all 0.5s ease;
+  color: var(--text-primary); /* Bright text */
+}
+
+.flight-page th, 
+.flight-page td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3); /* Brighter borders */
+  position: relative;
+  color: var(--text-primary); /* Ensure text is bright */
+}
+
+.flight-page th {
+  background: rgba(0, 240, 255, 0.15); /* More visible header */
+  color: var(--neon-blue);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Improved Optimized Route Section */
+.optimized-route {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(157, 0, 255, 0.15));
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(0, 240, 255, 0.4); /* Brighter border */
+  box-shadow: 
+    0 0 30px rgba(0, 240, 255, 0.3),
+    inset 0 0 20px rgba(0, 240, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  color: var(--text-primary); /* Bright text */
+}
+
+/* Enhanced Connection Matrix */
+.connection-matrix {
+  background: rgba(20, 25, 40, 0.9); /* Darker background */
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(0, 240, 255, 0.4); /* Brighter border */
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+  overflow-x: auto;
+  color: var(--text-primary); /* Bright text */
+}
+
+.highlighted-route {
+  background: rgba(255, 238, 0, 0.4) !important; /* More visible highlight */
+  color: var(--neon-yellow);
+  font-weight: bold;
+  position: relative;
+  transform: scale(1.05);
+  z-index: 5;
+}
+
+/* Improved Airport Legend */
+.airport-tag {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 240, 255, 0.15); /* More visible background */
+  border: 1px solid var(--neon-blue);
+  border-radius: 30px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: var(--text-primary); /* Bright text */
+}
+
+/* Better Button Visibility */
+.flight-page button {
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--neon-blue);
+  border: 2px solid var(--neon-blue);
+  padding: 12px 25px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  margin: 1rem 0;
+}
+
+/* Plane Takeoff Animation */
+.plane-takeoff {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  animation: takeoff 3s forwards;
+  z-index: 1000;
+  text-shadow: 0 0 20px var(--neon-blue);
+  color: var(--neon-blue); /* Bright plane icon */
+}
+
+@keyframes takeoff {
+  0% { 
+    transform: translateY(0) rotate(0) translateX(-50%); 
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-100px) rotate(-5deg) translateX(-50%); 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translateY(-1000px) rotate(-20deg) translateX(-50%); 
+    opacity: 0;
+  }
+}
+
+/* Scroll Animations */
+[data-scroll] {
+  opacity: 0;
+  transition: all 1s ease;
+  transform: translateY(50px);
+}
+
+[data-scroll="in"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .flight-page {
+    padding: 1.5rem;
+  }
+  
+  .flight-page h1 {
+    font-size: 2.5rem;
+  }
+  
+  .connection-matrix {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .flight-page h1 {
+    font-size: 2rem;
+  }
+  
+  .flight-page table {
+    font-size: 0.95rem;
+  }
+  
+  .optimized-route {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .flight-page {
+    padding: 1rem;
+  }
+  
+  .flight-page h1 {
+    font-size: 1.8rem;
+  }
+  
+  .flight-page th, 
+  .flight-page td {
+    padding: 10px 8px;
+  }
+  
+  .airport-tag {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
