@@ -6,7 +6,6 @@ import Ourmain from '../hoc/Ourmain';
 import { FaPlane, FaTrain, FaHotel, FaTaxi, FaCar, FaUserTie, FaDollarSign, FaHeadset } from 'react-icons/fa';
 import {indianAirports, indianRailwayStations, indianStates, cityData, hotelData, vehicleTypes } from '../pages/homeTop';
 import { backendUrl1 } from '../utils/config'; 
-import { Link } from 'react-router-dom';
 
 
 
@@ -238,20 +237,20 @@ const handleFormSubmit = async (e, formType, formData) => {
   setSuccessMessage('');
   setErrorMessage('');
 
-  // Enhanced date validation function
+  
   const validateDates = (departureDate, returnDate) => {
     if (!departureDate) throw new Error('Departure date is required');
     
     const depDate = new Date(departureDate);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Compare dates only (ignore time)
+    today.setHours(0, 0, 0, 0);
 
-    // Validate departure date is not in the past
+    
     if (depDate < today) {
       throw new Error('Departure date cannot be in the past');
     }
 
-    // Validate return date if it exists
+    
     if (returnDate) {
       const retDate = new Date(returnDate);
       if (retDate <= depDate) {
@@ -260,7 +259,7 @@ const handleFormSubmit = async (e, formType, formData) => {
     }
   };
 
-  // 1. Form Data Mapping with enhanced validation
+  
   const formMappers = {
     hotel: (data) => {
       validateDates(data.checkinDate, data.checkoutDate);
@@ -318,7 +317,7 @@ const handleFormSubmit = async (e, formType, formData) => {
     },
   };
 
-  // 2. Data Processing
+  
   const processFormData = (data) => {
     const mapper = formMappers[formType];
     if (!mapper) throw new Error(`Unsupported form type: ${formType}`);
@@ -330,11 +329,11 @@ const handleFormSubmit = async (e, formType, formData) => {
     );
   };
 
-  // 3. Validation
+  
   const validateForm = (data) => {
     const missingFields = Object.entries(data)
       .filter(([key, value]) => {
-        // Skip validation for optional fields
+        
         if (formType === 'flight' && key === 'Return_Date') return false;
         return value === '' || value === null || value === undefined;
       })
@@ -345,7 +344,6 @@ const handleFormSubmit = async (e, formType, formData) => {
     }
   };
 
-  // 4. API Submission
   const submitFormData = async (data) => {
     const endpoint = `${backendUrl1 || 'http://localhost:8080'}/${formType}`;
     
@@ -367,7 +365,7 @@ const handleFormSubmit = async (e, formType, formData) => {
     return response.json();
   };
 
-  // 5. Navigation
+  
   const navigateToResults = (data) => {
     const routeConfig = {
       flight: { path: '/flight', stateKey: 'flightData' },
