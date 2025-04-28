@@ -12,12 +12,11 @@ const FlightPage = () => {
   const [flightDetails, setFlightDetails] = useState(null);
   const [dateError, setDateError] = useState(null);
 
-  // Extract and validate flight details
+  
   useEffect(() => {
     if (location.state?.flightData?.flight) {
       const details = location.state.flightData.flight;
       
-      // Validate return date is after departure date if both exist
       if (details.Departure_Date && details.Return_Date) {
         const departure = new Date(details.Departure_Date);
         const returnDate = new Date(details.Return_Date);
@@ -33,7 +32,6 @@ const FlightPage = () => {
     }
   }, [location.state]);
 
-  // Show success message for 5 seconds
   useEffect(() => {
     if (location.state?.flightData?.message) {
       setShowSuccessMessage(true);
@@ -42,7 +40,7 @@ const FlightPage = () => {
     }
   }, [location.state?.flightData?.message]);
 
-  // Format date with weekday
+  
   const formatDate = (dateString) => {
     if (!dateString) return null;
     try {
