@@ -16,7 +16,7 @@ const TrainPage = () => {
     if (location.state?.trainData) {
       const details = location.state.trainData;
       
-      // If the data is nested under a 'train' property
+      
       const trainData = details.train || details;
       
       if (trainData.Departure_Date && trainData.Return_Date) {

@@ -85,15 +85,13 @@ const cityData = [
   { name: "Mysore", code: "MYQ" },
   { name: "Kozhikode", code: "CCJ" },
   { name: "Kannur", code: "CNN" },
-  { name: "Thiruvananthapuram", code: "TRV" },
   { name: "Kottayam", code: "KTY" },
   { name: "Agatti Island", code: "AGX" },
   { name: "Kullu", code: "KUU" },
   { name: "Shimla", code: "SLV" },
   { name: "Dharamshala", code: "DHM" },
   { name: "Pathankot", code: "IXP" },
-  { name: "Bhatinda", code: "BUP" },
-  { name: "Sahnewal", code: "LUH" },
+  { name: "Bathinda", code: "BUP" },
   { name: "Pantnagar", code: "PGH" },
   { name: "Pithoragarh", code: "NNS" },
   { name: "Jaisalmer", code: "JSA" },
@@ -103,7 +101,6 @@ const cityData = [
   { name: "Jharsuguda", code: "JRG" },
   { name: "Rourkela", code: "RRK" },
   { name: "Jeypore", code: "PYB" },
-  { name: "Vishakhapatnam", code: "VTZ" },
   { name: "Rajahmundry", code: "RJA" },
   { name: "Tirupati", code: "TIR" },
   { name: "Kadapa", code: "CDP" },
@@ -112,9 +109,6 @@ const cityData = [
   { name: "Solapur", code: "SSE" },
   { name: "Gulbarga", code: "GBI" },
   { name: "Bidar", code: "IXX" },
-  { name: "Sholapur", code: "SSE" },
-  { name: "Latur", code: "LTU" },
-  { name: "Nanded", code: "NDC" },
   { name: "Akola", code: "AKD" },
   { name: "Gondia", code: "GDB" },
   { name: "Jalgaon", code: "JLQ" },
@@ -122,6 +116,7 @@ const cityData = [
   { name: "Ratnagiri", code: "RTC" },
   { name: "Sindhudurg", code: "SDW" }
 ];
+
 
 const indianStates = [
   "Andhra Pradesh",
