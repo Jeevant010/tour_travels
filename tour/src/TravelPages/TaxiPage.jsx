@@ -1,43 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import './TrainPage.css';
+import './TaxiPage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaTrain, FaCalendarAlt, FaUserFriends, FaChair, FaPrint, FaEdit } from 'react-icons/fa';
+import { FaTaxi, FaCalendarAlt, FaPrint, FaEdit } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
-const TrainPage = () => {
+const TaxiPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [trainDetails, setTrainDetails] = useState(null);
+  const [taxiDetails, setTaxiDetails] = useState(null);
   const [dateError, setDateError] = useState(null);
 
   useEffect(() => {
-    if (location.state?.trainData) {
-      const details = location.state.trainData;
-      
-      if (details.departureDate && details.returnDate) {
-        const departure = new Date(details.departureDate);
-        const returnDate = new Date(details.returnDate);
-        
-        if (returnDate <= departure) {
-          setDateError('Return date must be after departure date');
+    if (location.state?.taxiData?.taxi) {
+      const details = location.state.taxiData.taxi;
+
+      if (details.PickUp_Date) {
+        const currentDate = new Date();
+        const pickupDate = new Date(details.PickUp_Date);
+
+        if (pickupDate <= currentDate) {
+          setDateError('Pickup date must be greater than the current date');
+        } else if (pickupDate.toDateString() === currentDate.toDateString() && details.pickupTime) {
+          const [pickupHours, pickupMinutes] = details.pickupTime.split(':').map(Number);
+          const currentHours = currentDate.getHours();
+          const currentMinutes = currentDate.getMinutes();
+
+          if (pickupHours < currentHours || (pickupHours === currentHours && pickupMinutes <= currentMinutes)) {
+            setDateError('Pickup time must be greater than the current time');
+          } else {
+            setDateError(null);
+          }
         } else {
           setDateError(null);
         }
       }
-      
-      setTrainDetails(details);
+
+      setTaxiDetails(details);
     }
   }, [location.state]);
 
   useEffect(() => {
-    if (location.state?.trainData?.message) {
+    if (location.state?.taxiData?.message) {
       setShowSuccessMessage(true);
       const timer = setTimeout(() => setShowSuccessMessage(false), 5000);
       return () => clearTimeout(timer);
     }
-  }, [location.state?.trainData?.message]);
+  }, [location.state?.taxiData?.message]);
 
   const formatDate = (dateString) => {
     if (!dateString) return null;
@@ -62,78 +72,42 @@ const TrainPage = () => {
     }
   };
 
-  const displayData = trainDetails ? [
+  const displayData = taxiDetails ? [
     { 
-      icon: <FaTrain className="train-icon departure" />,
-      label: 'Departure Station', 
-      value: trainDetails.departureStation || 'Not specified',
-      code: trainDetails.departureStationCode || ''
+      icon: <FaTaxi className="taxi-icon" />,
+      label: 'Pickup Location', 
+      value: taxiDetails.PickUp_Location?.split('(')[0]?.trim() || 'Not specified',
+      code: taxiDetails.PickUp_Location?.match(/\(([^)]+)\)/)?.[1] || ''
     },
     { 
-      icon: <FaTrain className="train-icon arrival" />,
-      label: 'Arrival Station', 
-      value: trainDetails.arrivalStation || 'Not specified',
-      code: trainDetails.arrivalStationCode || ''
+      icon: <FaTaxi className="taxi-icon" />,
+      label: 'Drop-off Location', 
+      value: taxiDetails.Drop_Location?.split('(')[0]?.trim() || 'Not specified',
+      code:taxiDetails.Drop_Location?.match(/\(([^)]+)\)/)?.[1] || ''
     },
     { 
-      icon: <FaCalendarAlt className="train-icon" />,
-      label: 'Departure Date', 
-      value: formatDate(trainDetails.departureDate) || 'Not specified'
+      icon: <FaCalendarAlt className="taxi-icon" />,
+      label: 'Pickup Date', 
+      value: formatDate(taxiDetails.PickUp_Date) || 'Not specified'
     },
     { 
-      icon: <FaCalendarAlt className="train-icon" />,
-      label: 'Return Date', 
-      value: trainDetails.returnDate ? formatDate(trainDetails.returnDate) : 'One-way trip'
+      icon: <FaCalendarAlt className="taxi-icon" />,
+      label: 'Pickup Time', 
+      value: formatTime(taxiDetails.PickUp_Time) || 'Not specified'
     },
-    { 
-      icon: <FaUserFriends className="train-icon" />,
-      label: 'Passengers', 
-      value: trainDetails.passengers || 'Not specified'
-    },
-    { 
-      icon: <FaChair className="train-icon" />,
-      label: 'Class', 
-      value: trainDetails.travelClass ? 
-        `${trainDetails.travelClass.charAt(0).toUpperCase()}${trainDetails.travelClass.slice(1)}` : 
-        'Not specified'
-    },
-    { 
-      icon: <FaTrain className="train-icon" />,
-      label: 'Train Number', 
-      value: trainDetails.trainNumber || 'Not specified'
-    },
-    { 
-      icon: <FaTrain className="train-icon" />,
-      label: 'Train Name', 
-      value: trainDetails.trainName || 'Not specified'
-    },
-    { 
-      icon: <FaTrain className="train-icon" />,
-      label: 'Departure Time', 
-      value: formatTime(trainDetails.departureTime) || 'Not specified'
-    },
-    { 
-      icon: <FaTrain className="train-icon" />,
-      label: 'Arrival Time', 
-      value: formatTime(trainDetails.arrivalTime) || 'Not specified'
-    },
-    { 
-      icon: <FaTrain className="train-icon" />,
-      label: 'Duration', 
-      value: trainDetails.duration || 'Not specified'
-    }
+    
   ] : null;
 
-  if (!trainDetails) {
+  if (!taxiDetails) {
     return (
-      <div className="train-page-container">
+      <div className="taxi-page-container">
         <Helmet>
           <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
         </Helmet>
         <div className="error-state">
-          <h1>Train Details Not Available</h1>
-          <p>We couldn't retrieve your train information.</p>
-          <button onClick={() => navigate(-1)} className="train-action-button">
+          <h1>Taxi Details Not Available</h1>
+          <p>We couldn't retrieve your taxi information.</p>
+          <button onClick={() => navigate(-1)} className="taxi-action-button">
             Go Back
           </button>
         </div>
@@ -142,99 +116,54 @@ const TrainPage = () => {
   }
 
   return (
-    <div className="train-page-container">
+    <div className="taxi-page-container">
       <Helmet>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
       </Helmet>
 
-      <div className="train-header">
-        <h1 className="train-title">Your Train Booking Details</h1>
-        <p className="train-subtitle">Review your journey information</p>
+      <div className="taxi-header">
+        <h1 className="taxi-title">Your Taxi Booking Details</h1>
+        <p className="taxi-subtitle">Review your journey information</p>
       </div>
 
       {dateError && (
-        <div className="train-error-message">
+        <div className="taxi-error-message">
           {dateError}
         </div>
       )}
 
       {showSuccessMessage && (
-        <div className="train-success-message">
-          {location.state.trainData.message}
+        <div className="taxi-success-message">
+          {location.state.taxiData.message}
         </div>
       )}
 
-      <div className="train-summary-card">
-        <div className="train-route-display">
-          <div className="station departure">
-            <span className="station-name">{displayData[0].value}</span>
-            {displayData[0].code && (
-              <span className="station-code">{displayData[0].code}</span>
-            )}
-            {displayData[8] && (
-              <span className="train-time">{displayData[8].value}</span>
-            )}
-          </div>
-          
-          <div className="train-connection">
-            <div className="train-line"></div>
-            <div className="train-dot"></div>
-            <div className="train-line"></div>
-          </div>
-          
-          <div className="station arrival">
-            <span className="station-name">{displayData[1].value}</span>
-            {displayData[1].code && (
-              <span className="station-code">{displayData[1].code}</span>
-            )}
-            {displayData[9] && (
-              <span className="train-time">{displayData[9].value}</span>
-            )}
-          </div>
-        </div>
-
-        <div className="train-info-box">
-          <div className="train-number-name">
-            <span className="train-number">{displayData[6].value}</span>
-            <span className="train-name">{displayData[7].value}</span>
-          </div>
-          <div className="train-duration">
-            <span>Journey Duration: {displayData[10].value}</span>
-          </div>
-        </div>
-
-        <div className="train-details-grid">
-          {displayData.slice(2, 6).map((detail, index) => (
-            <div key={index} className="train-detail-item">
-              <div className="train-detail-icon">{detail.icon}</div>
-              <div className="train-detail-content">
-                <span className="train-detail-label">{detail.label}</span>
-                <span className="train-detail-value">{detail.value}</span>
+      <div className="taxi-summary-card">
+        <div className="taxi-details-grid">
+          {displayData.map((detail, index) => (
+            <div key={index} className="taxi-detail-item">
+              <div className="taxi-detail-icon">{detail.icon}</div>
+              <div className="taxi-detail-content">
+                <span className="taxi-detail-label">{detail.label}</span>
+                <span className="taxi-detail-value">{detail.value}</span>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="train-action-buttons">
-        <button className="train-print-button">
-          <FaPrint /> Print Ticket
+      <div className="taxi-action-buttons">
+        <button className="taxi-print-button">
+          <FaPrint /> Print Booking
         </button>
-        <button className="train-modify-button">
-          <FaEdit /> Modify Booking
-        </button>
-      </div>
-
-      <div className="train-pnr-button-container">
         <button 
-          className="train-pnr-button"
-          onClick={() => navigate('/trainpnr', { state: { trainData: trainDetails } })}
-        >
-          Check PNR Status
+        className="taxi-modify-button"
+        onClick={() => navigate('/', { state: { activeTab: 'taxi' } })}>
+          <FaEdit /> Modify Booking
         </button>
       </div>
     </div>
   );
 };
 
-export default Ourmain(TrainPage);
+export default Ourmain(TaxiPage);

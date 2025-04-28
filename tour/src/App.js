@@ -8,12 +8,12 @@ import ContactUs from './pages/Contact';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import HotelPage from './TravelPages/HotelPage';
-import FlightPage from './TravelPages/FlightPage';
+import FlightPage from './TravelPages/FlightPage.jsx';
 import TrainPage from './TravelPages/TrainPage';
 import TaxiPage from './TravelPages/TaxiPage';
 import RentalPage from './TravelPages/RentalPage';
 import FlightOpt from './optiflight/FlightOpt';
-import {  CookiesProvider, useCookies, } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
 import PNRcomponent from './Components/PNRcomponent';
 
 function App() {

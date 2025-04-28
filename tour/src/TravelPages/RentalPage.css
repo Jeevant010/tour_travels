@@ -1,44 +1,120 @@
-.train-page {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-  }
-  
-  .train-page h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .train-page table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .train-page th,
-  .train-page td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .train-page th {
-    background-color: #f4f4f4;
-    color: #555;
-    font-weight: bold;
-  }
-  
-  .train-page tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .train-page tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .train-page td {
-    color: #333;
-  }
+.rental-page-container {
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f9f9f9;
+}
+
+.rental-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.rental-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.rental-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.rental-summary-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.rental-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.rental-detail-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.rental-detail-icon {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-right: 10px;
+}
+
+.rental-detail-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.rental-detail-label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.rental-detail-value {
+  color: #333;
+}
+
+.rental-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.rental-modify-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rental-modify-button:hover {
+  background-color: #e0a800;
+}
+
+.error-state {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.error-state h1 {
+  font-size: 2rem;
+  color: #d9534f;
+  margin-bottom: 10px;
+}
+
+.error-state p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.rental-action-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.rental-action-button:hover {
+  background-color: #0056b3;
+}
