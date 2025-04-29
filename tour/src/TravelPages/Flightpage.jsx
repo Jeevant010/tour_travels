@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './FlightPage.css';
+import './Flightpage.css';
 import Ourmain from '../hoc/Ourmain';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaPlane, FaCalendarAlt, FaUserFriends, FaChair, FaPrint, FaEdit } from 'react-icons/fa';
