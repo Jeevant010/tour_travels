@@ -19,7 +19,7 @@ const HotelPage = () => {
     // Extract data from the nested structure
     const hotelData = location.state?.hotelData;
     const bookingDetails = hotelData?.booking;
-
+    
     if (bookingDetails) {
       console.log('Extracted booking details:', bookingDetails);
 
