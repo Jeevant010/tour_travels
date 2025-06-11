@@ -139,7 +139,7 @@ function FlightOpt() {
         return {
             directDistance,
             hasDirectConnection,
-            oneStopRoutes: oneStopRoutes.slice(0, 3), // Show top 3 options
+            oneStopRoutes: oneStopRoutes.slice(0, 3),
             origin: originAirport,
             destination: destAirport
         };
